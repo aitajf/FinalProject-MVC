@@ -1,0 +1,101 @@
+﻿  <!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper" style="width: 65pc;">
+
+
+        <div class="dashboard-datetime-card">
+            <div class="welcome-message">
+                <h2>Welcome back, Admin!</h2>
+                <p>Here's what's happening today...</p>
+            </div>
+            <div class="datetime-right">
+                <div class="datetime-time" id="clock">14:32:45</div>
+                <div class="datetime-greeting" id="greeting">
+                    Good afternoon <div class="datetime-right">
+                        <div class="datetime-time" id="clock">14:32:45</div>
+                        <div class="datetime-greeting" id="greeting">Good afternoon </div>
+                    </div>
+                </div>
+            </div>
+            <div class="datetime-left">
+                <div class="datetime-date" id="date">April 17, 2025,</div>
+                <div class="datetime-day" id="weekday">Friday</div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<!-- main-panel ends -->
+
+<style>
+    .dashboard-datetime-card {
+        padding: 40px 68px;
+        border-radius: 55px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        max-width: 727px;
+        margin: 34px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #124470;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        .dashboard-datetime-card:hover {
+            background: linear-gradient(73deg, #0f3353, #d8d8d8);
+            transform: translateY(-3px);
+            color: white;
+        }
+
+    .datetime-left {
+        text-align: left;
+    }
+
+    .datetime-day {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .datetime-date {
+        font-size: 16px;
+        color: #374151;
+    }
+
+    .datetime-time {
+        font-size: 32px;
+        font-weight: bold;
+        color: #111827;
+    }
+
+    .datetime-greeting {
+        font-size: 16px;
+        color: #4b5563;
+    }
+</style>
+
+<script>
+    function updateDateTime() {
+      const now = new Date();
+
+      const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
+      const date = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+      const time = now.toLocaleTimeString('en-US', { hour12: false });
+
+      const hours = now.getHours();
+      let greeting = "Welcome!";
+      if (hours < 12) greeting = "Good morning";
+      else if (hours < 18) greeting = "Good afternoon";
+      else greeting = "Good evening";
+
+      document.getElementById('weekday').textContent = weekday;
+      document.getElementById('date').textContent = date;
+      document.getElementById('clock').textContent = time;
+      document.getElementById('greeting').textContent = greeting;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+</script>
