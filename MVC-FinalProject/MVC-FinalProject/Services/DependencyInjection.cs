@@ -13,6 +13,11 @@ namespace Service
             services.AddScoped<ILandingBannerService, LandingBannerService>();         
             services.AddScoped<IInstagramService, InstagramService>();         
             services.AddScoped<ISubscribeImgService, SubscribeImgService>();         
+            services.AddScoped<IBrandService, BrandService>();         
+            services.AddScoped<IColorService, ColorService>();         
+            services.AddScoped<ITagService, TagService>();         
+            services.AddScoped<IBlogCategoryService, BlogCategoryService>();         
+            services.AddScoped<IBlogPostService, BlogPostService>();         
             return services;
         }
     }

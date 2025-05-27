@@ -13,7 +13,6 @@ namespace MVC_FinalProject.Services
         {
             _httpClient = httpClientFactory.CreateClient();
         }
-
         public async Task<HttpResponseMessage> CreateAsync(CategoryCreate model)
         {
             using (var multipartContent = new MultipartFormDataContent())

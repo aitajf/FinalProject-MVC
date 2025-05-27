@@ -14,6 +14,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         {
             _categoryService = categoryService;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {

@@ -210,6 +210,7 @@ C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-Final
 C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-FinalProject\obj\Debug\net8.0\MVC-FinalProject.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-FinalProject\obj\Debug\net8.0\MVC-FinalProject.RazorAssemblyInfo.cache
 C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-FinalProject\obj\Debug\net8.0\MVC-FinalProject.RazorAssemblyInfo.cs
+C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-FinalProject\obj\Debug\net8.0\MVC-FinalProject.sourcelink.json
 C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-FinalProject\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-FinalProject\obj\Debug\net8.0\scopedcss\bundle\MVC-FinalProject.styles.css
 C:\Users\acer\OneDrive\İş masası\Final Project MVC\MVC-FinalProject\MVC-FinalProject\obj\Debug\net8.0\scopedcss\projectbundle\MVC-FinalProject.bundle.scp.css
