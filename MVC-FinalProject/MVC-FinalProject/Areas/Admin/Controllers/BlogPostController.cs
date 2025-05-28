@@ -102,7 +102,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 HighlightText = blogPost.HighlightText,
                 BlogCategoryId = blogPost.BlogCategoryId,
                 ExistingImages = blogPost.Images,
-                MainImageUrl = blogPost.Images.FirstOrDefault(x => x.IsMain)?.Image
+                MainImageId = blogPost.Images.FirstOrDefault(i => i.IsMain)?.Id
             };
 
             return View(model);
@@ -118,35 +118,50 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 return View(model);
             }
 
-            var blogPost = await _blogPostService.GetByIdAsync(id);
-            if (blogPost == null) return NotFound();
-            model.ExistingImages = blogPost.Images;
-
-            if (model.DeleteImageIds != null && model.DeleteImageIds.Any())
+            var response = await _blogPostService.EditAsync(id, model, model.DeleteImageIds, model.MainImageId);
+            if (!response.IsSuccessStatusCode)
             {
-                foreach (var imageId in model.DeleteImageIds)
-                {
-                    await _blogPostService.DeleteImageAsync(id, imageId);
-                }
+                ModelState.AddModelError("", "Error updating blog post.");
+                return View(model); // 🌟 Səhifəni yenidən göstəririk, ViewBag.Categories ilə!
             }
 
-            var response = await _blogPostService.EditAsync(id, model);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            return RedirectToAction("Index");
 
-            ModelState.AddModelError("", "An error occurred while editing the blog post.");
-            return View(model);
+            //var blogPost = await _blogPostService.GetByIdAsync(id);
+            //if (blogPost == null) return NotFound();
+            //model.ExistingImages = blogPost.Images;
+
+            //if (model.DeleteImageIds != null && model.DeleteImageIds.Any())
+            //{
+            //    foreach (var imageId in model.DeleteImageIds)
+            //    {
+            //        await _blogPostService.DeleteImageAsync(id, imageId);
+            //    }
+            //}
+
+            //var response = await _blogPostService.EditAsync(id, model);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    return RedirectToAction("Index");
+            //}
+
+            //ModelState.AddModelError("", "An error occurred while editing the blog post.");
+            //return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteImage(int blogPostId, int blogPostImageId)
-        {
-            await _blogPostService.DeleteImageAsync(blogPostId, blogPostImageId);
-            return Ok(new { message = "Image deleted successfully." });
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> DeleteImage(int blogPostId, int blogPostImageId)
+        //{
+        //    await _blogPostService.DeleteImageAsync(blogPostId, blogPostImageId);
+        //    return Ok(new { message = "Image deleted successfully." });
+        //}
 
 
+
+
+
+       
+
+      
     }
 }
