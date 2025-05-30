@@ -58,45 +58,46 @@ namespace MVC_FinalProject.Services
         //    return results;
         //}
 
-        //public async Task<HttpResponseMessage> CreateAsync(ProductCreate model)
-        //{
-        //    var dropdownData = await GetAllDropdownDataAsync();
+        public async Task<HttpResponseMessage> CreateAsync(ProductCreate model)
+        {
+            using var content = new MultipartFormDataContent();
 
-        //    using (var multipartContent = new MultipartFormDataContent())
-        //    {
-        //        multipartContent.Add(new StringContent(model.Name), "Name");
-        //        multipartContent.Add(new StringContent(model.Price.ToString()), "Price");
-        //        multipartContent.Add(new StringContent(model.Stock.ToString()), "Stock");
-        //        multipartContent.Add(new StringContent(model.Description), "Description");
-        //        multipartContent.Add(new StringContent(model.BrandId.ToString()), "BrandId");
-        //        multipartContent.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
+            content.Add(new StringContent(model.Name), "Name");
+            content.Add(new StringContent(model.Description), "Description");
+            content.Add(new StringContent(model.Price.ToString()), "Price");
+            content.Add(new StringContent(model.Stock.ToString()), "Stock");
+            content.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
+            content.Add(new StringContent(model.BrandId.ToString()), "BrandId");
 
-        //        foreach (var tagId in model.TagIds)
-        //        {
-        //            multipartContent.Add(new StringContent(tagId.ToString()), "TagIds");
-        //        }
+            // Taglar
+            if (model.TagIds != null)
+            {
+                foreach (var tagId in model.TagIds)
+                    content.Add(new StringContent(tagId.ToString()), "TagIds");
+            }
 
-        //        foreach (var colorId in model.ColorIds)
-        //        {
-        //            multipartContent.Add(new StringContent(colorId.ToString()), "ColorIds");
-        //        }
+            // Rənglər
+            if (model.ColorIds != null)
+            {
+                foreach (var colorId in model.ColorIds)
+                    content.Add(new StringContent(colorId.ToString()), "ColorIds");
+            }
 
-        //        if (model.UploadImages != null && model.UploadImages.Any())
-        //        {
-        //            foreach (var file in model.UploadImages)
-        //            {
-        //                using (var memoryStream = new MemoryStream())
-        //                {
-        //                    await file.CopyToAsync(memoryStream);
-        //                    var fileContent = new ByteArrayContent(memoryStream.ToArray());
-        //                    fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(file.ContentType);
-        //                    multipartContent.Add(fileContent, "UploadImages", file.FileName);
-        //                }
-        //            }
-        //        }
-        //        return await _httpClient.PostAsync($"{Urls.ProductUrl}Create", multipartContent);
-        //    }
-        //}
+            // Şəkillər
+            if (model.UploadImages != null)
+            {
+                foreach (var image in model.UploadImages)
+                {
+                    using var ms = new MemoryStream();
+                    await image.CopyToAsync(ms);
+                    var fileBytes = ms.ToArray();
 
+                    var byteContent = new ByteArrayContent(fileBytes);
+                    byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                    content.Add(byteContent, "Images", image.FileName);
+                }
+            }
+            return await _httpClient.PostAsync($"{Urls.ProductUrl}Create", content);
+        }
     }
 }

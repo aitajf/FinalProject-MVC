@@ -56,39 +56,6 @@ namespace MVC_FinalProject.Services
             return await _httpClient.DeleteAsync($"{Urls.BlogPostUrl}Delete?id={id}");
         }
 
-        //public async Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model)
-        //{
-        //    using var content = new MultipartFormDataContent();
-
-        //    content.Add(new StringContent(model.Title), "Title");
-        //    content.Add(new StringContent(model.Description), "Description");
-        //    content.Add(new StringContent(model.HighlightText), "HighlightText");
-        //    content.Add(new StringContent(model.BlogCategoryId.ToString()), "BlogCategoryId");
-
-        //    if (model.Images != null)
-        //    {
-        //        foreach (var image in model.Images)
-        //        {
-        //            using var ms = new MemoryStream();
-        //            await image.CopyToAsync(ms);
-        //            var fileContent = new ByteArrayContent(ms.ToArray());
-        //            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-        //            content.Add(fileContent, "Images", image.FileName);
-        //        }
-        //    }
-
-        //    if (!string.IsNullOrEmpty(model.MainImageUrl))
-        //        content.Add(new StringContent(model.MainImageUrl), "MainImageUrl");
-
-        //    return await _httpClient.PutAsync($"{Urls.BlogPostUrl}Edit?id={id}", content);
-        //}
-
-        //public async Task<HttpResponseMessage> DeleteImageAsync(int blogPostId, int blogPostImageId)
-        //{
-        //    return await _httpClient.DeleteAsync($"{Urls.BlogPostUrl}DeleteImage/{blogPostId}/{blogPostImageId}");
-        //}
-
-
         public async Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model, int? mainImageId)
         {
             using var content = new MultipartFormDataContent();

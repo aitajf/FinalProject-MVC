@@ -3,64 +3,91 @@
 <div class="main-panel">
     <div class="content-wrapper" style="width: 65pc;">
         <div class="container" style="margin-top: 100px; margin-left: 320px; width: 400px;">
-            <form asp-action="Create" method="post" enctype="multipart/form-data">
-                @Html.AntiForgeryToken()
-
-                <div class="form-group">
-                    <label asp-for="Name">Məhsul adı</label>
+            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="Price">Qiymət</label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Stock">Stok</label>
-                    <input asp-for="Stock" class="form-control" />
-                    <span asp-validation-for="Stock" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Description">Açıqlama</label>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
                     <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label>Brend</label>
-                    @Html.DropDownListFor(m => m.BrandId, ViewBag.brands != null ? ViewBag.brands as SelectList : new SelectList(new List<Brand>(), "id", "name"), "Brendi seçin", new { @class = "form-control" })
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label"></label>
+                    <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label>Kateqoriya</label>
-                    @Html.DropDownListFor(m => m.CategoryId, ViewBag.categories != null ? ViewBag.categories as SelectList : new SelectList(new List<Category>(), "id", "name"), "Kateqoriya seçin", new { @class = "form-control" })
+                    <label asp-for="CategoryId">Category</label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+                        <option disabled selected>Select a category</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label>Ölçülər</label>
-                    @Html.ListBoxFor(m => m.TagIds, ViewBag.tags != null ? ViewBag.sizes as MultiSelectList : new MultiSelectList(new List<Tag>(), "id", "name"), new { @class = "form-control" })
+                    <label asp-for="BrandId">Brand</label>
+                    <select asp-for="BrandId" asp-items="ViewBag.Brands" class="form-control">
+                        <option disabled selected>Select a Brand</option>
+                    </select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label>Rənglər</label>
-                    @Html.ListBoxFor(m => m.ColorIds, ViewBag.colors != null ? ViewBag.colors as MultiSelectList : new MultiSelectList(new List<Color>(), "id", "name"), new { @class = "form-control" })
+                <div class="form-group"> 
+                    <label asp-for="ColorIds">Colors</label> 
+                    <select asp-for="ColorIds" asp-items="ViewBag.Colors" class="form-control" multiple> 
+                    </select> 
+                    <span asp-validation-for="ColorIds" class="text-danger"></span> 
+                </div> 
+
+                <div class="form-group"> 
+                     <label asp-for="TagIds">Tags</label> 
+                     <select asp-for="TagIds" asp-items="ViewBag.Tags" class="form-control" multiple> 
+                     </select> 
+                     <span asp-validation-for="TagIds" class="text-danger"></span>
+                 </div>
+
+                @* <div class="form-group"> *@
+                @*     <label class="form-label">Colors</label> *@
+                @*     <div class="d-flex flex-wrap gap-2"> *@
+                @*         @foreach (var item in ViewBag.Colors as List<SelectListItem>) *@
+                @*         { *@
+                @*             <div class="form-check me-3"> *@
+                @*                 <input class="form-check-input" type="checkbox" name="ColorIds" value="@item.Value" id="color_@item.Value" /> *@
+                @*                 <label class="form-check-label" for="color_@item.Value">@item.Text</label> *@
+                @*             </div> *@
+                @*         } *@
+                @*     </div> *@
+                @*     <span asp-validation-for="ColorIds" class="text-danger"></span> *@
+                @* </div> *@
+
+                @* <div class="form-group mt-3"> *@
+                @*     <label class="form-label">Tags</label> *@
+                @*     <div class="d-flex flex-wrap gap-2"> *@
+                @*         @foreach (var item in ViewBag.Tags as List<SelectListItem>) *@
+                @*         { *@
+                @*             <div class="form-check me-3"> *@
+                @*                 <input class="form-check-input" type="checkbox" name="TagIds" value="@item.Value" id="tag_@item.Value" /> *@
+                @*                 <label class="form-check-label" for="tag_@item.Value">@item.Text</label> *@
+                @*             </div> *@
+                @*         } *@
+                @*     </div> *@
+                @*     <span asp-validation-for="TagIds" class="text-danger"></span> *@
+                @* </div> *@
+
+
+                <div class="mb-3">
+                    <label asp-for="UploadImages" class="form-label">Product Images</label>
+                    <input asp-for="UploadImages" type="file" class="form-control" multiple />
+                    <span asp-validation-for="UploadImages" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label>Tag-lar</label>
-                    @Html.ListBoxFor(m => m.TagIds, ViewBag.tags != null ? ViewBag.tags as MultiSelectList : new MultiSelectList(new List<Tag>(), "id", "name"), new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
-                    <label>Şəkilləri Yüklə</label>
-                    <input type="file" asp-for="UploadImages" multiple class="form-control" />
-                </div>
-
-                <button type="submit" class="btn btn-success">Məhsulu Yarat</button>
+                <button type="submit" class="btn btn-success">Create</button>
             </form>
         </div>
     </div>

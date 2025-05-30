@@ -7,6 +7,6 @@ namespace MVC_FinalProject.Services.Interfaces
     {
         Task<PaginationResponse<Product>> GetPaginatedProductsAsync(int page, int pageSize);
         //Task<Dictionary<string, object>> GetAllDropdownDataAsync();
-        //Task<HttpResponseMessage> CreateAsync(ProductCreate model);
+        Task<HttpResponseMessage> CreateAsync(ProductCreate model);
     }
 }
