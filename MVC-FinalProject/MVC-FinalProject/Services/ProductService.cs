@@ -69,21 +69,18 @@ namespace MVC_FinalProject.Services
             content.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
             content.Add(new StringContent(model.BrandId.ToString()), "BrandId");
 
-            // Taglar
             if (model.TagIds != null)
             {
                 foreach (var tagId in model.TagIds)
                     content.Add(new StringContent(tagId.ToString()), "TagIds");
             }
 
-            // Rənglər
             if (model.ColorIds != null)
             {
                 foreach (var colorId in model.ColorIds)
                     content.Add(new StringContent(colorId.ToString()), "ColorIds");
             }
 
-            // Şəkillər
             if (model.UploadImages != null)
             {
                 foreach (var image in model.UploadImages)
@@ -98,6 +95,16 @@ namespace MVC_FinalProject.Services
                 }
             }
             return await _httpClient.PostAsync($"{Urls.ProductUrl}Create", content);
+        }
+
+        public async Task<HttpResponseMessage> DeleteAsync(int id)
+        {
+            return await _httpClient.DeleteAsync($"{Urls.ProductUrl}Delete/{id}");
+        }
+
+        public async Task<Product> GetByIdAsync(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<Product>($"{Urls.ProductUrl}GetById/{id}");
         }
     }
 }

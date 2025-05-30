@@ -90,6 +90,25 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             ModelState.AddModelError("", "Product creation failed.");
             await PopulateDropdownsAsync();
             return View(model);
-        }     
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            if (product == null) return NotFound();
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _productService.DeleteAsync(id);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }          
+            return RedirectToAction("Index");
+        }
     }
 }
