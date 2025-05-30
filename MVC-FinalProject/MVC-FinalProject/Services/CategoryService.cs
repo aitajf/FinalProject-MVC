@@ -1,6 +1,9 @@
 ﻿using System.Net.Http.Headers;
+using MVC_FinalProject.Helpers;
+using System.Text.Json;
 using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.Category;
+using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Services.Interfaces;
 
@@ -75,5 +78,20 @@ namespace MVC_FinalProject.Services
         {
             return await _httpClient.GetFromJsonAsync<Category>($"{Urls.CategoryUrl}GetById/{id}");
         }
+        public async Task<PaginationResponse<Category>> GetPaginatedProductsAsync(int page, int pageSize)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.CategoryUrl}GetPaginateDatas?page={page}&take={pageSize}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return PaginationResponse<Category>.Create(new List<Category>(), 0, page, pageSize);
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var apiResponse = JsonSerializer.Deserialize<PaginationApiResponse<Category>>(json, options);
+            return PaginationResponse<Category>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
+        }
+
     }
 }

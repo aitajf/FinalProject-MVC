@@ -15,11 +15,10 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
-            var res = await _categoryService.GetAllAsync();
-            return View(res);
+            var paginatedProducts = await _categoryService.GetPaginatedProductsAsync(page, pageSize);
+            return View(paginatedProducts);
         }
 
         [HttpGet]

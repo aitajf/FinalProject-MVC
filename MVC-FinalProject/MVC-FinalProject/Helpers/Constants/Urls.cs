@@ -13,5 +13,6 @@
         public const string TagUrl = "https://localhost:7004/api/admin/Tag/";
         public const string BlogCategoryUrl = "https://localhost:7004/api/admin/BlogCategory/";
         public const string BlogPostUrl = "https://localhost:7004/api/admin/BlogPost/";
+        public const string ProductUrl = "https://localhost:7004/api/admin/Product/";
     }
 }

@@ -1,4 +1,6 @@
-﻿using MVC_FinalProject.Models.Category;
+﻿using MVC_FinalProject.Helpers;
+using MVC_FinalProject.Models.Category;
+using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Slider;
 
 namespace MVC_FinalProject.Services.Interfaces
@@ -10,5 +12,6 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<IEnumerable<Category>> GetAllAsync();
         Task<Category> GetByIdAsync(int id);
+        Task<PaginationResponse<Category>> GetPaginatedProductsAsync(int page, int pageSize);
     }
 }

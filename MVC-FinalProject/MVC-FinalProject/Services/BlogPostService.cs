@@ -89,15 +89,13 @@ namespace MVC_FinalProject.Services
         //}
 
 
-        public async Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model, List<int>? imagesToDelete, int? mainImageId)
+        public async Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model, int? mainImageId)
         {
             using var content = new MultipartFormDataContent();
-
             content.Add(new StringContent(model.Title), "Title");
             content.Add(new StringContent(model.Description), "Description");
             content.Add(new StringContent(model.HighlightText), "HighlightText");
             content.Add(new StringContent(model.BlogCategoryId.ToString()), "BlogCategoryId");
-
             if (model.Images != null)
             {
                 foreach (var image in model.Images)
@@ -109,23 +107,20 @@ namespace MVC_FinalProject.Services
                     content.Add(fileContent, "Images", image.FileName);
                 }
             }
-
             if (mainImageId.HasValue)
                 content.Add(new StringContent(mainImageId.Value.ToString()), "MainImageId");
-
             var response = await _httpClient.PutAsync($"{Urls.BlogPostUrl}Edit?id={id}", content);
-
-            if (imagesToDelete != null && imagesToDelete.Any())
-            {
-                foreach (var imageId in imagesToDelete)
-                {
-                    await _httpClient.DeleteAsync($"{Urls.BlogPostUrl}DeleteImage/{id}/{imageId}");
-                }
-            }
-
             return response;
         }
 
+        public async Task<HttpResponseMessage> DeleteImageAsync(int blogPostId, int blogPostImageId)
+        {
+            return await _httpClient.DeleteAsync($"{Urls.BlogPostUrl}DeleteImage/{blogPostId}/{blogPostImageId}");           
+        }
 
+        public Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model, List<int> imagesToDelete, int? mainImageId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

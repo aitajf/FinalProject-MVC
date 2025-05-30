@@ -2,135 +2,96 @@
 
 <div class="main-panel">
     <div class="content-wrapper" style="width: 65pc;">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="@Model.Id" />
 
-        @* <form asp-action="Edit" method="post" enctype="multipart/form-data"> *@
-        @*     <input type="hidden" asp-for="Id" /> *@
-        @*     <input type="hidden" id="mainImageField" asp-for="MainImageUrl" /> *@
+            <div class="form-group mt-3">
+                <label asp-for="Images">Select New Images:</label>
+                <input asp-for="Images" type="file" class="form-control" multiple />
+                <span class="text-danger" asp-validation-for="Images"></span>
+            </div>
 
-        @*     @if (Model.ExistingImages != null && Model.ExistingImages.Any()) *@
-        @*     { *@
-        @*         <div class="form-group mt-4"> *@
-        @*             <label>Existing Images</label> *@
-        @*             <div class="row"> *@
-        @*                 @foreach (var item in Model.ExistingImages) *@
-        @*                 { *@
-        @*                     <div class="col-md-3 text-center mb-3" id="image-@item.Id"> *@
-        @*                         <img src="@item.Image" width="100" height="100" class="mb-2" /> *@
+            <div class="form-group">
+                <label asp-for="BlogCategoryId">Choose Category</label>
+                <select asp-for="BlogCategoryId" asp-items="ViewBag.BlogCategories" class="form-control"></select>
+                <span asp-validation-for="BlogCategoryId" class="text-danger"></span>
+            </div>
 
-        @*                         <div class="form-check"> *@
-        @*                             <input type="radio" name="MainImageUrl" value="@item.Image" *@
-        @*                                    class="form-check-input" @(item.IsMain ? "checked" : "") *@
-        @*                                    onchange="document.getElementById('mainImageField').value=this.value" /> *@
-        @*                             <label class="form-check-label">Main Image</label> *@
-        @*                         </div> *@
+            <div id="blog-container" data-route-id="@Model.Id">
+                @if (Model.ExistingImages != null && Model.ExistingImages.Any())
+                {
+                    <div class="form-group mt-4">
+                        <label>Existing Images</label>
+                        <div class="row">
+                            @foreach (var item in Model.ExistingImages)
+                            {
+                                <div class="col-md-3 text-center mb-3" id="image-@item.Id">
+                                    <img src="@item.Image" width="100" height="100" class="mb-2" />
+                                    <div class="form-check">
+                                        <label>
+                                            <input type="radio" name="MainImageId" value="@item.Id" @(item.IsMain ? "checked" : "") />
+                                            Main Image
+                                        </label>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger btn-sm mt-2" onclick="deleteImage(@item.Id)">Delete</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
 
-        @*                         <button type="button" class="btn btn-outline-danger btn-sm mt-2" *@
-        @*                                 onclick="removeImage(@item.Id)"> *@
-        @*                             Delete *@
-        @*                         </button> *@
-        @*                     </div> *@
-        @*                 } *@
-        @*             </div> *@
-        @*         </div> *@
-        @*     } *@
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
 
-        @*     <div class="form-group"> *@
-        @*         <label asp-for="BlogCategoryId">Choose Category</label> *@
-        @*         <select asp-for="BlogCategoryId" asp-items="ViewBag.BlogCategories" class="form-control"></select> *@
-        @*         <span asp-validation-for="BlogCategoryId" class="text-danger"></span> *@
-        @*     </div> *@
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
 
-        @*   
+            <div class="form-group">
+                <label asp-for="HighlightText"></label>
+                <input asp-for="HighlightText" class="form-control" />
+                <span asp-validation-for="HighlightText" class="text-danger"></span>
+            </div>
 
-   
-        @* </form> *@
-
-
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="@Model.Id" />
-  <div class="form-group mt-3"> 
-       <label asp-for="Images">Select New Images:</label> 
-       <input asp-for="Images" type="file" class="form-control" multiple />
-       <span class="text-danger" asp-validation-for="Images"></span> 
-   </div> 
-
-      <div class="form-group"> 
-         <label asp-for="BlogCategoryId">Choose Category</label> 
-         <select asp-for="BlogCategoryId" asp-items="ViewBag.BlogCategories" class="form-control"></select> 
-         <span asp-validation-for="BlogCategoryId" class="text-danger"></span> 
-      </div> 
-
-    @* <h3>Mövcud Şəkillər:</h3> *@
-    @* <ul> *@
-    @*     @foreach (var image in Model.ExistingImages) *@
-    @*     { *@
-    @*         <li> *@
-    @*             <img src="@image.Image" width="100" /> *@
-
-    @*             <!-- Əsas şəkil təyin etmək üçün checkbox --> *@
-    @*             <label> *@
-    @*                 <input type="radio" name="MainImageId" value="@image.Id" @(image.IsMain ? "checked" : "") /> *@
-    @*                 Əsas şəkil *@
-    @*             </label> *@
-
-    @*             <!-- Şəkili silmək üçün düymə --> *@
-    @*             <button type="submit" formaction="@Url.Action("DeleteImage", new { blogPostId = Model.Id, blogPostImageId = image.Id })" formmethod="post"> *@
-    @*                 Sil *@
-    @*             </button> *@
-    @*         </li> *@
-    @*     } *@
-    @* </ul> *@
-
-
-     @if (Model.ExistingImages != null && Model.ExistingImages.Any()) 
-     { 
-         <div class="form-group mt-4"> 
-             <label>Existing Images</label> 
-             <div class="row"> 
-                 @foreach (var item in Model.ExistingImages) 
-                 { 
-                     <div class="col-md-3 text-center mb-3" id="image-@item.Id"> 
-                         <img src="@item.Image" width="100" height="100" class="mb-2" />  
-                         <div class="form-check"> 
-                          <label> 
-                             <input type="radio" name="MainImageId" value="@item.Id" @(item.IsMain ? "checked" : "") /> 
-                                        Main Image
-                         </label> 
-                         </div>                     
-
-                           <button type="submit" class="btn btn-outline-danger btn-sm mt-2" formaction="@Url.Action("DeleteImage", new { blogPostId = Model.Id, blogPostImageId = item.Id })" formmethod="post">
-                                   Delete 
-                          </button> 
-                     </div> 
-                 } 
-             </div> 
-         </div> 
-     } 
-
-
-<div class="form-group"> 
-         <label asp-for="Title"></label> 
-         <input asp-for="Title" class="form-control" /> 
-         <span asp-validation-for="Title" class="text-danger"></span> 
-     </div> 
-
-     <div class="form-group"> 
-         <label asp-for="Description"></label> 
-         <textarea asp-for="Description" class="form-control"></textarea> 
-         <span asp-validation-for="Description" class="text-danger"></span> 
-     </div> 
-
-     <div class="form-group"> 
-         <label asp-for="HighlightText"></label> 
-         <input asp-for="HighlightText" class="form-control" /> 
-         <span asp-validation-for="HighlightText" class="text-danger"></span> 
-     </div> 
-
-     <button type="submit" class="btn btn-primary">Save Changes</button> 
-    <a asp-action="Index" class="btn btn-outline-primary mt-3">← Back</a>
-</form>
-
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-outline-primary mt-3">← Back</a>
+        </form>
     </div>
 </div>
 
-  
+<script>
+       function deleteImage(imageId) {
+        const blogPostId = document.getElementById("blog-container")?.dataset.routeId;
+
+        // Debug üçün konsolda ID-ləri yoxlayırıq
+        console.log("DELETE Request:", `/api/admin/BlogPost/DeleteImage?blogPostId=${blogPostId}&blogPostImageId=${imageId}`);
+        console.log("BlogPostId:", blogPostId);
+        console.log("ImageId:", imageId);
+
+        if (!blogPostId || !imageId) {
+            alert("Xəta: BlogPostId və ya ImageId düzgün ötürülməyib!");
+            return;
+        }
+
+        fetch(`/api/admin/BlogPost/DeleteImage?blogPostId=${blogPostId}&blogPostImageId=${imageId}`, {
+            method: "DELETE"
+        }).then(response => {
+            if (!response.ok) {
+                console.error("Error:", response.status, response.statusText);
+                alert("Şəkili silmək mümkün olmadı!");
+                return;
+            }
+            document.getElementById(`image-${imageId}`)?.remove();
+        }).catch(error => {
+            console.error("Şəbəkə xətası:", error);
+            alert("Şəbəkə problemi baş verdi.");
+        });
+    }
+
+</script>

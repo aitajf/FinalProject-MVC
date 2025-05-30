@@ -9,15 +9,15 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
     [Area("Admin")]
     public class BlogPostController : Controller
     {
-      private readonly IBlogCategoryService _blogCategoryService;
-      private readonly IBlogPostService _blogPostService;
+        private readonly IBlogCategoryService _blogCategoryService;
+        private readonly IBlogPostService _blogPostService;
 
-      public BlogPostController(IBlogCategoryService blogCategoryService,
-                               IBlogPostService blogPostService)
-      {
-          _blogCategoryService = blogCategoryService;
-          _blogPostService = blogPostService;
-      }
+        public BlogPostController(IBlogCategoryService blogCategoryService,
+                                 IBlogPostService blogPostService)
+        {
+            _blogCategoryService = blogCategoryService;
+            _blogPostService = blogPostService;
+        }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -30,7 +30,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 Text = c.Name
             }).ToList();
 
-            return View(blogPosts); 
+            return View(blogPosts);
         }
 
 
@@ -38,7 +38,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             var categories = await _blogCategoryService.GetAllAsync();
-            ViewBag.BlogCategories = new SelectList(categories, "Id", "Name"); 
+            ViewBag.BlogCategories = new SelectList(categories, "Id", "Name");
             return View(new BlogPostCreate());
         }
 
@@ -49,7 +49,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             {
                 var categories = await _blogCategoryService.GetAllAsync();
                 ViewBag.BlogCategories = new SelectList(categories, "Id", "Name");
-                return View(model); 
+                return View(model);
             }
 
             var response = await _blogPostService.CreateAsync(model);
@@ -78,13 +78,6 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
-
-
-
-
-
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -101,12 +94,13 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 Description = blogPost.Description,
                 HighlightText = blogPost.HighlightText,
                 BlogCategoryId = blogPost.BlogCategoryId,
-                ExistingImages = blogPost.Images,
+                ExistingImages = blogPost.Images ?? new List<BlogPostImg>(),
                 MainImageId = blogPost.Images.FirstOrDefault(i => i.IsMain)?.Id
             };
 
             return View(model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, BlogPostEdit model)
@@ -122,46 +116,23 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             if (!response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError("", "Error updating blog post.");
-                return View(model); // 🌟 Səhifəni yenidən göstəririk, ViewBag.Categories ilə!
+                return View(model);
             }
 
             return RedirectToAction("Index");
-
-            //var blogPost = await _blogPostService.GetByIdAsync(id);
-            //if (blogPost == null) return NotFound();
-            //model.ExistingImages = blogPost.Images;
-
-            //if (model.DeleteImageIds != null && model.DeleteImageIds.Any())
-            //{
-            //    foreach (var imageId in model.DeleteImageIds)
-            //    {
-            //        await _blogPostService.DeleteImageAsync(id, imageId);
-            //    }
-            //}
-
-            //var response = await _blogPostService.EditAsync(id, model);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    return RedirectToAction("Index");
-            //}
-
-            //ModelState.AddModelError("", "An error occurred while editing the blog post.");
-            //return View(model);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> DeleteImage(int blogPostId, int blogPostImageId)
-        //{
-        //    await _blogPostService.DeleteImageAsync(blogPostId, blogPostImageId);
-        //    return Ok(new { message = "Image deleted successfully." });
-        //}
+        [HttpDelete]
+        public async Task<IActionResult> DeleteImage(int blogPostId, int blogPostImageId)
+        {
+            var response = await _blogPostService.DeleteImageAsync(blogPostId, blogPostImageId);
+            if (!response.IsSuccessStatusCode)
+            {
+                return BadRequest(new { message = "Error deleting image." });
+            }
 
+            return RedirectToAction("Edit", new { id = blogPostId });
+        }
 
-
-
-
-       
-
-      
     }
 }
