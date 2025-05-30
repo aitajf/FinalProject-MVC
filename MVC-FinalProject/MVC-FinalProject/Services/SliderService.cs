@@ -4,6 +4,9 @@ using MVC_FinalProject.Models.Slider;
 using System.Reflection.Metadata;
 using System.Net.Http.Headers;
 using System.Net.Http;
+using MVC_FinalProject.Helpers;
+using MVC_FinalProject.Models.LandingBanner;
+using System.Text.Json;
 
 namespace MVC_FinalProject.Services
 {
@@ -79,6 +82,21 @@ namespace MVC_FinalProject.Services
         public async Task<Slider> GetByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<Slider>($"{Urls.SliderUrl}GetById/{id}");
+        }
+
+        public async Task<PaginationResponse<Slider>> GetPaginatedAsync(int page, int pageSize)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.SliderUrl}GetPaginateDatas?page={page}&take={pageSize}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return PaginationResponse<Slider>.Create(new List<Slider>(), 0, page, pageSize);
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var apiResponse = JsonSerializer.Deserialize<PaginationApiResponse<Slider>>(json, options);
+            return PaginationResponse<Slider>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
         }
     }
 }

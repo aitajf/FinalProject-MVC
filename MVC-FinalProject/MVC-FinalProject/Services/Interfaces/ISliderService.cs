@@ -1,4 +1,5 @@
-﻿using MVC_FinalProject.Models.Slider;
+﻿using MVC_FinalProject.Helpers;
+using MVC_FinalProject.Models.Slider;
 
 namespace MVC_FinalProject.Services.Interfaces
 {
@@ -9,5 +10,6 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<IEnumerable<Slider>> GetAllAsync();
         Task<Slider> GetByIdAsync(int id);
+        Task<PaginationResponse<Slider>> GetPaginatedAsync(int page, int pageSize);
     }
 }

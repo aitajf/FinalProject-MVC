@@ -1,5 +1,8 @@
-﻿using MVC_FinalProject.Helpers.Constants;
+﻿using MVC_FinalProject.Helpers;
+using System.Text.Json;
+using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.Color;
+using MVC_FinalProject.Models.LandingBanner;
 using MVC_FinalProject.Models.Tag;
 using MVC_FinalProject.Services.Interfaces;
 
@@ -35,6 +38,21 @@ namespace MVC_FinalProject.Services
         public async Task<Tag> GetByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<Tag>($"{Urls.TagUrl}GetById/{id}");
+        }
+
+        public async Task<PaginationResponse<Tag>> GetPaginatedAsync(int page, int pageSize)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.TagUrl}GetPaginateDatas?page={page}&take={pageSize}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return PaginationResponse<Tag>.Create(new List<Tag>(), 0, page, pageSize);
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var apiResponse = JsonSerializer.Deserialize<PaginationApiResponse<Tag>>(json, options);
+            return PaginationResponse<Tag>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
         }
     }
 }

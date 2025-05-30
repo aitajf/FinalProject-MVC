@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.LandingBanner;
 using MVC_FinalProject.Models.Slider;
+using MVC_FinalProject.Services;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
@@ -16,9 +17,10 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
-            return View(await _landingBannerService.GetAllAsync());
+            var paginatedProducts = await _landingBannerService.GetPaginatedAsync(page, pageSize);
+            return View(paginatedProducts);
         }
 
         [HttpGet]

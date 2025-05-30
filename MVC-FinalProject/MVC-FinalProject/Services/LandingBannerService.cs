@@ -1,6 +1,9 @@
 ﻿using System.Net.Http.Headers;
+using MVC_FinalProject.Helpers;
+using System.Text.Json;
 using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.LandingBanner;
+using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Services.Interfaces;
 
@@ -78,6 +81,21 @@ namespace MVC_FinalProject.Services
         public async Task<LandingBanner> GetByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<LandingBanner>($"{Urls.LandingBannerUrl}GetById/{id}");
+        }
+
+        public async Task<PaginationResponse<LandingBanner>> GetPaginatedAsync(int page, int pageSize)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.LandingBannerUrl}GetPaginateDatas?page={page}&take={pageSize}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return PaginationResponse<LandingBanner>.Create(new List<LandingBanner>(), 0, page, pageSize);
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var apiResponse = JsonSerializer.Deserialize<PaginationApiResponse<LandingBanner>>(json, options);
+            return PaginationResponse<LandingBanner>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
         }
     }
 }

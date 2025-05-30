@@ -1,4 +1,5 @@
-﻿using MVC_FinalProject.Models.Color;
+﻿using MVC_FinalProject.Helpers;
+using MVC_FinalProject.Models.Color;
 using MVC_FinalProject.Models.Tag;
 
 namespace MVC_FinalProject.Services.Interfaces
@@ -10,5 +11,6 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<IEnumerable<Tag>> GetAllAsync();
         Task<Tag> GetByIdAsync(int id);
+        Task<PaginationResponse<Tag>> GetPaginatedAsync(int page, int pageSize);
     }
 }

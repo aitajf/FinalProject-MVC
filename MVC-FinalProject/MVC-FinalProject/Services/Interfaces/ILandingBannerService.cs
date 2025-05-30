@@ -1,4 +1,5 @@
-﻿using MVC_FinalProject.Models.LandingBanner;
+﻿using MVC_FinalProject.Helpers;
+using MVC_FinalProject.Models.LandingBanner;
 using MVC_FinalProject.Models.Slider;
 
 namespace MVC_FinalProject.Services.Interfaces
@@ -10,5 +11,6 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<IEnumerable<LandingBanner>> GetAllAsync();
         Task<LandingBanner> GetByIdAsync(int id);
+        Task<PaginationResponse<LandingBanner>> GetPaginatedAsync(int page, int pageSize);
     }
 }

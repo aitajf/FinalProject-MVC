@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.Tag;
+using MVC_FinalProject.Services;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
@@ -12,10 +13,11 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         {
             _tagService = tagService;
         }
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
-            var res = await _tagService.GetAllAsync();
-            return View(res);
+            var paginatedProducts = await _tagService.GetPaginatedAsync(page, pageSize);
+            return View(paginatedProducts);
         }
 
         [HttpGet]
