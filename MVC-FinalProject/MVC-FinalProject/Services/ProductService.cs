@@ -4,6 +4,10 @@ using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Helpers;
 using System.Net.Http.Headers;
+using MVC_FinalProject.Models.Category;
+using MVC_FinalProject.Models;
+using MVC_FinalProject.Models.Tag;
+using MVC_FinalProject.Models.Color;
 
 namespace MVC_FinalProject.Services
 {
@@ -106,5 +110,38 @@ namespace MVC_FinalProject.Services
         {
             return await _httpClient.GetFromJsonAsync<Product>($"{Urls.ProductUrl}GetById/{id}");
         }
+
+        public async Task<IEnumerable<Product>> GetAllAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductUrl}GetAll");
+        }
+
+        public async Task<ProductDetail> GetProductDetailAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.ProductClientUrl}ProductDetail/{id}");
+            if (!response.IsSuccessStatusCode) return null;
+            var productJson = await response.Content.ReadAsStringAsync();
+            var product = JsonSerializer.Deserialize<ProductDetail>(productJson);
+            if (product != null)
+            {
+                product.ProductImages ??= new List<ProductImage>();
+                product.Categories ??= new List<Category>();
+                product.Tags ??= new List<Tag>();
+                product.Colors ??= new List<Color>();
+            }
+            return product;
+        }
+
+
+        public async Task<IEnumerable<Product>> GetAllTakenAsync(int take, int? skip = null)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductClientUrl}GetAllTaken/take?take={take}&skip={skip}");
+        }
+
+        public async Task<int> GetProductsCountAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<int>($"{Urls.ProductClientUrl}GetProductsCount");
+        }
+
     }
 }

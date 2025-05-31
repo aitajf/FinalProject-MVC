@@ -1,4 +1,6 @@
-﻿namespace MVC_FinalProject.Models.Product
+﻿using MVC_FinalProject.Models.Tag;
+
+namespace MVC_FinalProject.Models.Product
 {
     public class Product
     {
@@ -13,5 +15,6 @@
         public IEnumerable<string> Tags { get; set; }
         public IEnumerable<string> Colors { get; set; }
         public List<string> Images { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

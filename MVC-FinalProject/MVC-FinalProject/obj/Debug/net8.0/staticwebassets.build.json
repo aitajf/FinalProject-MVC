@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9E2G24AjFMCAnEdSsD86eb9HH98elGCkx9ERVjLh8c4=",
+  "Hash": "2glCjisai5bAJ0YGCAnzEanjCHP3OmouIwqTTGppT28=",
   "Source": "MVC-FinalProject",
   "BasePath": "_content/MVC-FinalProject",
   "Mode": "Default",
@@ -20259,6 +20259,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\js\\app.js"
+    },
+    {
+      "Identity": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
+      "SourceId": "MVC-FinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\",
+      "BasePath": "_content/MVC-FinalProject",
+      "RelativePath": "assets/js/custom#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "wsibv8vztp",
+      "Integrity": "EH2x5jtT5ZqBOHumjODaZgZShusqF1LXS/uLGBOUIb4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\custom.js"
     },
     {
       "Identity": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
@@ -101352,6 +101373,88 @@
       ]
     },
     {
+      "Route": "assets/js/custom.js",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "943"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EH2x5jtT5ZqBOHumjODaZgZShusqF1LXS/uLGBOUIb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 31 May 2025 05:33:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-EH2x5jtT5ZqBOHumjODaZgZShusqF1LXS/uLGBOUIb4="
+        }
+      ]
+    },
+    {
+      "Route": "assets/js/custom.wsibv8vztp.js",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "943"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EH2x5jtT5ZqBOHumjODaZgZShusqF1LXS/uLGBOUIb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 31 May 2025 05:33:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wsibv8vztp"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/js/custom.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-EH2x5jtT5ZqBOHumjODaZgZShusqF1LXS/uLGBOUIb4="
+        }
+      ]
+    },
+    {
       "Route": "lib/bootstrap/dist/css/bootstrap.css",
       "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "Selectors": [],
@@ -109984,7 +110087,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 30 May 2025 10:14:04 GMT"
+          "Value": "Sat, 31 May 2025 05:12:22 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110021,7 +110124,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 30 May 2025 10:14:04 GMT"
+          "Value": "Sat, 31 May 2025 05:12:22 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110066,7 +110169,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 30 May 2025 10:14:04 GMT"
+          "Value": "Sat, 31 May 2025 05:12:22 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110111,7 +110214,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 30 May 2025 10:14:04 GMT"
+          "Value": "Sat, 31 May 2025 05:12:22 GMT"
         },
         {
           "Name": "Cache-Control",
