@@ -19,6 +19,7 @@ namespace Service
             services.AddScoped<IBlogCategoryService, BlogCategoryService>();         
             services.AddScoped<IBlogPostService, BlogPostService>();         
             services.AddScoped<IProductService, ProductService>();         
+            services.AddScoped<IAccountService, AccountService>();         
             return services;
         }
     }

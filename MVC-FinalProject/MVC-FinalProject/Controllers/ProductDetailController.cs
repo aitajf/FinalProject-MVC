@@ -12,14 +12,14 @@ namespace MVC_FinalProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             if (id == 0)
             {
                 ModelState.AddModelError(string.Empty, "Invalid product ID.");
                 return View("Index");
             }
-            var product = await _productService.GetProductDetailAsync(id);
+            var product = await _productService.GetByIdAsync(id);
             if (product == null)
             {
                 ModelState.AddModelError(string.Empty, "Product not found.");

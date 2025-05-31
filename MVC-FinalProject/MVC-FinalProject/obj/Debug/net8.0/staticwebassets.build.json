@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2glCjisai5bAJ0YGCAnzEanjCHP3OmouIwqTTGppT28=",
+  "Hash": "bkqD2VEDCiP/lBk/JQgvMzovsErymjUYqewC77IRwPs=",
   "Source": "MVC-FinalProject",
   "BasePath": "_content/MVC-FinalProject",
   "Mode": "Default",
@@ -18952,8 +18952,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "ozatsl0so8",
-      "Integrity": "HBOX0ad7SUThku+JwTjoIx5Ngb+s55nGTHRL7HKdZpQ=",
+      "Fingerprint": "t02dqofn8g",
+      "Integrity": "fbU0+RwOH5AkrosuIzsvP77IVHxs1cE1+BlMrq+H1tY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\css\\app.css"
@@ -19356,6 +19356,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\img\\9-2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\img\\Animation - 1748693245828.gif",
+      "SourceId": "MVC-FinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\",
+      "BasePath": "_content/MVC-FinalProject",
+      "RelativePath": "assets/img/Animation - 1748693245828#[.{fingerprint}]?.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "88xwefxavp",
+      "Integrity": "OGowbFOD5JAxQp+E1nQqBByWN3YEumrefpYVGRzvhTI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\Animation - 1748693245828.gif"
     },
     {
       "Identity": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\img\\blogpost (1).jpg",
@@ -96217,7 +96238,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "252528"
+          "Value": "252529"
         },
         {
           "Name": "Content-Type",
@@ -96225,11 +96246,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"HBOX0ad7SUThku+JwTjoIx5Ngb+s55nGTHRL7HKdZpQ=\""
+          "Value": "\"fbU0+RwOH5AkrosuIzsvP77IVHxs1cE1+BlMrq+H1tY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 20 May 2025 13:57:36 GMT"
+          "Value": "Sat, 31 May 2025 10:09:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -96239,12 +96260,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-HBOX0ad7SUThku+JwTjoIx5Ngb+s55nGTHRL7HKdZpQ="
+          "Value": "sha256-fbU0+RwOH5AkrosuIzsvP77IVHxs1cE1+BlMrq+H1tY="
         }
       ]
     },
     {
-      "Route": "assets/css/app.ozatsl0so8.css",
+      "Route": "assets/css/app.t02dqofn8g.css",
       "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\css\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -96254,7 +96275,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "252528"
+          "Value": "252529"
         },
         {
           "Name": "Content-Type",
@@ -96262,11 +96283,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"HBOX0ad7SUThku+JwTjoIx5Ngb+s55nGTHRL7HKdZpQ=\""
+          "Value": "\"fbU0+RwOH5AkrosuIzsvP77IVHxs1cE1+BlMrq+H1tY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 20 May 2025 13:57:36 GMT"
+          "Value": "Sat, 31 May 2025 10:09:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -96276,7 +96297,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "ozatsl0so8"
+          "Value": "t02dqofn8g"
         },
         {
           "Name": "label",
@@ -96284,7 +96305,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-HBOX0ad7SUThku+JwTjoIx5Ngb+s55nGTHRL7HKdZpQ="
+          "Value": "sha256-fbU0+RwOH5AkrosuIzsvP77IVHxs1cE1+BlMrq+H1tY="
         }
       ]
     },
@@ -97843,6 +97864,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-x+o1o9rYpeFiMt/OTdSuW1ogJ7qUVNT0Kfo7bHFjqyA="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/Animation - 1748693245828.88xwefxavp.gif",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\img\\Animation - 1748693245828.gif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "169486"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/gif"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"OGowbFOD5JAxQp+E1nQqBByWN3YEumrefpYVGRzvhTI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 31 May 2025 12:08:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "88xwefxavp"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/img/Animation - 1748693245828.gif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-OGowbFOD5JAxQp+E1nQqBByWN3YEumrefpYVGRzvhTI="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/Animation - 1748693245828.gif",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\img\\Animation - 1748693245828.gif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "169486"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/gif"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"OGowbFOD5JAxQp+E1nQqBByWN3YEumrefpYVGRzvhTI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 31 May 2025 12:08:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-OGowbFOD5JAxQp+E1nQqBByWN3YEumrefpYVGRzvhTI="
         }
       ]
     },
@@ -110087,7 +110190,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 31 May 2025 05:12:22 GMT"
+          "Value": "Sat, 31 May 2025 12:34:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110124,7 +110227,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 31 May 2025 05:12:22 GMT"
+          "Value": "Sat, 31 May 2025 12:34:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110169,7 +110272,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 31 May 2025 05:12:22 GMT"
+          "Value": "Sat, 31 May 2025 12:34:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110214,7 +110317,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 31 May 2025 05:12:22 GMT"
+          "Value": "Sat, 31 May 2025 12:34:41 GMT"
         },
         {
           "Name": "Cache-Control",

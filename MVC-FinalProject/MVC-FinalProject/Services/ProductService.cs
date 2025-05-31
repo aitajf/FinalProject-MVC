@@ -116,21 +116,21 @@ namespace MVC_FinalProject.Services
             return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductUrl}GetAll");
         }
 
-        public async Task<ProductDetail> GetProductDetailAsync(int id)
-        {
-            var response = await _httpClient.GetAsync($"{Urls.ProductClientUrl}ProductDetail/{id}");
-            if (!response.IsSuccessStatusCode) return null;
-            var productJson = await response.Content.ReadAsStringAsync();
-            var product = JsonSerializer.Deserialize<ProductDetail>(productJson);
-            if (product != null)
-            {
-                product.ProductImages ??= new List<ProductImage>();
-                product.Categories ??= new List<Category>();
-                product.Tags ??= new List<Tag>();
-                product.Colors ??= new List<Color>();
-            }
-            return product;
-        }
+        //public async Task<ProductDetail> GetProductDetailAsync(int id)
+        //{
+        //    var response = await _httpClient.GetAsync($"{Urls.ProductClientUrl}ProductDetail/{id}");
+        //    if (!response.IsSuccessStatusCode) return null;
+        //    var productJson = await response.Content.ReadAsStringAsync();
+        //    var product = JsonSerializer.Deserialize<ProductDetail>(productJson);
+        //    if (product != null)
+        //    {
+        //        product.ProductImages ??= new List<ProductImage>();
+        //        product.Categories ??= new List<Category>();
+        //        product.Tags ??= new List<Tag>();
+        //        product.colors ??= new List<Color>();
+        //    }
+        //    return product;
+        //}
 
 
         public async Task<IEnumerable<Product>> GetAllTakenAsync(int take, int? skip = null)

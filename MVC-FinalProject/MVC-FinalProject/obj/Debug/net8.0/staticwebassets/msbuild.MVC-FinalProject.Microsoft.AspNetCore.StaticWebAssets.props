@@ -16194,8 +16194,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ozatsl0so8</Fingerprint>
-      <Integrity>HBOX0ad7SUThku+JwTjoIx5Ngb+s55nGTHRL7HKdZpQ=</Integrity>
+      <Fingerprint>t02dqofn8g</Fingerprint>
+      <Integrity>fbU0+RwOH5AkrosuIzsvP77IVHxs1cE1+BlMrq+H1tY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\css\app.css'))</OriginalItemSpec>
@@ -16541,6 +16541,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\img\9-2.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\img\Animation - 1748693245828.gif'))">
+      <SourceType>Package</SourceType>
+      <SourceId>MVC-FinalProject</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MVC-FinalProject</BasePath>
+      <RelativePath>assets/img/Animation - 1748693245828.gif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>88xwefxavp</Fingerprint>
+      <Integrity>OGowbFOD5JAxQp+E1nQqBByWN3YEumrefpYVGRzvhTI=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\img\Animation - 1748693245828.gif'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\img\blogpost (1).jpg'))">
       <SourceType>Package</SourceType>

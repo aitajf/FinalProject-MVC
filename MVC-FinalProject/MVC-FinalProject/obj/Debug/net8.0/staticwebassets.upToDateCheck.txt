@@ -917,6 +917,7 @@ wwwroot\assets\img\7.jpg
 wwwroot\assets\img\7-2.jpg
 wwwroot\assets\img\9.jpg
 wwwroot\assets\img\9-2.jpg
+wwwroot\assets\img\Animation - 1748693245828.gif
 wwwroot\assets\img\blogpost (1).jpg
 wwwroot\assets\img\blogpost (2).jpg
 wwwroot\assets\img\blogpost (3).jpg
