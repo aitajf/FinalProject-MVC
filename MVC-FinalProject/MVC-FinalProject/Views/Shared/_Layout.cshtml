@@ -201,31 +201,6 @@
 													<a asp-controller="Contact" asp-action="Index"><span class="menu-item-text">Contact</span></a>
 												</li>
 
-												<li class="level-0 menu-item">
-													@{
-														var rolesJson = Context.Session.GetString("UserRoles");
-														var roles = new List<string>();
-
-														if (!string.IsNullOrEmpty(rolesJson))
-														{
-															try
-															{
-																roles = JsonConvert.DeserializeObject<List<string>>(rolesJson);
-															}
-															catch
-															{
-																roles = new List<string>();
-															}
-														}
-													}
-
-													@if (roles.Contains("Admin") || roles.Contains("SuperAdmin"))
-													{
-														<div>
-															<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><span class="menu-item-text">Admin</span></a>
-														</div>
-													}
-												</li>
 											</ul>
 										</nav>
 									</div>
@@ -235,13 +210,18 @@
 									<div class="header-page-link">
 										<!-- Login -->
 										<div>
-											@if (Context.Session.GetString("UserName") != null)
+											@if (User.Identity.IsAuthenticated)
 											{
-												<span class="menu-item-text">Hi! @Context.Session.GetString("UserName")</span>
+												<span>Hi @User.Identity.Name!</span>
+
+												@if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+												{
+													<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a>
+												}
 											}
 											else
 											{
-												<a asp-controller="Account" asp-action="Login"><span class="menu-item-text">Login</span></a>
+												<a asp-controller="Account" asp-action="Login">Login</a>
 											}
 										</div>
 

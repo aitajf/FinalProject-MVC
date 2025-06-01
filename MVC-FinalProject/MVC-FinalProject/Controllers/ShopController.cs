@@ -19,7 +19,7 @@ namespace MVC_FinalProject.Controllers
         {
             var categories = await _categoryService.GetAllAsync();
             var brands = await _brandService.GetAllAsync();
-            var products = await _productService.GetAllTakenAsync(8, 0);
+            var products = await _productService.GetAllTakenAsync(6,0);
             var productCount = await _productService.GetProductsCountAsync();
 
             ViewBag.ProductsCount = productCount;
