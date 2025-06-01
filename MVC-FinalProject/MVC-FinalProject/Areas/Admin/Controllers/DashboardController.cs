@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class DashboardController : Controller
     {
         [Area("Admin")]

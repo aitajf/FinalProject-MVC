@@ -46,6 +46,20 @@ namespace MVC_FinalProject.Controllers
             if (loginResponse != null && loginResponse.Success)
             {
                 HttpContext.Session.SetString("AuthToken", loginResponse.Token);
+                HttpContext.Session.SetString("UserName", loginResponse.UserName);
+
+                if (loginResponse.Roles != null && loginResponse.Roles.Any())
+                {
+                    string rolesJson = JsonConvert.SerializeObject(loginResponse.Roles);
+                    HttpContext.Session.SetString("UserRoles", rolesJson);
+                }
+                else
+                {
+                   
+                    HttpContext.Session.SetString("UserRoles", "[]");
+                }
+
+
                 return RedirectToAction("Index", "Home");
             }
             else

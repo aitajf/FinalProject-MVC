@@ -200,8 +200,31 @@
 												<li class="level-0 menu-item">
 													<a asp-controller="Contact" asp-action="Index"><span class="menu-item-text">Contact</span></a>
 												</li>
+
 												<li class="level-0 menu-item">
-													<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a>
+													@{
+														var rolesJson = Context.Session.GetString("UserRoles");
+														var roles = new List<string>();
+
+														if (!string.IsNullOrEmpty(rolesJson))
+														{
+															try
+															{
+																roles = JsonConvert.DeserializeObject<List<string>>(rolesJson);
+															}
+															catch
+															{
+																roles = new List<string>();
+															}
+														}
+													}
+
+													@if (roles.Contains("Admin") || roles.Contains("SuperAdmin"))
+													{
+														<div>
+															<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><span class="menu-item-text">Admin</span></a>
+														</div>
+													}
 												</li>
 											</ul>
 										</nav>
@@ -211,9 +234,17 @@
 								<div class="col-lg-4 header-right">
 									<div class="header-page-link">
 										<!-- Login -->
-										<div >
-											<a asp-controller="Account" asp-action="Login"><span>Login</span></a>			
+										<div>
+											@if (Context.Session.GetString("UserName") != null)
+											{
+												<span class="menu-item-text">Hi! @Context.Session.GetString("UserName")</span>
+											}
+											else
+											{
+												<a asp-controller="Account" asp-action="Login"><span class="menu-item-text">Login</span></a>
+											}
 										</div>
+
 
 										<!-- Search -->
 										<div class="search-box">
