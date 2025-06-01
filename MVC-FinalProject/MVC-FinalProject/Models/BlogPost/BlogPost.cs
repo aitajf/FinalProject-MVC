@@ -8,5 +8,6 @@
         public string HighlightText { get; set; }
         public int BlogCategoryId { get; set; }
         public List<BlogPostImg> Images { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }
