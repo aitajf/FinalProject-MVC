@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC_FinalProject.Services;
 using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.ViewModels;
 
@@ -14,15 +15,15 @@ namespace MVC_FinalProject.Controllers
             _categoryService = categoryService;
             _postService = postService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 3)
         {
             var categories = await _categoryService.GetAllAsync();
-            var posts = await _postService.GetAllAsync();
+            var paginate = await _postService.GetPaginatedAsync(page, pageSize);
 
             BlogVM model = new()
             {
                 BlogCategories = categories,
-                BlogPosts = posts
+                Paginate = paginate
             };
 
             return View(model);

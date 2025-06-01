@@ -1,7 +1,10 @@
 ﻿using System.Net.Http.Headers;
+using System.Text.Json;
+using MVC_FinalProject.Helpers;
 using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.BlogCategory;
 using MVC_FinalProject.Models.BlogPost;
+using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Services
@@ -88,6 +91,21 @@ namespace MVC_FinalProject.Services
         public Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model, List<int> imagesToDelete, int? mainImageId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<PaginationResponse<BlogPost>> GetPaginatedAsync(int page, int pageSize)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.BlogPostUrl}GetPaginateDatas?page={page}&take={pageSize}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return PaginationResponse<BlogPost>.Create(new List<BlogPost>(), 0, page, pageSize);
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var apiResponse = JsonSerializer.Deserialize<PaginationApiResponse<BlogPost>>(json, options);
+            return PaginationResponse<BlogPost>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
         }
     }
 }

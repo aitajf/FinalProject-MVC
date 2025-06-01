@@ -57,11 +57,12 @@
 									<div class="block-title"><h2>Recent Posts</h2></div>
 									<div class="block-content">
 										<ul class="posts-list">
-											@foreach (var item in Model.BlogPosts.OrderByDescending(x=>x.CreatedDate).Take(3))
+											@foreach (var item in Model.Paginate.Items.OrderByDescending(x=>x.CreatedDate).Take(3))
 											{
 												<li class="post-item">
 													<a href="blog-details-right.html" class="post-image">
-														<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image">
+														@* <img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image"> *@
+														<img src="@Url.Content("~/" + item.Images.FirstOrDefault(x => x.IsMain)?.Image)" alt="Blog image">
 
 													</a>
 													<div class="post-content">
@@ -107,7 +108,7 @@
 							<div class="col-xl-9 col-lg-9 col-md-12 col-12">
 								<div class="posts-list grid">
 									<div class="row">
-										@foreach (var item in Model.BlogPosts.OrderByDescending(x=>x.CreatedDate).Take(4))
+										@foreach (var item in Model.Paginate.Items)
 										{
 											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
 												<div class="post-entry clearfix post-wapper">
@@ -134,14 +135,41 @@
 										}										
 									</div>
 								</div>
-
+								
 								<nav class="pagination">
 									<ul class="page-numbers">
-										<li><a class="prev page-numbers" href="#">Previous</a></li>
-										<li><span aria-current="page" class="page-numbers current">1</span></li>
-										<li><a class="page-numbers" href="#">2</a></li>
-										<li><a class="page-numbers" href="#">3</a></li>
-										<li><a class="next page-numbers" href="#">Next</a></li>
+										@if (Model.Paginate.HasPreviousPage)
+										{
+											<li>
+												<a class="prev page-numbers" asp-action="Index" asp-route-page="@(Model.Paginate.PageIndex - 1)">Previous</a>
+											</li>
+										}
+										else
+										{
+											<li class="disabled">
+												<a class="prev page-numbers">Previous</a>
+											</li>									
+										}
+
+										@for (var i = 1; i <= Model.Paginate.TotalPages; i++)
+										{
+											<li class="@(i == Model.Paginate.PageIndex ? "active" : "")">
+												<a class="page-numbers" asp-action="Index" asp-route-page="@i">@i</a>
+											</li>
+										}
+
+										@if (Model.Paginate.HasNextPage)
+										{
+											<li>
+												<a class="next page-numbers" asp-action="Index" asp-route-page="@(Model.Paginate.PageIndex + 1)">Next</a>
+											</li>
+										}
+										else
+										{
+											<li class="disabled">
+												<a class="next page-numbers">Next</a>
+											</li>
+										}
 									</ul>
 								</nav>
 							</div>
