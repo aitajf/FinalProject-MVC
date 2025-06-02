@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Models.Subscription;
 using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.ViewModels;
@@ -54,20 +53,66 @@ namespace MVC_FinalProject.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public async Task<JsonResult> Subscribe(SubscriptionCreate request)
-        //{
-        //    var response = await _subscriptionService.SubscribeAsync(request);
 
-        //    return response.IsSuccessStatusCode ? Json("Subscription completed successfully!!"):
-        //                                          Json("Bu e-mail artıq abunə olub!");
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Subscribe(HomeVM model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        TempData["SubscribeError"] = "Email is required.";
+        //        return RedirectToAction("Index");
+        //    }
+        //    var response = await _subscriptionService.SubscribeAsync(model.Subscribe);
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        TempData["SubscribeSuccess"] = "You have successfully subscribed !";
+        //    }
+        //    else
+        //    {
+        //        var error = await response.Content.ReadAsStringAsync();
+        //        TempData["SubscribeError"] = $"Xəta baş verdi";
+        //    }
+        //    return RedirectToAction("Index");
         //}
 
         [HttpPost]
-        public async Task<JsonResult> Subscribe(SubscriptionCreate request)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Subscribe(HomeVM model)
         {
-            var message = await _subscriptionService.SubscribeAsync(request);
-            return Json(new { Message = message });
+            if (!ModelState.IsValid)
+            {
+                TempData["SubscribeError"] = "Email is required.";
+                return RedirectToAction("Index");
+            }
+
+            var response = await _subscriptionService.SubscribeAsync(model.Subscribe);
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData["SubscribeSuccess"] = "You have successfully subscribed!";
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                if (errorMessage.Contains("First be register"))
+                {
+                    TempData["SubscribeError"] = "Please register before subscribing.";
+                }
+                else if (errorMessage.Contains("Subscribe with this mail already exists!"))
+                {
+                    TempData["SubscribeError"] = "You have already subscribed with this email.";
+                }
+                else
+                {
+                    TempData["SubscribeError"] = "An error occurred. Please try again later.";
+                }
+            }
+
+            return RedirectToAction("Index");
         }
+
+
     }
 }

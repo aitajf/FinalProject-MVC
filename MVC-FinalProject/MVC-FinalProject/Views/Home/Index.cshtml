@@ -286,38 +286,32 @@
 											<h2 class="newsletter-title">Join our email list.</h2>
 											<div class="newsletter-text">Sign up for the latest trends, products, and inspiration.</div>
 										</div>										
-										<form id="subscribeForm" action="/Home/Subscribe" method="post" class="newsletter-form">
-											<input type="email" name="Email" id="emailInput" value="" size="40" placeholder="Email address" required>
-											<span class="btn-submit">
-												<input type="submit" value="SUBSCRIBE">
-											</span>
+									 @* <form id="subscribeForm" asp-controller="Home" asp-action="Subscribe" method="post" class="newsletter-form">  *@
+									 @* 	<input type="email" name="Email" id="emailInput" value="" size="40" placeholder="Email address" required>  *@
+									 @* 	<span class="btn-submit">  *@
+									 @* 		<input type="submit" value="SUBSCRIBE">  *@
+									 @* 	</span>  *@
+									 @* </form>  *@
+									 @* <div id="subscribeMessage" class="alert alert-info text-center" style="display: none;"></div> *@
+
+										<form id="subscribeForm" asp-action="Subscribe"  asp-controller="Home" method="post" class="newsletter-form">
+											@Html.AntiForgeryToken()
+											<div class="form-group">
+												<input asp-for="Subscribe.Email" class="form-control" placeholder="Email address" />
+												<span asp-validation-for="Subscribe.Email" class="text-danger"></span>
+												<button type="submit" class="btn subscribe-button">SUBSCRIBE</button>
+											</div>
 										</form>
-										<div id="subscribeMessage" class="alert alert-info text-center" style="display: none;"></div>
 
-										<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-										<script>
-											$(document).ready(function () {
-												$("#subscribeForm").submit(function (event) {
-													event.preventDefault();
-
-													var email = $("#emailInput").val();
-
-													$.ajax({
-														type: "POST",
-														url: "/Home/Subscribe",
-														data: { Email: email },
-														success: function (response) {
-															$("#subscribeMessage").text(response.Message).show();
-														},
-														error: function () {
-															$("#subscribeMessage").text("Something went wrong.").show();
-														}
-													});
-												});
-											});
-										</script>
-
-									</div>
+										@if (TempData["SubscribeSuccess"] != null)
+										{
+											<div class="alert alert-success mt-2">@TempData["SubscribeSuccess"]</div>
+										}
+										@if (TempData["SubscribeError"] != null)
+										{
+											<div class="alert alert-danger mt-2">@TempData["SubscribeError"]</div>
+										}
+								 </div>
 								</div>
 							</div>
 							<div class="col-md-6 sm-p-0">
@@ -441,3 +435,24 @@
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
 </div>
+
+
+<style>
+	.subscribe-button {
+		background-color: white;
+		color: black;
+		border: 2px solid black;
+		padding: 8px 16px;
+		cursor: pointer;
+		transition: 0.3s ease;
+		margin-left: 13pc;
+		margin-top: 1pc;
+	}
+
+		.subscribe-button:hover {
+			background-color: black;
+			color: white;
+		}
+</style>
+
+<input type="submit" value="SUBSCRIBE" class="subscribe-button" />

@@ -17,5 +17,6 @@ namespace MVC_FinalProject.Models.Account
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
     }
 }

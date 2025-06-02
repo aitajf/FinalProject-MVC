@@ -19,12 +19,12 @@ namespace MVC_FinalProject.Services
         {
             return await _httpClient.PostAsJsonAsync($"{Urls.SubscriptionClientUrl}Subscribe", model);
         }
-     
+
         public async Task<IEnumerable<Subscription>> GetAllSubscriptionsAsync()
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<Subscription>>($"{Urls.SubscriptionUrl}GetAllSubscriptions");
         }
-
+             
         public async Task<HttpResponseMessage> UnsubscribeAsync(string email)
         {
             return await _httpClient.DeleteAsync($"{Urls.SubscriptionUrl}unsubscribe/{email}");

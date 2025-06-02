@@ -16,6 +16,7 @@ builder.Services.AddAuthentication("MyCookieAuth")
 
 builder.Services.AddAuthorization();
 
+
 //builder.Services.AddDistributedMemoryCache();
 //builder.Services.AddSession(options =>
 //{
@@ -23,7 +24,6 @@ builder.Services.AddAuthorization();
 //    options.Cookie.HttpOnly = true;
 //    options.Cookie.IsEssential = true;
 //});
-
 
 
 // Add services to the container.

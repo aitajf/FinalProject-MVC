@@ -4,6 +4,7 @@ using MVC_FinalProject.Models.LandingBanner;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Models.SubscribeImg;
+using MVC_FinalProject.Models.Subscription;
 
 namespace MVC_FinalProject.ViewModels
 {
@@ -15,6 +16,7 @@ namespace MVC_FinalProject.ViewModels
         public IEnumerable<LandingBanner> LandingBanners { get; set; }
         public IEnumerable<Instagram> Instagrams { get; set; }
         public IEnumerable<SubscribeImg> SubscribeImgs { get; set; }
+        public SubscriptionCreate Subscribe { get; set; } = new();
 
     }
 }
