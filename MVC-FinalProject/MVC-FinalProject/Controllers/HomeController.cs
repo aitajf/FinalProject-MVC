@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.Slider;
+using MVC_FinalProject.Models.Subscription;
 using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.ViewModels;
 
@@ -9,23 +10,27 @@ namespace MVC_FinalProject.Controllers
     {
         private readonly ISliderService _sliderService;
         private readonly ICategoryService _categoryService;
-        private readonly IProductService _productService  ;
+        private readonly IProductService _productService;
         private readonly ILandingBannerService _landingBannerService;
         private readonly IInstagramService _instagramService;
         private readonly ISubscribeImgService _subscribeImgService;
+        private readonly ISubscriptionService _subscriptionService;
+
         public HomeController(ISliderService sliderService,
                               ICategoryService categoryService,
                               IProductService productService,
                               ILandingBannerService landingBannerService,
                               IInstagramService instagramService,
-                              ISubscribeImgService subscribeImgService)
+                              ISubscribeImgService subscribeImgService,
+                              ISubscriptionService subscriptionService)
         {
             _sliderService = sliderService;
             _categoryService = categoryService;
             _productService = productService;
             _instagramService = instagramService;
             _landingBannerService = landingBannerService;
-            _subscribeImgService = subscribeImgService;               
+            _subscribeImgService = subscribeImgService;
+            _subscriptionService = subscriptionService;
         }
 
         public async Task<IActionResult> Index()
@@ -34,8 +39,8 @@ namespace MVC_FinalProject.Controllers
             var categories = await _categoryService.GetAllAsync();
             var products = await _productService.GetAllAsync();
             var landingBanners = await _landingBannerService.GetAllAsync();
-            var instagrams =  await _instagramService.GetAllAsync();
-            var subscribeImgs =  await _subscribeImgService.GetAllAsync();
+            var instagrams = await _instagramService.GetAllAsync();
+            var subscribeImgs = await _subscribeImgService.GetAllAsync();
 
             HomeVM model = new HomeVM()
             {
@@ -47,6 +52,22 @@ namespace MVC_FinalProject.Controllers
                 SubscribeImgs = subscribeImgs
             };
             return View(model);
+        }
+
+        //[HttpPost]
+        //public async Task<JsonResult> Subscribe(SubscriptionCreate request)
+        //{
+        //    var response = await _subscriptionService.SubscribeAsync(request);
+
+        //    return response.IsSuccessStatusCode ? Json("Subscription completed successfully!!"):
+        //                                          Json("Bu e-mail artıq abunə olub!");
+        //}
+
+        [HttpPost]
+        public async Task<JsonResult> Subscribe(SubscriptionCreate request)
+        {
+            var message = await _subscriptionService.SubscribeAsync(request);
+            return Json(new { Message = message });
         }
     }
 }

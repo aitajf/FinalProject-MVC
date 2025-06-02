@@ -285,13 +285,38 @@
 										<div class="newsletter-title-wrap">
 											<h2 class="newsletter-title">Join our email list.</h2>
 											<div class="newsletter-text">Sign up for the latest trends, products, and inspiration.</div>
-										</div>
-										<form action="" method="post" class="newsletter-form">
-											<input type="email" name="your-email" value="" size="40" placeholder="Email address">
+										</div>										
+										<form id="subscribeForm" action="/Home/Subscribe" method="post" class="newsletter-form">
+											<input type="email" name="Email" id="emailInput" value="" size="40" placeholder="Email address" required>
 											<span class="btn-submit">
 												<input type="submit" value="SUBSCRIBE">
 											</span>
 										</form>
+										<div id="subscribeMessage" class="alert alert-info text-center" style="display: none;"></div>
+
+										<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+										<script>
+											$(document).ready(function () {
+												$("#subscribeForm").submit(function (event) {
+													event.preventDefault();
+
+													var email = $("#emailInput").val();
+
+													$.ajax({
+														type: "POST",
+														url: "/Home/Subscribe",
+														data: { Email: email },
+														success: function (response) {
+															$("#subscribeMessage").text(response.Message).show();
+														},
+														error: function () {
+															$("#subscribeMessage").text("Something went wrong.").show();
+														}
+													});
+												});
+											});
+										</script>
+
 									</div>
 								</div>
 							</div>

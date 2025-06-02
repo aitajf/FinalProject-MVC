@@ -43,6 +43,7 @@ builder.Services.Configure<IdentityOptions>(opt =>
 
 
 builder.Services.AddServiceLayer();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
