@@ -21,6 +21,7 @@ namespace Service
             services.AddScoped<IProductService, ProductService>();         
             services.AddScoped<IAccountService, AccountService>();         
             services.AddScoped<ISubscriptionService, SubscriptionService>();         
+            services.AddScoped<IAboutPromoService, AboutPromoService>();         
             return services;
         }
     }

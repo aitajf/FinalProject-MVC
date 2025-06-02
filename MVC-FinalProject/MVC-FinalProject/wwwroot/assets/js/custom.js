@@ -58,26 +58,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-//$(function () {
-//    $("#subscribeForm").on("submit", function (event) {
-//        event.preventDefault();
 
-//        var email = $("#emailInput").val();
-
-//        $.ajax({
-//            type: "POST",
-//            url: "/Home/Subscribe",
-//            data: JSON.stringify({ Email: email }),
-//            contentType: "application/json; charset=utf-8",
-//            dataType: "json",
-//            success: function (response) {
-//                console.log("Gələn JSON:", response);
-//                $("#subscribeMessage").text(response.Message).show();
-//            },
-//            error: function () {
-//                $("#subscribeMessage").text("Xəta baş verdi!").show();
-//            }
-//        });
-//    });
-//});
 			

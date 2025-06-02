@@ -43,9 +43,9 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {
-            var city = await _sliderService.GetByIdAsync(id);
-            if (city == null) return NotFound();
-            return View(city);
+            var slider = await _sliderService.GetByIdAsync(id);
+            if (slider == null) return NotFound();
+            return View(slider);
         }
 
         [HttpPost]
@@ -58,17 +58,17 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var city = await _sliderService.GetByIdAsync(id);
-            if (city == null) return NotFound();
+            var slider = await _sliderService.GetByIdAsync(id);
+            if (slider == null) return NotFound();
 
-            var cityEdit = new SliderEdit
+            var sliderEdit = new SliderEdit
             {
-                Id = city.Id,
-                Title = city.Title,
-                Description = city.Description,
-                ImageUrl = city.Image          
+                Id = slider.Id,
+                Title = slider.Title,
+                Description = slider.Description,
+                ImageUrl = slider.Image          
             };       
-            return View(cityEdit);
+            return View(sliderEdit);
         }
 
         [HttpPost]
