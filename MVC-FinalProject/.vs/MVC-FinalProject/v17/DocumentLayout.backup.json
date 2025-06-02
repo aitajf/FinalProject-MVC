@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\views\\about\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\views\\about\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\viewmodels\\aboutvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\viewmodels\\aboutvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\controllers\\aboutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\controllers\\aboutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\controllers\\aboutpromocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\controllers\\aboutpromocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -18,24 +34,80 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-02T20:00:55.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\About\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\About\\Index.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\About\\Index.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Views\\About\\Index.cshtml",
+              "ViewState": "AgIAANAAAAAAAAAAAAAUwNoAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-02T19:43:57.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AboutController.cs",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\AboutController.cs",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Controllers\\AboutController.cs",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\AboutController.cs",
+              "RelativeToolTip": "MVC-FinalProject\\Controllers\\AboutController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T19:43:21.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AboutVM.cs",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\ViewModels\\AboutVM.cs",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\ViewModels\\AboutVM.cs",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\ViewModels\\AboutVM.cs",
+              "RelativeToolTip": "MVC-FinalProject\\ViewModels\\AboutVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T19:43:05.06Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "AboutPromoController.cs",
               "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Controllers\\AboutPromoController.cs",
               "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Controllers\\AboutPromoController.cs",
               "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Controllers\\AboutPromoController.cs",
               "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Controllers\\AboutPromoController.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAswEMAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAADUAAAAAAAAAAAAswEgAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-02T19:38:10.591Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Views\\Shared\\_Layout.cshtml",
@@ -43,12 +115,7 @@
               "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAEgAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T19:36:20.575Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "WhenOpened": "2025-06-02T19:36:20.575Z"
             }
           ]
         },
