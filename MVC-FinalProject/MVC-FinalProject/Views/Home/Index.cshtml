@@ -286,31 +286,39 @@
 											<h2 class="newsletter-title">Join our email list.</h2>
 											<div class="newsletter-text">Sign up for the latest trends, products, and inspiration.</div>
 										</div>										
-									 @* <form id="subscribeForm" asp-controller="Home" asp-action="Subscribe" method="post" class="newsletter-form">  *@
-									 @* 	<input type="email" name="Email" id="emailInput" value="" size="40" placeholder="Email address" required>  *@
-									 @* 	<span class="btn-submit">  *@
-									 @* 		<input type="submit" value="SUBSCRIBE">  *@
-									 @* 	</span>  *@
-									 @* </form>  *@
-									 @* <div id="subscribeMessage" class="alert alert-info text-center" style="display: none;"></div> *@
+								
+										@* <form id="subscribeForm" asp-action="SubscribeAjax"  asp-controller="Home" method="post" class="newsletter-form"> *@
+										@* 	@Html.AntiForgeryToken() *@
+										@* 	<div class="form-group"> *@
+										@* 		<input asp-for="Subscribe.Email" class="form-control" placeholder="Email address" /> *@
+										@* 		<span asp-validation-for="Subscribe.Email" class="text-danger"></span> *@
+										@* 		<button type="submit" class="btn subscribe-button">SUBSCRIBE</button> *@
+										@* 	</div> *@
+										@* </form> *@
+										@* <div id="subscribe-message" class="mt-2"></div> *@
 
-										<form id="subscribeForm" asp-action="Subscribe"  asp-controller="Home" method="post" class="newsletter-form">
+										@* @if (TempData["SubscribeSuccess"] != null) *@
+										@* { *@
+										@* 	<div class="alert alert-success mt-2">@TempData["SubscribeSuccess"]</div> *@
+										@* } *@
+										@* @if (TempData["SubscribeError"] != null) *@
+										@* { *@
+										@* 	<div class="alert alert-danger mt-2">@TempData["SubscribeError"]</div> *@
+										@* } *@
+
+
+										@* DUZGUN VERSIYA LAKIN REFRESHLE *@
+
+										<form id="subscribeForm" method="post" class="newsletter-form">
 											@Html.AntiForgeryToken()
 											<div class="form-group">
-												<input asp-for="Subscribe.Email" class="form-control" placeholder="Email address" />
-												<span asp-validation-for="Subscribe.Email" class="text-danger"></span>
+												<input name="email" class="form-control" placeholder="Email address" />
 												<button type="submit" class="btn subscribe-button">SUBSCRIBE</button>
 											</div>
 										</form>
 
-										@if (TempData["SubscribeSuccess"] != null)
-										{
-											<div class="alert alert-success mt-2">@TempData["SubscribeSuccess"]</div>
-										}
-										@if (TempData["SubscribeError"] != null)
-										{
-											<div class="alert alert-danger mt-2">@TempData["SubscribeError"]</div>
-										}
+										<div id="subscribe-message" class="mt-2"></div>
+
 								 </div>
 								</div>
 							</div>
@@ -437,6 +445,48 @@
 </div>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#subscribeForm').submit(function (e) {
+			e.preventDefault(); 
+
+			const email = $('input[name="email"]').val();
+			const token = $('input[name="__RequestVerificationToken"]').val();
+
+			$.ajax({
+				type: 'POST',
+				url: '/Home/SubscribeAjax',
+				data: {
+					__RequestVerificationToken: token,
+					email: email
+				},
+				success: function (res) {
+					if (res.success) {
+						$('#subscribe-message').html(
+							`<div class="alert alert-success">${res.message}</div>`
+						);
+						$('input[name="email"]').val('');
+					} else {
+						$('#subscribe-message').html(
+							`<div class="alert alert-danger">${res.message}</div>`
+						);
+					}
+				},
+				error: function () {
+					$('#subscribe-message').html(
+						`<div class="alert alert-danger">Unexpected error occurred.</div>`
+					);
+				}
+			});
+		});
+	});
+</script>
+
+
+
+
 <style>
 	.subscribe-button {
 		background-color: white;
@@ -454,5 +504,3 @@
 			color: white;
 		}
 </style>
-
-<input type="submit" value="SUBSCRIBE" class="subscribe-button" />

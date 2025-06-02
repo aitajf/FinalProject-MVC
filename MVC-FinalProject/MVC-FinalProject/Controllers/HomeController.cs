@@ -77,42 +77,76 @@ namespace MVC_FinalProject.Controllers
         //    return RedirectToAction("Index");
         //}
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Subscribe(HomeVM model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        TempData["SubscribeError"] = "Email is required.";
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    var response = await _subscriptionService.SubscribeAsync(model.Subscribe);
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        TempData["SubscribeSuccess"] = "You have successfully subscribed!";
+        //    }
+        //    else
+        //    {
+        //        var errorMessage = await response.Content.ReadAsStringAsync();
+        //        if (errorMessage.Contains("First be register"))
+        //        {
+        //            TempData["SubscribeError"] = "Please register before subscribing.";
+        //        }
+        //        else if (errorMessage.Contains("Subscribe with this mail already exists!"))
+        //        {
+        //            TempData["SubscribeError"] = "You have already subscribed with this email.";
+        //        }
+        //        else
+        //        {
+        //            TempData["SubscribeError"] = "An error occurred. Please try again later.";
+        //        }
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+        //BU DUZGUN VERSIYADIR  LAKIN REFRESHLE, SILMEYE QORXURAM ;(
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Subscribe(HomeVM model)
+        public async Task<IActionResult> SubscribeAjax([FromForm] string email)
         {
-            if (!ModelState.IsValid)
-            {
-                TempData["SubscribeError"] = "Email is required.";
-                return RedirectToAction("Index");
-            }
+            if (string.IsNullOrWhiteSpace(email))
+                return Json(new { success = false, message = "Email is required." });
 
-            var response = await _subscriptionService.SubscribeAsync(model.Subscribe);
+            try
+            {
+                var dto = new SubscriptionCreate { Email = email };
+                var response = await _subscriptionService.SubscribeAsync(dto);
 
-            if (response.IsSuccessStatusCode)
-            {
-                TempData["SubscribeSuccess"] = "You have successfully subscribed!";
-            }
-            else
-            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return Json(new { success = true, message = "You have successfully subscribed!" });
+                }
+
                 var errorMessage = await response.Content.ReadAsStringAsync();
+
                 if (errorMessage.Contains("First be register"))
-                {
-                    TempData["SubscribeError"] = "Please register before subscribing.";
-                }
-                else if (errorMessage.Contains("Subscribe with this mail already exists!"))
-                {
-                    TempData["SubscribeError"] = "You have already subscribed with this email.";
-                }
-                else
-                {
-                    TempData["SubscribeError"] = "An error occurred. Please try again later.";
-                }
+                    return Json(new { success = false, message = "Please register before subscribing." });
+
+                if (errorMessage.Contains("already exists"))
+                    return Json(new { success = false, message = "You have already subscribed with this email." });
+
+                return Json(new { success = false, message = "An error occurred. Please try again later." });
             }
-
-            return RedirectToAction("Index");
+            catch
+            {
+                return Json(new { success = false, message = "An unexpected error occurred." });
+            }
         }
-
-
     }
 }
