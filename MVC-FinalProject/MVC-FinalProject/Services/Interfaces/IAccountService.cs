@@ -7,5 +7,7 @@ namespace MVC_FinalProject.Services.Interfaces
     {
         Task<HttpResponseMessage> Register(Register model);
         Task<HttpResponseMessage> Login(Login model);
+        Task<string> ResetPasswordAsync(UserPassword model);
+        Task<string> ForgetPasswordAsync(string email);
     }
 }

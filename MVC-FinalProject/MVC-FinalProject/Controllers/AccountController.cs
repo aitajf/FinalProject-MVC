@@ -110,5 +110,70 @@ namespace MVC_FinalProject.Controllers
         {
             return View();
         }
+
+
+
+        [HttpGet]
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(string email)
+        {
+            var responseMessage = await _accountService.ForgetPasswordAsync(email);
+
+            if (responseMessage == "Email cannot be empty.")
+            {
+                ModelState.AddModelError("", responseMessage);
+                return View();
+            }
+
+            TempData["Message"] = responseMessage;
+            return RedirectToAction("ForgetPasswordConfirmation");
+        }
+
+        public IActionResult ForgetPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string email, string token)
+        {
+            var model = new UserPassword
+            {
+                Email = email,
+                Token = token
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(UserPassword userPasswordVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(userPasswordVM);
+            }
+
+            var responseMessage = await _accountService.ResetPasswordAsync(userPasswordVM);
+
+            if (responseMessage == "Invalid request.")
+            {
+                ModelState.AddModelError("", responseMessage);
+                return View(userPasswordVM);
+            }
+
+            TempData["Message"] = responseMessage;
+            return RedirectToAction("ResetPasswordConfirmation");
+        }
+
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
     }
 }
