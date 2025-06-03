@@ -23,6 +23,7 @@ namespace Service
             services.AddScoped<ISubscriptionService, SubscriptionService>();         
             services.AddScoped<IAboutPromoService, AboutPromoService>();         
             services.AddScoped<IHelpSectionService, HelpSectionService>();         
+            services.AddScoped<IAskUsFromService, AskUsFromService>();         
             return services;
         }
     }

@@ -89,7 +89,8 @@
 										<div class="sub-title">We’ll get back to you within two days.</div>
 									</div>
 									<div class="block-content">
-										<form action="" method="post" class="contact-form" novalidate="novalidate">
+										<form id="subscribeForm" method="post" class="contact-form" novalidate="novalidate">
+											@Html.AntiForgeryToken()
 											<div class="contact-us-form">
 												<div class="row">
 													<div class="col-sm-12 col-md-6">
@@ -114,8 +115,9 @@
 													</div>
 												</div>
 												<div class="form-button">
-													<input type="submit" value="Submit" class="button"></span>
+													<input type="submit" value="Submit" class="button">
 												</div>
+												<div id="subscribe-message" class="mt-3"></div>
 											</div>
 										</form>
 									</div>
@@ -128,3 +130,48 @@
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#subscribeForm').submit(function (e) {
+			e.preventDefault();
+
+			const name = $('input[name="name"]').val();
+			const email = $('input[name="email"]').val();
+			const message = $('textarea[name="message"]').val();
+			const token = $('input[name="__RequestVerificationToken"]').val();
+
+			$.ajax({
+				type: 'POST',
+				url: '/Contact/Create',
+				data: {
+					__RequestVerificationToken: token,
+					name: name,
+					email: email,
+					message: message
+				},
+				success: function (res) {
+					if (res.success) {
+						$('#subscribe-message').html(
+							`<div class="alert alert-success">${res.message}</div>`
+						);
+						$('input[name="name"]').val('');
+						$('input[name="email"]').val('');
+						$('textarea[name="message"]').val('');
+					} else {
+						$('#subscribe-message').html(
+							`<div class="alert alert-danger">${res.message}</div>`
+						);
+					}
+				},
+				error: function () {
+					$('#subscribe-message').html(
+						`<div class="alert alert-danger">Unexpected error occurred.</div>`
+					);
+				}
+			});
+		});
+	});
+</script>

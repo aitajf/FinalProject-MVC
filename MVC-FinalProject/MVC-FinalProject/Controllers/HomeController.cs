@@ -63,29 +63,6 @@ namespace MVC_FinalProject.Controllers
         //        TempData["SubscribeError"] = "Email is required.";
         //        return RedirectToAction("Index");
         //    }
-        //    var response = await _subscriptionService.SubscribeAsync(model.Subscribe);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        TempData["SubscribeSuccess"] = "You have successfully subscribed !";
-        //    }
-        //    else
-        //    {
-        //        var error = await response.Content.ReadAsStringAsync();
-        //        TempData["SubscribeError"] = $"Xəta baş verdi";
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Subscribe(HomeVM model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        TempData["SubscribeError"] = "Email is required.";
-        //        return RedirectToAction("Index");
-        //    }
 
         //    var response = await _subscriptionService.SubscribeAsync(model.Subscribe);
 
