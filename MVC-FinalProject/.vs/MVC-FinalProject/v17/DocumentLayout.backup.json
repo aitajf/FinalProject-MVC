@@ -35,21 +35,11 @@
               "ViewState": "AgIAAMwBAAAAAAAAAAAAANkBAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-06-03T15:20:38.519Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "RelativeToolTip": "MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAAAHUAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-03T15:20:55.777Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
@@ -65,8 +55,16 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Contact\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\Contact\\Index.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Contact\\Index.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Views\\Contact\\Index.cshtml",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAAAHUAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-03T15:20:55.777Z"
             }
           ]
         },
