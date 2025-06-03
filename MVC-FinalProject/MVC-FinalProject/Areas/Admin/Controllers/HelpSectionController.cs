@@ -1,20 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.BlogCategory;
+using MVC_FinalProject.Models.HelpSection;
+using MVC_FinalProject.Services;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BlogCategoryController : Controller
+    public class HelpSectionController : Controller
     {
-        private readonly IBlogCategoryService _blogCategoryService;
-        public BlogCategoryController(IBlogCategoryService blogCategoryService)
+        private readonly IHelpSectionService _helpSectionService;
+        public HelpSectionController(IHelpSectionService helpSectionService)
         {
-            _blogCategoryService = blogCategoryService;
+            _helpSectionService = helpSectionService;
         }
         public async Task<IActionResult> Index()
         {
-            var res = await _blogCategoryService.GetAllAsync();
+            var res = await _helpSectionService.GetAllAsync();
             return View(res);
         }
 
@@ -26,10 +28,10 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BlogCategoryCreate request)
+        public async Task<IActionResult> Create(HelpSectionCreate request)
         {
 
-            var result = await _blogCategoryService.CreateAsync(request);
+            var result = await _helpSectionService.CreateAsync(request);
             if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
             ModelState.AddModelError(string.Empty, "Error creating");
             return View(request);
@@ -38,7 +40,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {
-            var res = await _blogCategoryService.GetByIdAsync(id);
+            var res = await _helpSectionService.GetByIdAsync(id);
             if (res == null) return NotFound();
             return View(res);
         }
@@ -46,30 +48,32 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            await _blogCategoryService.DeleteAsync(id);
+            await _helpSectionService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var res = await _blogCategoryService.GetByIdAsync(id);
+            var res = await _helpSectionService.GetByIdAsync(id);
             if (res == null) return NotFound();
 
-            var category = new BlogCategoryEdit
+            var helpService = new HelpSectionEdit
             {
                 Id = id,
-                Name = res.Name,
+                PhoneNumber = res.PhoneNumber,
+                CustomerServiceHours = res.CustomerServiceHours,
+                IsWeekendClosed = res.IsWeekendClosed,          
             };
-            return View(category);
+            return View(helpService);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, BlogCategoryEdit request)
+        public async Task<IActionResult> Edit(int id, HelpSectionEdit request)
         {
             if (!ModelState.IsValid) return View(request);
-            var result = await _blogCategoryService.EditAsync(request, id);
+            var result = await _helpSectionService.EditAsync(request, id);
             if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
             ModelState.AddModelError("", "Error editing.");
             return View(request);

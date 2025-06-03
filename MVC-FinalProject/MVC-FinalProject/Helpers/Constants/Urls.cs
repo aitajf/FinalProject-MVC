@@ -19,5 +19,6 @@
         public const string SubscriptionUrl = "https://localhost:7004/api/admin/Subscription/";
         public const string SubscriptionClientUrl = "https://localhost:7004/api/Subscription/";
         public const string AboutPromoUrl = "https://localhost:7004/api/admin/AboutPromo/";
+        public const string HelpSectionUrl = "https://localhost:7004/api/admin/HelpSection/";
     }
 }

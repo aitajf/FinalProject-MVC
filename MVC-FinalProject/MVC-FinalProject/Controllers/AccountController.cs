@@ -25,53 +25,6 @@ namespace MVC_FinalProject.Controllers
             return View(new Login());
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Login(Login model)
-        //{
-        //    if (!ModelState.IsValid) return View(model);
-
-        //    var response = await _accountService.Login(model);
-        //    var content = await response.Content.ReadAsStringAsync();
-
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Login failed. Please check your credentials.");
-        //        return View(model);
-        //    }
-
-        //    var loginResponse = JsonSerializer.Deserialize<LoginResponse>(content, new JsonSerializerOptions
-        //    {
-        //        PropertyNameCaseInsensitive = true
-        //    });
-
-        //    if (loginResponse != null && loginResponse.Success)
-        //    {
-        //        HttpContext.Session.SetString("AuthToken", loginResponse.Token);
-        //        HttpContext.Session.SetString("UserName", loginResponse.UserName);
-
-        //        if (loginResponse.Roles != null && loginResponse.Roles.Any())
-        //        {
-        //            string rolesJson = JsonConvert.SerializeObject(loginResponse.Roles);
-        //            HttpContext.Session.SetString("UserRoles", rolesJson);
-        //        }
-        //        else
-        //        {
-
-        //            HttpContext.Session.SetString("UserRoles", "[]");
-        //        }
-
-
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError(string.Empty, loginResponse?.Error ?? "Login failed.");
-        //        return View(model);
-        //    }        
-        //}
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Login model)
@@ -98,9 +51,9 @@ namespace MVC_FinalProject.Controllers
                 //HttpContext.Session.SetString("AuthToken", loginResponse.Token);
                 //HttpContext.Session.SetString("UserName", loginResponse.UserName ?? "");
                 var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, loginResponse.UserName ?? "")
-        };
+                {
+                     new Claim(ClaimTypes.Name, loginResponse.UserName ?? "")
+                };
 
                 if (loginResponse.Roles != null && loginResponse.Roles.Any())
                 {
@@ -122,7 +75,6 @@ namespace MVC_FinalProject.Controllers
                 return View(model);
             }
         }
-
 
 
         [HttpGet]
