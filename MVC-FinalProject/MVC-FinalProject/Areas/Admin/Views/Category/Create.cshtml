@@ -9,8 +9,8 @@
 					<input asp-for="Image" class="form-control" id="inputText" maxlength="1000">
 					<span class="text-danger" asp-validation-for="Image"></span> <br />
 
-					<label for="category">Title</label>
-					<input asp-for="Name" class="form-control" id="inputText" maxlength="1000" oninput="this.value = this.value.replace(/[0-9]/g, '')" />
+					<label for="category">Name</label>
+					<input asp-for="Name" class="form-control" id="inputText" maxlength="1000" />
 					<span class="text-danger" asp-validation-for="Name"></span>
 				</div>
 				<button type="submit" class="btn btn-primary me-2">Submit</button>

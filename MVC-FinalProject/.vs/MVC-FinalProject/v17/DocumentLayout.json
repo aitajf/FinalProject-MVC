@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\controllers\\contactcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\controllers\\contactcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\views\\landingbanner\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\views\\landingbanner\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\views\\contact\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\views\\contact\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\controllers\\landingbannercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\controllers\\landingbannercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\models\\landingbanner\\landingbannercreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\models\\landingbanner\\landingbannercreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -22,49 +26,64 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "MVC-FinalProject\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAMwBAAAAAAAAAAAAANkBAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-03T15:20:38.519Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "WhenOpened": "2025-06-04T07:45:34.939Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ContactController.cs",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\ContactController.cs",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Controllers\\ContactController.cs",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\ContactController.cs",
-              "RelativeToolTip": "MVC-FinalProject\\Controllers\\ContactController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAYwCUAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T15:14:41.385Z",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\LandingBanner\\Create.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Views\\LandingBanner\\Create.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\LandingBanner\\Create.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Views\\LandingBanner\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-04T08:28:45.316Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "RelativeToolTip": "MVC-FinalProject\\Views\\Contact\\Index.cshtml",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAAAHUAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-03T15:20:55.777Z"
+              "Title": "LandingBannerController.cs",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Controllers\\LandingBannerController.cs",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Controllers\\LandingBannerController.cs",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Controllers\\LandingBannerController.cs",
+              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Controllers\\LandingBannerController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwBwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T08:27:48.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LandingBannerCreate.cs",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Models\\LandingBanner\\LandingBannerCreate.cs",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Models\\LandingBanner\\LandingBannerCreate.cs",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Models\\LandingBanner\\LandingBannerCreate.cs",
+              "RelativeToolTip": "MVC-FinalProject\\Models\\LandingBanner\\LandingBannerCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T08:25:57.951Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             }
           ]
         },

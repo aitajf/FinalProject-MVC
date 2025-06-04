@@ -31,6 +31,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CategoryCreate request)
         {
+            if(!ModelState.IsValid) return View(request);
 
             var result = await _categoryService.CreateAsync(request);
             if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));

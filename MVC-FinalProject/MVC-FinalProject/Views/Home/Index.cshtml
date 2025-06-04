@@ -4,31 +4,36 @@
 	<div id="main-content" class="main-content">
 		<div id="primary" class="content-area">
 			<div id="content" class="site-content" role="main">
-				<section class="section m-b-80">
-					<!-- Block Sliders -->
-					<div class="block block-sliders layout-7 auto-height nav-center">
-						<div class="slick-sliders" data-autoplay="false" data-dots="true" data-nav="false" data-columns4="1" data-columns3="1" data-columns2="1" data-columns1="1" data-columns1440="1" data-columns="1">		
-							@foreach (var item in Model.Sliders.OrderByDescending(c => c.CreatedDate).Take(3))
-							{
-								<div class="item slick-slide">
-									<div class="item-content">
-										<div class="content-image">
-											<img width="1920" height="1080" src="@item.Image" alt="Image Slider">
-										</div>
-										<div class="item-info horizontal-end vertical-middle">
-											<div class="content">
-												<h2 class="title-slider">@item.Title</h2>
-												<div class="description-slider">@item.Description</div>
-												<a class="button-slider button-white" asp-controller="Shop" asp-action="Index">SHOP NOW</a>
+				@if (Model.Sliders != null && Model.Sliders.Any())
+				{
+					<section class="section m-b-80">
+						<!-- Block Sliders -->
+						<div class="block block-sliders layout-7 auto-height nav-center">
+							<div class="slick-sliders" data-autoplay="false" data-dots="true" data-nav="false" data-columns4="1" data-columns3="1" data-columns2="1" data-columns1="1" data-columns1440="1" data-columns="1">
+								@foreach (var item in Model.Sliders.OrderByDescending(c => c.CreatedDate).Take(3))
+								{
+									<div class="item slick-slide">
+										<div class="item-content">
+											<div class="content-image">
+												<img width="1920" height="1080" src="@item.Image" alt="Image Slider">
+											</div>
+											<div class="item-info horizontal-end vertical-middle">
+												<div class="content">
+													<h2 class="title-slider">@item.Title</h2>
+													<div class="description-slider">@item.Description</div>
+													<a class="button-slider button-white" asp-controller="Shop" asp-action="Index">SHOP NOW</a>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							}
+								}
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
+				}
 
+				@if (Model.Categories != null && Model.Categories.Any())
+				{
 				<section class="section section-padding m-b-70">
 					<div class="section-container">
 						<!-- Block Product Categories -->
@@ -63,7 +68,10 @@
 						</div>
 					</div>
 				</section>
+				}
 
+				@if (Model.Products != null && Model.Products.Any())
+				{
 				<section class="section section-padding top-border p-t-70">
 					<div class="section-container">
 						<!-- Block Products -->
@@ -228,7 +236,10 @@
 						</div>
 					</div>
 				</section>
+				}
 
+				@if (Model.LandingBanners != null && Model.LandingBanners.Any())
+				{
 				<section class="section content-outside background-1">
 					<!-- Block Banners (Slider) -->
 					<div class="block block-banners slider fullwidth">
@@ -274,7 +285,9 @@
 						</div>
 					</div>
 				</section>
-
+				}
+			
+				
 				<!-- Subscribe -->
 				<section class="section section-padding top-border p-t-50 p-b-50 m-b-0">
 					<div class="section-container">
