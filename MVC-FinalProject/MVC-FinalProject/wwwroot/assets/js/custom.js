@@ -1,32 +1,6 @@
 ﻿"use strict"
 
-//let button = document.querySelector(".show-more");
-//let productsArea = document.querySelector(".products-area");
-//let productCountInput = document.querySelector(".products-count");
-//button.addEventListener("click", function () {
-//    let skipProducts = productsArea.children.length;
-//    let productCount = productCountInput.value;
-//    console.log(productCount);
-//    getData(skipProducts, productsArea, productCount, this);
-//});
-
-//async function getData(skip,elem, count, clickedElem) {
-//    const url =`shop/showmore?skip=${skip}`;
-//    try {
-//        const response = await fetch(url);
-//        const json = await response.text();
-//        elem.innerHTML += json;
-//        let updateSkip = document.querySelector(".products-area").children.length;
-//        if (updateSkip == count) {
-//            clickedElem.classList.add("d-none");
-//        }
-
-//    } catch (error) {
-//        console.error(error.message);
-//    }
-//}
-
-
+//Show more button
 document.addEventListener("DOMContentLoaded", function () {
     let button = document.querySelector(".show-more");
     let productsArea = document.querySelector(".products-area");
@@ -57,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
+//Blog page UI pagination
 document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('#pagination-content').addEventListener('click', function (e) {
 		if (e.target.matches('.page-numbers[data-page]')) {
@@ -69,19 +43,23 @@ document.addEventListener('DOMContentLoaded', function () {
 					'X-Requested-With': 'XMLHttpRequest'
 				}
 			})
-				.then(response => response.text())
-				.then(html => {
-					const parser = new DOMParser();
-					const doc = parser.parseFromString(html, 'text/html');
-					const newContent = doc.querySelector('#pagination-content');
-					if (newContent) {
-						document.querySelector('#pagination-content').innerHTML = newContent.innerHTML;
-						window.history.pushState(null, '', `?page=${page}`);
-					}
-				});
+			.then(response => response.text())
+		    .then(html => {
+		    	const parser = new DOMParser();
+		    	const doc = parser.parseFromString(html, 'text/html');
+		    	const newContent = doc.querySelector('#pagination-content');
+		    	if (newContent) {
+		    		document.querySelector('#pagination-content').innerHTML = newContent.innerHTML;
+		    		window.history.pushState(null, '', `?page=${page}`);
+		    	}
+		    });
 		}
 	});
 });
+
+
+//Delete without refresh
+
 
 
 

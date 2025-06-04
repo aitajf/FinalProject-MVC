@@ -28,7 +28,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogCategoryCreate request)
         {
-
+            if(!ModelState.IsValid) return View(request);
             var result = await _blogCategoryService.CreateAsync(request);
             if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
             ModelState.AddModelError(string.Empty, "Error creating");

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SHNh7JBsFo3Ai7ZOmPISn9FWVn6T9DiiCiPdEu7OGPE=",
+  "Hash": "iddOb/vRbedwN42YVDlbhZjco6tGqDOF9BGtJA2fI7g=",
   "Source": "MVC-FinalProject",
   "BasePath": "_content/MVC-FinalProject",
   "Mode": "Default",
@@ -20296,8 +20296,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "rp2tjngh5p",
-      "Integrity": "AV4zaARxPL7XkgnQUSBSuiqvz8TplqCdBU8RFIST5FQ=",
+      "Fingerprint": "b8t2n48ctb",
+      "Integrity": "e4emdtgP7S4y9HQMMyC7COjSTkblpe1/a4AHwRpPwfE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\js\\custom.js"
@@ -101476,6 +101476,51 @@
       ]
     },
     {
+      "Route": "assets/js/custom.b8t2n48ctb.js",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2092"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"e4emdtgP7S4y9HQMMyC7COjSTkblpe1/a4AHwRpPwfE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Jun 2025 16:49:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "b8t2n48ctb"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/js/custom.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-e4emdtgP7S4y9HQMMyC7COjSTkblpe1/a4AHwRpPwfE="
+        }
+      ]
+    },
+    {
       "Route": "assets/js/custom.js",
       "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
       "Selectors": [],
@@ -101486,7 +101531,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2973"
+          "Value": "2092"
         },
         {
           "Name": "Content-Type",
@@ -101494,11 +101539,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"AV4zaARxPL7XkgnQUSBSuiqvz8TplqCdBU8RFIST5FQ=\""
+          "Value": "\"e4emdtgP7S4y9HQMMyC7COjSTkblpe1/a4AHwRpPwfE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Jun 2025 14:08:45 GMT"
+          "Value": "Wed, 04 Jun 2025 16:49:21 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -101508,52 +101553,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-AV4zaARxPL7XkgnQUSBSuiqvz8TplqCdBU8RFIST5FQ="
-        }
-      ]
-    },
-    {
-      "Route": "assets/js/custom.rp2tjngh5p.js",
-      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2973"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"AV4zaARxPL7XkgnQUSBSuiqvz8TplqCdBU8RFIST5FQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Jun 2025 14:08:45 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "rp2tjngh5p"
-        },
-        {
-          "Name": "label",
-          "Value": "assets/js/custom.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-AV4zaARxPL7XkgnQUSBSuiqvz8TplqCdBU8RFIST5FQ="
+          "Value": "sha256-e4emdtgP7S4y9HQMMyC7COjSTkblpe1/a4AHwRpPwfE="
         }
       ]
     },
