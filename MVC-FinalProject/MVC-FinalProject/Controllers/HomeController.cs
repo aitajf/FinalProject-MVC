@@ -32,7 +32,7 @@ namespace MVC_FinalProject.Controllers
             _subscriptionService = subscriptionService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search)
         {
             var sliders = await _sliderService.GetAllAsync();
             var categories = await _categoryService.GetAllAsync();
@@ -40,6 +40,7 @@ namespace MVC_FinalProject.Controllers
             var landingBanners = await _landingBannerService.GetAllAsync();
             var instagrams = await _instagramService.GetAllAsync();
             var subscribeImgs = await _subscribeImgService.GetAllAsync();
+            //var searchText = await _productService.SearchByNameAsync(search);
 
             HomeVM model = new HomeVM()
             {
@@ -48,50 +49,11 @@ namespace MVC_FinalProject.Controllers
                 Products = products,
                 LandingBanners = landingBanners,
                 Instagrams = instagrams,
-                SubscribeImgs = subscribeImgs
+                SubscribeImgs = subscribeImgs,
+                //SearchText = searchText
             };
             return View(model);
         }
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Subscribe(HomeVM model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        TempData["SubscribeError"] = "Email is required.";
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    var response = await _subscriptionService.SubscribeAsync(model.Subscribe);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        TempData["SubscribeSuccess"] = "You have successfully subscribed!";
-        //    }
-        //    else
-        //    {
-        //        var errorMessage = await response.Content.ReadAsStringAsync();
-        //        if (errorMessage.Contains("First be register"))
-        //        {
-        //            TempData["SubscribeError"] = "Please register before subscribing.";
-        //        }
-        //        else if (errorMessage.Contains("Subscribe with this mail already exists!"))
-        //        {
-        //            TempData["SubscribeError"] = "You have already subscribed with this email.";
-        //        }
-        //        else
-        //        {
-        //            TempData["SubscribeError"] = "An error occurred. Please try again later.";
-        //        }
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
-
-        //BU DUZGUN VERSIYADIR  LAKIN REFRESHLE, SILMEYE QORXURAM ;(
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

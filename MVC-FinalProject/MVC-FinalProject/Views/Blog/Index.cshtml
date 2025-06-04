@@ -1,6 +1,5 @@
 ﻿@model BlogVM
 
-
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
 		<div id="primary" class="content-area">
@@ -100,83 +99,81 @@
 											</ul>
 										</div>
 									</div>
-								</div>
-
-				
+								</div>			
 							</div>
-
 							<div class="col-xl-9 col-lg-9 col-md-12 col-12">
-								<div class="posts-list grid">
-									<div class="row">
-										@foreach (var item in Model.Paginate.Items)
-										{
-											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-												<div class="post-entry clearfix post-wapper">
-													<div class="post-image">
-														<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
-															<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image">
-														</a>
-
-													</div>
-													<div class="post-content">
-														<div class="post-categories">
-															<a href="blog-grid-right.html">Category Name: </a>
+								<div id="pagination-content">
+									<div class="posts-list grid">
+										<div class="row">
+											@foreach (var item in Model.Paginate.Items)
+											{
+												<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+													<div class="post-entry clearfix post-wapper">
+														<div class="post-image">
+															<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
+																<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image">
+															</a>
 														</div>
-														<h2 class="post-title">
-															<a href="blog-details-right.html">@item.Title</a>
-														</h2>
-														<div class="post-meta">
-															<span class="post-time">@item.CreatedDate</span>
-															<span class="post-comment">1 Comment</span>
+														<div class="post-content">
+															<div class="post-categories">
+																<a href="#">Category Name:</a>
+															</div>
+															<h2 class="post-title">
+																<a href="#">@item.Title</a>
+															</h2>
+															<div class="post-meta">
+																<span class="post-time">@item.CreatedDate</span>
+																<span class="post-comment">1 Comment</span>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										}										
+											}
+										</div>
 									</div>
+
+									<nav class="pagination">
+										<ul class="page-numbers">
+											@if (Model.Paginate.HasPreviousPage)
+											{
+												<li>
+													<a class="prev page-numbers" href="#" data-page="@(Model.Paginate.PageIndex - 1)">Previous</a>
+												</li>
+											}
+											else
+											{
+												<li class="disabled">
+													<a class="prev page-numbers" href="#">Previous</a>
+												</li>
+											}
+
+											@for (var i = 1; i <= Model.Paginate.TotalPages; i++)
+											{
+												<li class="@(i == Model.Paginate.PageIndex ? "active" : "")">
+													<a class="page-numbers" href="#" data-page="@i">@i</a>
+												</li>
+											}
+
+											@if (Model.Paginate.HasNextPage)
+											{
+												<li>
+													<a class="next page-numbers" href="#" data-page="@(Model.Paginate.PageIndex + 1)">Next</a>
+												</li>
+											}
+											else
+											{
+												<li class="disabled">
+													<a class="next page-numbers" href="#">Next</a>
+												</li>
+											}
+										</ul>
+									</nav>
 								</div>
-								
-								<nav class="pagination">
-									<ul class="page-numbers">
-										@if (Model.Paginate.HasPreviousPage)
-										{
-											<li>
-												<a class="prev page-numbers" asp-action="Index" asp-route-page="@(Model.Paginate.PageIndex - 1)">Previous</a>
-											</li>
-										}
-										else
-										{
-											<li class="disabled">
-												<a class="prev page-numbers">Previous</a>
-											</li>									
-										}
-
-										@for (var i = 1; i <= Model.Paginate.TotalPages; i++)
-										{
-											<li class="@(i == Model.Paginate.PageIndex ? "active" : "")">
-												<a class="page-numbers" asp-action="Index" asp-route-page="@i">@i</a>
-											</li>
-										}
-
-										@if (Model.Paginate.HasNextPage)
-										{
-											<li>
-												<a class="next page-numbers" asp-action="Index" asp-route-page="@(Model.Paginate.PageIndex + 1)">Next</a>
-											</li>
-										}
-										else
-										{
-											<li class="disabled">
-												<a class="next page-numbers">Next</a>
-											</li>
-										}
-									</ul>
-								</nav>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div><!-- #content -->
-		</div><!-- #primary -->
-	</div><!-- #main-content -->
+			</div>
+		</div>
+	</div>
 </div>

@@ -14,5 +14,6 @@ namespace MVC_FinalProject.Services.Interfaces
         //Task<ProductDetail> GetProductDetailAsync(int id);
         Task<IEnumerable<Product>> GetAllTakenAsync(int take, int? skip = null);
         Task<int> GetProductsCountAsync();
+        //Task<List<Product>> SearchByNameAsync(string? search);
     }
 }

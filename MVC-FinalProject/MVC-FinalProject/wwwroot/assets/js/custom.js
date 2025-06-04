@@ -58,5 +58,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.addEventListener('DOMContentLoaded', function () {
+	document.querySelector('#pagination-content').addEventListener('click', function (e) {
+		if (e.target.matches('.page-numbers[data-page]')) {
+			e.preventDefault();
+			const page = e.target.getAttribute('data-page');
+
+			fetch(`?page=${page}`, {
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			})
+				.then(response => response.text())
+				.then(html => {
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(html, 'text/html');
+					const newContent = doc.querySelector('#pagination-content');
+					if (newContent) {
+						document.querySelector('#pagination-content').innerHTML = newContent.innerHTML;
+						window.history.pushState(null, '', `?page=${page}`);
+					}
+				});
+		}
+	});
+});
+
+
 
 			

@@ -4,10 +4,6 @@ using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Helpers;
 using System.Net.Http.Headers;
-using MVC_FinalProject.Models.Category;
-using MVC_FinalProject.Models;
-using MVC_FinalProject.Models.Tag;
-using MVC_FinalProject.Models.Color;
 
 namespace MVC_FinalProject.Services
 {
@@ -142,6 +138,20 @@ namespace MVC_FinalProject.Services
         {
             return await _httpClient.GetFromJsonAsync<int>($"{Urls.ProductClientUrl}GetProductsCount");
         }
+
+        //public async Task<List<Product>> SearchByNameAsync(string? search)
+        //{
+        //    var searchQuery = search ?? string.Empty;
+        //    var response = await _httpClient.GetAsync($"{Urls.ProductClientUrl}SearchByName?name={searchQuery}");
+
+        //    if (!response.IsSuccessStatusCode) return new List<Product>();
+
+        //    var json = await response.Content.ReadAsStringAsync();
+        //    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        //    var result = JsonSerializer.Deserialize<List<Product>>(json, options);
+
+        //    return result ?? new List<Product>();
+        //}
 
     }
 }

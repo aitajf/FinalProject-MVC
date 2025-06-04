@@ -17,6 +17,6 @@ namespace MVC_FinalProject.ViewModels
         public IEnumerable<Instagram> Instagrams { get; set; }
         public IEnumerable<SubscribeImg> SubscribeImgs { get; set; }
         public SubscriptionCreate Subscribe { get; set; } = new();
-
+        //public string SearchText { get; set; }
     }
 }
