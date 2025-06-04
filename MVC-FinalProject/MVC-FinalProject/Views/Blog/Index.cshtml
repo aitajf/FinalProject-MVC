@@ -60,11 +60,11 @@
 											@foreach (var item in Model.Paginate.Items.OrderByDescending(x=>x.CreatedDate).Take(3))
 											{
 												<li class="post-item">
-													<a href="blog-details-right.html" class="post-image">
-														@* <img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image"> *@
-														<img src="@Url.Content("~/" + item.Images.FirstOrDefault(x => x.IsMain)?.Image)" alt="Blog image">
-
+													<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
+														<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image">
 													</a>
+
+
 													<div class="post-content">
 														<h2 class="post-title">
 															<a href="blog-details-right.html">
