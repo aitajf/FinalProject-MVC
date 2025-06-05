@@ -6,6 +6,8 @@ using MVC_FinalProject.Models.BlogCategory;
 using MVC_FinalProject.Models.BlogPost;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Services.Interfaces;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace MVC_FinalProject.Services
 {
@@ -95,7 +97,7 @@ namespace MVC_FinalProject.Services
 
         public async Task<PaginationResponse<BlogPost>> GetPaginatedAsync(int page, int pageSize)
         {
-            var response = await _httpClient.GetAsync($"{Urls.BlogPostUrl}GetPaginateDatas?page={page}&take={pageSize}");
+            var response = await _httpClient.GetAsync($"{Urls.BlogPostClientUrl}GetPaginateDatas?page={page}&take={pageSize}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -107,5 +109,17 @@ namespace MVC_FinalProject.Services
             var apiResponse = JsonSerializer.Deserialize<PaginationApiResponse<BlogPost>>(json, options);
             return PaginationResponse<BlogPost>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
         }
+
+        public async Task<IEnumerable<BlogPost>> SearchByCategoryAndName(string name)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.BlogPostClientUrl}Searchbyname?name={name}");
+
+            if (!response.IsSuccessStatusCode)
+                return new List<BlogPost>();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<IEnumerable<BlogPost>>(content);
+        }
+
     }
 }

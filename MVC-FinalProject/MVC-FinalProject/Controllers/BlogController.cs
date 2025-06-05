@@ -28,5 +28,22 @@ namespace MVC_FinalProject.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string name)
+        {
+            var categories = await _categoryService.GetAllAsync();
+            var results = await _postService.SearchByCategoryAndName(name);
+
+            BlogVM model = new()
+            {
+                BlogCategories = categories,
+                SearchResults = results,
+                SearchText = name
+            };
+
+            return View("Index", model);
+        }
+
     }
 }

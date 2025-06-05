@@ -16,5 +16,6 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> DeleteImageAsync(int blogPostId, int blogPostImageId);
 
         Task<PaginationResponse<BlogPost>> GetPaginatedAsync(int page, int pageSize);
+        Task<IEnumerable<BlogPost>> SearchByCategoryAndName(string name);
     }
 }

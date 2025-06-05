@@ -25,12 +25,13 @@
 								<div class="block block-post-search">
 									<div class="block-title"><h2>Search</h2></div>
 									<div class="block-content">
-										<form method="get" class="search-from" action="">
-											<input type="text" value="" name="s" class="s" placeholder="Search...">
+										<form method="get" class="search-from" asp-controller="Blog" asp-action="Search">
+											<input type="text" value="@Model.SearchText" name="name" class="s" placeholder="Search...">
 											<button class="btn" type="submit">
 												<i class="icon-search"></i>
 											</button>
 										</form>
+
 									</div>
 								</div>
 
@@ -59,6 +60,8 @@
 									<div class="block-title"><h2>Recent Posts</h2></div>
 									<div class="block-content">
 										<ul class="posts-list">
+											@if (Model.Paginate?.Items != null && Model.Paginate.Items.Any())
+                                            {
 											@foreach (var item in Model.Paginate.Items.OrderByDescending(x=>x.CreatedDate).Take(3))
 											{
 												<li class="post-item">
@@ -79,7 +82,7 @@
 													</div>
 												</li>
 											}								
-											
+											}
 										</ul>
 									</div>
 								</div>
@@ -105,73 +108,117 @@
 								</div>			
 							</div>
 							<div class="col-xl-9 col-lg-9 col-md-12 col-12">
-								<div id="pagination-content">
+						    <div id="pagination-content"> 
 									<div class="posts-list grid">
 										<div class="row">
-											@foreach (var item in Model.Paginate.Items)
+											@if (Model.SearchResults != null)
 											{
-												<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-													<div class="post-entry clearfix post-wapper">
-														<div class="post-image">
-															<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
-																<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image">
-															</a>
-														</div>
-														<div class="post-content">
-															<div class="post-categories">
-																<a href="#">Category Name:</a>
+												if (!Model.SearchResults.Any())
+												{
+													<div class="col-12"><p>No results found for "@Model.SearchText".</p></div>
+												}
+												else
+												{
+													foreach (var item in Model.SearchResults)
+													{
+														<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+															<div class="post-entry clearfix post-wapper">
+																<div class="post-image">
+																	<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
+																		<img src="@item.Images.FirstOrDefault(x=>x.IsMain)?.Image" alt="Blog image" />
+																	</a>
+																</div>
+																<div class="post-content">
+																	<div class="post-categories">
+																		<a href="#">Category name: </a>
+																	</div>
+																	<h2 class="post-title">
+																		<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a>
+																	</h2>
+																	<div class="post-meta">
+																		<span class="post-time">@item.CreatedDate.ToShortDateString()</span>
+																	</div>
+																</div>
 															</div>
-															<h2 class="post-title">
-																<a href="#">@item.Title</a>
-															</h2>
-															<div class="post-meta">
-																<span class="post-time">@item.CreatedDate</span>
-																<span class="post-comment">1 Comment</span>
+														</div>
+													}
+												}
+											}
+											else
+											{
+												@if (Model.Paginate?.Items != null && Model.Paginate.Items.Any())
+												{
+													foreach (var item in Model.Paginate.Items)
+													{
+														<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+															<div class="post-entry clearfix post-wapper">
+																<div class="post-image">
+																	<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
+																		<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image">
+																	</a>
+																</div>
+																<div class="post-content">
+																	<div class="post-categories">
+																		<a href="#">Category Name:</a>
+																	</div>
+																	<h2 class="post-title">
+																		<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a>
+																	</h2>
+																	<div class="post-meta">
+																		<span class="post-time">@item.CreatedDate.ToShortDateString()</span>
+																		<span class="post-comment">1 Comment</span>
+																	</div>
+																</div>
 															</div>
 														</div>
-													</div>
-												</div>
+													}
+												}
 											}
 										</div>
 									</div>
 
-									<nav class="pagination">
-										<ul class="page-numbers">
-											@if (Model.Paginate.HasPreviousPage)
-											{
-												<li>
-													<a class="prev page-numbers" href="#" data-page="@(Model.Paginate.PageIndex - 1)">Previous</a>
-												</li>
-											}
-											else
-											{
-												<li class="disabled">
-													<a class="prev page-numbers" href="#">Previous</a>
-												</li>
-											}
+									@if (Model.SearchResults == null && Model.Paginate != null)
+									{
+										<nav class="pagination">
+											<ul class="page-numbers">
+												@if (Model.Paginate.HasPreviousPage)
+												{
+													<li>
+														<a class="prev page-numbers" href="#" data-page="@(Model.Paginate.PageIndex - 1)">Previous</a>
+													</li>
+												}
+												else
+												{
+													<li class="disabled">
+														<a class="prev page-numbers" href="#">Previous</a>
+													</li>
+												}
 
-											@for (var i = 1; i <= Model.Paginate.TotalPages; i++)
-											{
-												<li class="@(i == Model.Paginate.PageIndex ? "active" : "")">
-													<a class="page-numbers" href="#" data-page="@i">@i</a>
-												</li>
-											}
+												@for (var i = 1; i <= Model.Paginate.TotalPages; i++)
+												{
+													<li class="@(i == Model.Paginate.PageIndex ? "active" : "")">
+														<a class="page-numbers" href="#" data-page="@i">@i</a>
+													</li>
+												}
 
-											@if (Model.Paginate.HasNextPage)
-											{
-												<li>
-													<a class="next page-numbers" href="#" data-page="@(Model.Paginate.PageIndex + 1)">Next</a>
-												</li>
-											}
-											else
-											{
-												<li class="disabled">
-													<a class="next page-numbers" href="#">Next</a>
-												</li>
-											}
-										</ul>
-									</nav>
-								</div>
+												@if (Model.Paginate.HasNextPage)
+												{
+													<li>
+														<a class="next page-numbers" href="#" data-page="@(Model.Paginate.PageIndex + 1)">Next</a>
+													</li>
+												}
+												else
+												{
+													<li class="disabled">
+														<a class="next page-numbers" href="#">Next</a>
+													</li>
+												}
+											</ul>
+										</nav>
+									}
+
+							 </div> 
+							
 							</div>
 						</div>
 					</div>
