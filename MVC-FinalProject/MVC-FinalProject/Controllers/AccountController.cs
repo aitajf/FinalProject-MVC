@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.Account;
 using MVC_FinalProject.Services.Interfaces;
@@ -24,6 +26,73 @@ namespace MVC_FinalProject.Controllers
         {
             return View(new Login());
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Login(Login model)
+        //{
+        //    if (!ModelState.IsValid) return View(model);
+
+        //    var response = await _accountService.Login(model);
+        //    var content = await response.Content.ReadAsStringAsync();
+
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Login failed. Please check your credentials.");
+        //        return View(model);
+        //    }
+
+        //    var loginResponse = JsonSerializer.Deserialize<LoginResponse>(content, new JsonSerializerOptions
+        //    {
+        //        PropertyNameCaseInsensitive = true
+        //    });
+
+        //    if (loginResponse != null && loginResponse.Success)
+        //    {
+
+
+        //        HttpContext.Session.SetString("AuthToken", loginResponse.Token);
+        //        HttpContext.Session.SetString("UserName", loginResponse.UserName ?? "");
+
+
+
+
+        //        var claims = new List<Claim>
+        //        {
+        //             new Claim(ClaimTypes.Name, loginResponse.UserName ?? ""),
+
+
+        //             new Claim("access_token", loginResponse.Token ?? "") // 🔥 TOKEN Saved!
+        //        };
+
+        //        if (loginResponse.Roles != null && loginResponse.Roles.Any())
+        //        {
+        //            foreach (var role in loginResponse.Roles)
+        //            {
+        //                claims.Add(new Claim(ClaimTypes.Role, role));
+        //            }
+        //        }
+
+        //        var identity = new ClaimsIdentity(claims, "MyCookieAuth");
+        //        var principal = new ClaimsPrincipal(identity);
+        //        await HttpContext.SignInAsync("MyCookieAuth", principal);
+
+
+        //        await HttpContext.SignInAsync("MyCookieAuth", principal, new AuthenticationProperties
+        //        {
+        //            IsPersistent = true, // 🔥 Cookie saved!
+        //            ExpiresUtc = DateTime.UtcNow.AddHours(2) // 🔥 2 hours session !
+        //        });
+
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, loginResponse?.Error ?? "Login failed.");
+        //        return View(model);
+        //    }
+        //}
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -47,13 +116,14 @@ namespace MVC_FinalProject.Controllers
 
             if (loginResponse != null && loginResponse.Success)
             {
-                // SESSION 
-                //HttpContext.Session.SetString("AuthToken", loginResponse.Token);
-                //HttpContext.Session.SetString("UserName", loginResponse.UserName ?? "");
+                HttpContext.Session.SetString("AuthToken", loginResponse.Token);
+                HttpContext.Session.SetString("UserName", loginResponse.UserName ?? "");
+
                 var claims = new List<Claim>
-                {
-                     new Claim(ClaimTypes.Name, loginResponse.UserName ?? "")
-                };
+        {
+            new Claim(ClaimTypes.Name, loginResponse.UserName ?? ""),
+            new Claim("access_token", loginResponse.Token ?? "")
+        };
 
                 if (loginResponse.Roles != null && loginResponse.Roles.Any())
                 {
@@ -63,17 +133,20 @@ namespace MVC_FinalProject.Controllers
                     }
                 }
 
-                var identity = new ClaimsIdentity(claims, "MyCookieAuth"); 
+                var identity = new ClaimsIdentity(claims, "MyCookieAuth");
                 var principal = new ClaimsPrincipal(identity);
-                await HttpContext.SignInAsync("MyCookieAuth", principal);
+
+                await HttpContext.SignInAsync("MyCookieAuth", principal, new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTime.UtcNow.AddHours(2)
+                });
 
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, loginResponse?.Error ?? "Login failed.");
-                return View(model);
-            }
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View(model);
         }
 
 

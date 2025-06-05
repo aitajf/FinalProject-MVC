@@ -110,5 +110,36 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             }          
             return RedirectToAction("Index");
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var product = await _productService.GetByIdAsync(id);
+        //    if (product == null)
+        //        return NotFound();
+
+        //    var model = new ProductEdit
+        //    {
+        //        Id = product.Id,
+        //        Name = product.Name,
+        //        Description = product.Description,
+        //        Price = product.Price,
+        //        Stock = product.Stock,
+        //        CategoryId = product.Category,
+        //        BrandId = product.BrandId,
+        //        ColorIds = product.P.Select(pc => pc.ColorId).ToList(),
+        //        TagIds = product.ProductTags.Select(pt => pt.TagId).ToList(),
+        //        ExistingImages = product.Images.Select(pi => new ProductImage
+        //        {
+        //            Id = pi.Id,
+        //            ImgUrl = pi.Img,
+        //            IsMain = pi.IsMain
+        //        }).ToList()
+        //    };
+
+        //    await PopulateDropdownsAsync();
+        //    return View(model);
+        //}
+
     }
 }

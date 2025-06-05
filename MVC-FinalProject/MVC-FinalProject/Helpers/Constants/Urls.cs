@@ -22,5 +22,8 @@
         public const string AboutPromoUrl = "https://localhost:7004/api/admin/AboutPromo/";
         public const string HelpSectionUrl = "https://localhost:7004/api/admin/HelpSection/";
         public const string AskUsFromClientUrl = "https://localhost:7004/api/AskUsFrom/";
+        public const string BasketUrl = "https://localhost:7004/api/Basket/";
+        public const string ReviewUrl = "https://localhost:7004/api/admin/Review/";
+        public const string ReviewClientUrl = "https://localhost:7004/api/Review/";
     }
 }

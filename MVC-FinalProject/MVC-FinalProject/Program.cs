@@ -1,7 +1,7 @@
 ﻿
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using MVC_FinalProject.Services;
-using MVC_FinalProject.Services.Interfaces;
+
 using Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,13 +17,13 @@ builder.Services.AddAuthentication("MyCookieAuth")
 builder.Services.AddAuthorization();
 
 
-//builder.Services.AddDistributedMemoryCache();
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromMinutes(15); // istəyə uyğun zaman
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.IsEssential = true;
-//});
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(15); // istəyə uyğun zaman
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 
 // Add services to the container.
@@ -60,7 +60,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseSession();
+app.UseSession();
 
 app.UseAuthentication(); 
 app.UseAuthorization();
