@@ -15,7 +15,6 @@ builder.Services.AddAuthentication("MyCookieAuth")
 
 builder.Services.AddAuthorization();
 
-// Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -24,9 +23,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// MVC və digər servis
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddHttpClient();
+
 builder.Services.Configure<IdentityOptions>(opt =>
 {
     opt.User.RequireUniqueEmail = true;

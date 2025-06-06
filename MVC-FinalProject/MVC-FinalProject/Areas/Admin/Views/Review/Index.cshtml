@@ -1,0 +1,43 @@
+﻿@using MVC_FinalProject.Models.Review
+
+
+@model IEnumerable<Review>
+
+    <div class="main-panel">
+        <div class="content-wrapper" style="width: 65pc;">
+            <div class="card-body">
+                <h4 class="card-title" style="font-size: 31px; margin-left: 25pc;">About Banner Image:</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> UserName </th>
+                                <th> ProductName </th>
+                                <th> Comment </th>
+                                <th>  Create At </th>
+                                <th> Operations </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td> @item.UserName</td>
+                                    <td> @item.ProductName</td>
+                                    <td> @item.Comment</td>
+                                    <td> @item.CreatedAt</td>
+                                    <td>
+                                        <form asp-action="Delete" method="post">
+                                            <input type="hidden" name="Id" value="@item.Id" />
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>

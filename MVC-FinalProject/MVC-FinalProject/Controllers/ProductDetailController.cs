@@ -234,9 +234,5 @@ namespace MVC_FinalProject.Controllers
 
             return RedirectToAction("Detail", new { id = productId });
         }
-
-
-
     }
 }
-

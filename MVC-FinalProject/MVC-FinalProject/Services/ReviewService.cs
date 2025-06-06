@@ -15,6 +15,17 @@ namespace MVC_FinalProject.Services
             _httpClient = httpClient;
         }
 
+        public async Task<IEnumerable<Review>> GetAllAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Review>>($"{Urls.ReviewUrl}GetAllReviews");
+        }
+
+        public async Task<HttpResponseMessage> DeleteReviewAsync(int reviewid)
+        {
+            return await _httpClient.DeleteAsync($"{Urls.ReviewUrl}DeleteReview?id={reviewid}");
+        }
+
+
         public async Task<Review> GetByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<Review>($"{Urls.ReviewClientUrl}{id}");
@@ -32,7 +43,6 @@ namespace MVC_FinalProject.Services
             return await _httpClient.SendAsync(request);
         }
 
-
         public async Task<HttpResponseMessage> EditAsync(ReviewEditApi model, int id)
         {
             return await _httpClient.PutAsJsonAsync($"{Urls.ReviewClientUrl}Edit/{id}", model);
@@ -46,22 +56,10 @@ namespace MVC_FinalProject.Services
             return await _httpClient.SendAsync(request);
         }
 
-
-        public Task<IEnumerable<Review>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<IEnumerable<Review>> GetByProductIdAsync(int productId)
         {
             throw new NotImplementedException();
         }
-
-        public Task<bool> CanUserEditOrDelete(int reviewId, string userId)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public async Task<IEnumerable<Review>> GetAllByProductIdAsync(int productId)
         {

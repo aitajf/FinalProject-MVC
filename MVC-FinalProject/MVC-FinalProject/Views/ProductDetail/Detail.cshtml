@@ -190,27 +190,26 @@
 
                                                                     @if (User.Identity.IsAuthenticated && userId == review.AppUserId)
                                                                     {
-                                                                        <form asp-action="EditReview" method="post" id="edit-form-@review.Id" style="display:none;">
-                                                                            <input type="hidden" name="Id" value="@review.Id" />
-                                                                            <input type="hidden" name="AppUserId" value="@review.AppUserId" />
-                                                                            <input type="hidden" name="ProductId" value="@Model.ProductId" />
-                                                                            <div class="form-group">
-                                                                                <label>Comment</label>
-                                                                                <textarea name="Comment" class="form-control">@review.Comment</textarea>
-                                                                            </div>
-                                                                            <div class="edit-form-buttons">
-                                                                                <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                                                                                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleEditForm(@review.Id)">Cancel</button>
-                                                                            </div>
-                                                                        </form>
+                                                                      <form asp-action="EditReview" method="post" id="edit-form-@review.Id" style="display:none;"> 
+                                                                          <input type="hidden" name="Id" value="@review.Id" /> 
+                                                                          <input type="hidden" name="AppUserId" value="@review.AppUserId" />
+                                                                          <input type="hidden" name="ProductId" value="@Model.ProductId" /> 
+                                                                          <div class="form-group"> 
+                                                                              <label>Comment</label>
+                                                                              <textarea name="Comment" class="form-control">@review.Comment</textarea> 
+                                                                          </div> 
+                                                                          <div class="edit-form-buttons"> 
+                                                                              <button type="submit" class="btn btn-primary btn-sm">Save</button> 
+                                                                              <button type="button" class="btn btn-secondary btn-sm" onclick="toggleEditForm(@review.Id)">Cancel</button> 
+                                                                          </div> 
+                                                                      </form> 
 
 
-                                                                        <form asp-action="DeleteReview" method="post">
-                                                                            <input type="hidden" name="id" value="@review.Id" />
-                                                                            <input type="hidden" name="productId" value="@Model.ProductId" />
-                                                                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                                                                        </form>
-
+                                                                      <form asp-action="DeleteReview" method="post"> 
+                                                                          <input type="hidden" name="id" value="@review.Id" /> 
+                                                                          <input type="hidden" name="productId" value="@Model.ProductId" /> 
+                                                                          <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                                                      </form>                                                                       
                                                                     }
                                                                 </div>
                                                             </li>
@@ -223,22 +222,23 @@
                                                 <div id="review-form">
                                                     <div id="respond" class="comment-respond">
                                                         <span id="reply-title" class="comment-reply-title">Add a review</span>
-                                                        <form asp-controller="ProductDetail" asp-action="AddReview" method="post">
-                                                            <input type="hidden" name="ProductId" value="@Model.ProductId" />
-                                                            <div class="form-group">
-                                                                <label>Name *</label>
-                                                                <input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Email *</label>
-                                                                <input name="UserEmail" type="email" class="form-control" required />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Your Review *</label>
-                                                                <textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea>
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary">Submit Review</button>
-                                                        </form>
+                                                         <form asp-controller="ProductDetail" asp-action="AddReview" method="post"> 
+                                                             <input type="hidden" name="ProductId" value="@Model.ProductId" /> 
+                                                             <div class="form-group"> 
+                                                                 <label>Name *</label>
+                                                                 <input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required /> 
+                                                             </div> 
+                                                             <div class="form-group"> 
+                                                                 <label>Email *</label>
+                                                                 <input name="UserEmail" type="email" class="form-control" required /> 
+                                                             </div> 
+                                                             <div class="form-group"> 
+                                                                 <label>Your Review *</label> 
+                                                                 <textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea> 
+                                                             </div> 
+                                                             <button type="submit" class="btn btn-primary">Submit Review</button> 
+                                                         </form> 
+                                                       
                                                     </div>
                                                 </div>
 
