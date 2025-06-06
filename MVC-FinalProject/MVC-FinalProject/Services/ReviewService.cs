@@ -1,4 +1,5 @@
-﻿using MVC_FinalProject.Helpers.Constants;
+﻿using System.Net.Http.Headers;
+using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.Review;
 using MVC_FinalProject.Services.Interfaces;
 using static MVC_FinalProject.Models.Review.ReviewEdit;
@@ -37,10 +38,14 @@ namespace MVC_FinalProject.Services
             return await _httpClient.PutAsJsonAsync($"{Urls.ReviewClientUrl}Edit/{id}", model);
         }
 
-        public async Task<HttpResponseMessage> DeleteAsync(int id)
+        public async Task<HttpResponseMessage> DeleteAsync(int id, string token)
         {
-            return await _httpClient.DeleteAsync($"{Urls.ReviewClientUrl}{id}");
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"{Urls.ReviewClientUrl}DeleteReview/{id}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            return await _httpClient.SendAsync(request);
         }
+
 
         public Task<IEnumerable<Review>> GetAllAsync()
         {

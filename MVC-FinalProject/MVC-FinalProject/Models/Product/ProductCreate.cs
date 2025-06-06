@@ -36,7 +36,9 @@ namespace MVC_FinalProject.Models.Product
         public List<int> ColorIds { get; set; }
 
         [Required]
-        public List<IFormFile> UploadImages { get; set; }
+        public List<IFormFile> Images { get; set; }
+
+        public List<IFormFile> ColorImages { get; set; }
     }
 
 }

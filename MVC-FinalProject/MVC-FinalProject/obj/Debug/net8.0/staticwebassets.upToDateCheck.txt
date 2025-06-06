@@ -961,6 +961,7 @@ wwwroot\assets\img\slider2.jpg
 wwwroot\assets\img\slider3.jpg
 wwwroot\assets\img\subscribe.jpg
 wwwroot\assets\js\app.js
+wwwroot\assets\js\custom.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap.min.css

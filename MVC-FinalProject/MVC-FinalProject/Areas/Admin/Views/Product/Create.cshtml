@@ -22,6 +22,12 @@
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
 
+                <div class="mb-3">
+                    <label asp-for="Stock" class="form-label"></label>
+                    <input asp-for="Stock" type="number" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+
                 <div class="form-group">
                     <label asp-for="CategoryId">Category</label>
                     <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
@@ -33,58 +39,39 @@
                 <div class="form-group">
                     <label asp-for="BrandId">Brand</label>
                     <select asp-for="BrandId" asp-items="ViewBag.Brands" class="form-control">
-                        <option disabled selected>Select a Brand</option>
+                        <option disabled selected>Select a brand</option>
                     </select>
                     <span asp-validation-for="BrandId" class="text-danger"></span>
                 </div>
 
-                <div class="form-group"> 
-                    <label asp-for="ColorIds">Colors</label> 
-                    <select asp-for="ColorIds" asp-items="ViewBag.Colors" class="form-control" multiple> 
-                    </select> 
-                    <span asp-validation-for="ColorIds" class="text-danger"></span> 
-                </div> 
+                <div class="form-group">
+                    <label asp-for="ColorIds">Colors</label>
+                    <select asp-for="ColorIds" asp-items="ViewBag.Colors" class="form-control" multiple id="ColorIds">
+                    </select>
+                    <span asp-validation-for="ColorIds" class="text-danger"></span>
+                </div>
 
-                <div class="form-group"> 
-                     <label asp-for="TagIds">Tags</label> 
-                     <select asp-for="TagIds" asp-items="ViewBag.Tags" class="form-control" multiple> 
-                     </select> 
-                     <span asp-validation-for="TagIds" class="text-danger"></span>
-                 </div>
+                <!-- Burada şəkillər dinamik şəkildə əlavə olunacaq -->
+                <div id="colorImageContainer"></div>
 
-                @* <div class="form-group"> *@
-                @*     <label class="form-label">Colors</label> *@
-                @*     <div class="d-flex flex-wrap gap-2"> *@
-                @*         @foreach (var item in ViewBag.Colors as List<SelectListItem>) *@
-                @*         { *@
-                @*             <div class="form-check me-3"> *@
-                @*                 <input class="form-check-input" type="checkbox" name="ColorIds" value="@item.Value" id="color_@item.Value" /> *@
-                @*                 <label class="form-check-label" for="color_@item.Value">@item.Text</label> *@
-                @*             </div> *@
-                @*         } *@
-                @*     </div> *@
-                @*     <span asp-validation-for="ColorIds" class="text-danger"></span> *@
-                @* </div> *@
 
-                @* <div class="form-group mt-3"> *@
-                @*     <label class="form-label">Tags</label> *@
-                @*     <div class="d-flex flex-wrap gap-2"> *@
-                @*         @foreach (var item in ViewBag.Tags as List<SelectListItem>) *@
-                @*         { *@
-                @*             <div class="form-check me-3"> *@
-                @*                 <input class="form-check-input" type="checkbox" name="TagIds" value="@item.Value" id="tag_@item.Value" /> *@
-                @*                 <label class="form-check-label" for="tag_@item.Value">@item.Text</label> *@
-                @*             </div> *@
-                @*         } *@
-                @*     </div> *@
-                @*     <span asp-validation-for="TagIds" class="text-danger"></span> *@
-                @* </div> *@
-
+                <div class="form-group">
+                    <label asp-for="TagIds">Tags</label>
+                    <select asp-for="TagIds" asp-items="ViewBag.Tags" class="form-control" multiple>
+                    </select>
+                    <span asp-validation-for="TagIds" class="text-danger"></span>
+                </div>
 
                 <div class="mb-3">
-                    <label asp-for="UploadImages" class="form-label">Product Images</label>
-                    <input asp-for="UploadImages" type="file" class="form-control" multiple />
-                    <span asp-validation-for="UploadImages" class="text-danger"></span>
+                    <label asp-for="Images" class="form-label">Product Images</label>
+                    <input asp-for="Images" type="file" class="form-control" multiple />
+                    <span asp-validation-for="Images" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ColorImages" class="form-label">Color Images</label>
+                    <input asp-for="ColorImages" type="file" class="form-control" multiple />
+                    <span asp-validation-for="ColorImages" class="text-danger"></span>
                 </div>
 
                 <button type="submit" class="btn btn-success">Create</button>
@@ -92,3 +79,36 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const colorSelect = document.getElementById("ColorIds");
+        const container = document.getElementById("colorImageContainer");
+
+        colorSelect.addEventListener("change", function () {
+            container.innerHTML = "";
+
+            const selectedOptions = Array.from(colorSelect.selectedOptions);
+
+            selectedOptions.forEach(option => {
+                const div = document.createElement("div");
+                div.className = "mb-3";
+
+                const label = document.createElement("label");
+                label.className = "form-label";
+                label.innerText = `${option.text} image`;
+
+                const input = document.createElement("input");
+                input.type = "file";
+                input.name = "ColorImages";
+                input.className = "form-control";
+
+                div.appendChild(label);
+                div.appendChild(input);
+                container.appendChild(div);
+            });
+        });
+    });
+</script>

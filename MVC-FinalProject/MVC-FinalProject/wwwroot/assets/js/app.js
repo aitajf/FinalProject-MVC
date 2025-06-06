@@ -293,7 +293,8 @@
         });
 
         // Shop Details
-        $('.shop-details .slick-carousel').each(function() {
+        $('.shop-details .slick-carousel').each(function () {
+            $(this).data('fade', false); 
             load_slick_carousel($(this));
         });
         product_single_image();

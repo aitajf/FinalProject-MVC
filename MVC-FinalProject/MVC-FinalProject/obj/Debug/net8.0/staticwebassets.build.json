@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VGyALxnZSvDnPPBL2pCdMkkMee7AddTIFkW99M68GJc=",
+  "Hash": "ID+T+MZtuXcSuBPMMzwv560UdZqKxcTava6xSsTIGSU=",
   "Source": "MVC-FinalProject",
   "BasePath": "_content/MVC-FinalProject",
   "Mode": "Default",
@@ -20275,11 +20275,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "erdexgen2h",
-      "Integrity": "Kt4ic0m370JvJJQVHB42zdQi4SmixKlaP4/STucuqSI=",
+      "Fingerprint": "vewj4653qh",
+      "Integrity": "15ZYSQwd8yZcxoh0YvyOicZnBuibh3XOSPqoEHCtNiI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\js\\app.js"
+    },
+    {
+      "Identity": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
+      "SourceId": "MVC-FinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\",
+      "BasePath": "_content/MVC-FinalProject",
+      "RelativePath": "assets/js/custom#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "3r8b2a0bt1",
+      "Integrity": "8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\custom.js"
     },
     {
       "Identity": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
@@ -101373,51 +101394,6 @@
       ]
     },
     {
-      "Route": "assets/js/app.erdexgen2h.js",
-      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\app.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "26175"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Kt4ic0m370JvJJQVHB42zdQi4SmixKlaP4/STucuqSI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 20 May 2025 13:57:36 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "erdexgen2h"
-        },
-        {
-          "Name": "label",
-          "Value": "assets/js/app.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Kt4ic0m370JvJJQVHB42zdQi4SmixKlaP4/STucuqSI="
-        }
-      ]
-    },
-    {
       "Route": "assets/js/app.js",
       "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\app.js",
       "Selectors": [],
@@ -101428,7 +101404,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "26175"
+          "Value": "26218"
         },
         {
           "Name": "Content-Type",
@@ -101436,11 +101412,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Kt4ic0m370JvJJQVHB42zdQi4SmixKlaP4/STucuqSI=\""
+          "Value": "\"15ZYSQwd8yZcxoh0YvyOicZnBuibh3XOSPqoEHCtNiI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 20 May 2025 13:57:36 GMT"
+          "Value": "Fri, 06 Jun 2025 08:44:32 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -101450,7 +101426,134 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Kt4ic0m370JvJJQVHB42zdQi4SmixKlaP4/STucuqSI="
+          "Value": "sha256-15ZYSQwd8yZcxoh0YvyOicZnBuibh3XOSPqoEHCtNiI="
+        }
+      ]
+    },
+    {
+      "Route": "assets/js/app.vewj4653qh.js",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\app.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "26218"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"15ZYSQwd8yZcxoh0YvyOicZnBuibh3XOSPqoEHCtNiI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 06 Jun 2025 08:44:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vewj4653qh"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/js/app.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-15ZYSQwd8yZcxoh0YvyOicZnBuibh3XOSPqoEHCtNiI="
+        }
+      ]
+    },
+    {
+      "Route": "assets/js/custom.3r8b2a0bt1.js",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 05 Jun 2025 15:35:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3r8b2a0bt1"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/js/custom.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U="
+        }
+      ]
+    },
+    {
+      "Route": "assets/js/custom.js",
+      "AssetFile": "C:\\Users\\acer\\OneDrive\\İş masası\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 05 Jun 2025 15:35:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U="
         }
       ]
     },
@@ -110087,7 +110190,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 15:35:25 GMT"
+          "Value": "Fri, 06 Jun 2025 06:42:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110124,7 +110227,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 15:35:25 GMT"
+          "Value": "Fri, 06 Jun 2025 06:42:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110169,7 +110272,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 15:35:25 GMT"
+          "Value": "Fri, 06 Jun 2025 06:42:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -110214,7 +110317,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 15:35:25 GMT"
+          "Value": "Fri, 06 Jun 2025 06:42:29 GMT"
         },
         {
           "Name": "Cache-Control",

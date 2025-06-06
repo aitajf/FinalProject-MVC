@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System.Net.Http.Headers;
+using System.Net.Http;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Review;
 using MVC_FinalProject.Services.Interfaces;
+using System.Net;
 
 namespace MVC_FinalProject.Controllers
 {
@@ -37,11 +41,22 @@ namespace MVC_FinalProject.Controllers
 
             var reviews = await _reviewService.GetAllByProductIdAsync(id);
 
+            var productColorImages = product.Images.Select(img =>
+            {
+                var matchedColor = product.Colors.FirstOrDefault(color =>
+                    img.ToLower().Contains(color.ToLower()));
+                return new ProductColorImage
+                {
+                    Url = img,
+                    Color = matchedColor
+                };
+            }).ToList();
+
             var viewModel = new ProductReviewPage
             {
                 ProductId = product.Id,
                 ProductName = product.Name,
-                ImageUrl = product.Images,
+                ProductColorImages = productColorImages,
                 Colors = product.Colors.ToList(),
                 Category = product.Category,
                 Tags = product.Tags.ToList(),
@@ -64,11 +79,21 @@ namespace MVC_FinalProject.Controllers
                 var product = await _productService.GetByIdAsync(model.ProductId);
                 var reviews = await _reviewService.GetAllByProductIdAsync(model.ProductId);
 
+                var productImages = product.Images.Select(img =>
+                {
+                    var matchedColor = product.Colors.FirstOrDefault(color => img.ToLower().Contains(color.ToLower()));
+                    return new ProductColorImage
+                    {
+                        Url = img,
+                        Color = matchedColor
+                    };
+                }).ToList();
+
                 var vm = new ProductReviewPage
                 {
                     ProductId = product.Id,
                     ProductName = product.Name,
-                    ImageUrl = product.Images,
+                    ProductColorImages = productImages,
                     Colors = product.Colors.ToList(),
                     Category = product.Category,
                     Tags = product.Tags.ToList(),
@@ -81,11 +106,12 @@ namespace MVC_FinalProject.Controllers
                 return View("Detail", vm);
             }
 
+
             var token = HttpContext.Session.GetString("AuthToken")
            ?? User.Claims.FirstOrDefault(c => c.Type == "access_token")?.Value;
-
             if (string.IsNullOrEmpty(token))
-                return Unauthorized("Token missing!");
+                return RedirectToAction("Login", "Account");
+
 
             var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
@@ -181,16 +207,35 @@ namespace MVC_FinalProject.Controllers
 
 
 
-        //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> DeleteReview(int id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteReview(int id, int productId)
         {
-            var response = await _reviewService.DeleteAsync(id);
-            if (!response.IsSuccessStatusCode)
-                return BadRequest("Failed to delete review.");
+            var token = HttpContext.Session.GetString("AuthToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
-            return Redirect(Request.Headers["Referer"].ToString());
+            var response = await _reviewService.DeleteAsync(id, token);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Detail", new { id = productId });
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                TempData["Error"] = "You are not authorized to delete this review.";
+            }
+            else
+            {
+                TempData["Error"] = "An error occurred while deleting the review.";
+            }
+
+            return RedirectToAction("Detail", new { id = productId });
         }
+
+
 
     }
 }

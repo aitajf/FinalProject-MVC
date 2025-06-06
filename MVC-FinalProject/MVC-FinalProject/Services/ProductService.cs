@@ -31,33 +31,6 @@ namespace MVC_FinalProject.Services
             return PaginationResponse<Product>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
         }
 
-
-        //public async Task<Dictionary<string, object>> GetAllDropdownDataAsync()
-        //{
-        //    var urls = new Dictionary<string, string>
-        //    {
-        //        { "brands", $"{Urls.BrandUrl}GetAll" },
-        //        { "colors", $"{Urls.ColorUrl}GetAll" },
-        //        { "tags", $"{Urls.TagUrl}GetAll" },
-        //        { "categories", $"{Urls.CategoryUrl}GetAll" }
-        //    };
-        //    var results = new Dictionary<string, object>();
-        //    foreach (var entry in urls)
-        //    {
-        //        var response = await _httpClient.GetAsync(entry.Value);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var json = await response.Content.ReadAsStringAsync();
-        //            results[entry.Key] = JsonSerializer.Deserialize<object>(json);
-        //        }
-        //        else
-        //        {
-        //            results[entry.Key] = new List<object>(); 
-        //        }
-        //    }
-        //    return results;
-        //}
-
         public async Task<HttpResponseMessage> CreateAsync(ProductCreate model)
         {
             using var content = new MultipartFormDataContent();
@@ -81,9 +54,10 @@ namespace MVC_FinalProject.Services
                     content.Add(new StringContent(colorId.ToString()), "ColorIds");
             }
 
-            if (model.UploadImages != null)
+
+            if (model.Images != null)
             {
-                foreach (var image in model.UploadImages)
+                foreach (var image in model.Images)
                 {
                     using var ms = new MemoryStream();
                     await image.CopyToAsync(ms);
@@ -94,8 +68,24 @@ namespace MVC_FinalProject.Services
                     content.Add(byteContent, "Images", image.FileName);
                 }
             }
+
+            if (model.ColorImages != null)
+            {
+                foreach (var colorImage in model.ColorImages)
+                {
+                    using var ms = new MemoryStream();
+                    await colorImage.CopyToAsync(ms);
+                    var fileBytes = ms.ToArray();
+
+                    var byteContent = new ByteArrayContent(fileBytes);
+                    byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                    content.Add(byteContent, "ColorImages", colorImage.FileName);
+                }
+            }
+
             return await _httpClient.PostAsync($"{Urls.ProductUrl}Create", content);
         }
+
 
 
         public async Task<HttpResponseMessage> EditAsync(int id, ProductEdit model)

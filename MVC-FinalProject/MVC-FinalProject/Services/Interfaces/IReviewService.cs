@@ -12,7 +12,7 @@ namespace MVC_FinalProject.Services.Interfaces
 
             Task<HttpResponseMessage> CreateAsync(ReviewCreateApi model, string token); 
             Task<HttpResponseMessage> EditAsync(ReviewEditApi model, int id);
-            Task<HttpResponseMessage> DeleteAsync(int id); 
+            Task<HttpResponseMessage> DeleteAsync(int id, string token);
             Task<bool> CanUserEditOrDelete(int reviewId, string userId); 
 
     }
