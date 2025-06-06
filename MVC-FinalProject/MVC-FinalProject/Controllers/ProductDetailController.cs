@@ -109,34 +109,77 @@ namespace MVC_FinalProject.Controllers
             return RedirectToAction("Detail", new { id = model.ProductId });
         }
 
-
-
-
-        //[Authorize]
-
         [HttpGet]
         public async Task<IActionResult> EditReview(int id)
         {
-            var review = await _reviewService.GetByIdAsync(id);
-            if (review == null || review.UserName != User.Identity?.Name) return Unauthorized();
-            return View("EditReview", review);
+            var reviewDto = await _reviewService.GetByIdAsync(id);
+            if (reviewDto == null)
+                return NotFound();
+
+            var model = new ReviewEdit
+            {
+                ProductId = reviewDto.ProductId,
+                AppUserId = reviewDto.AppUserId,
+                Comment = reviewDto.Comment
+            };
+
+            return View(model);
         }
 
-        //[Authorize]
+
         [HttpPost]
-        public async Task<IActionResult> EditReview(ReviewEdit model)
+        public async Task<IActionResult> EditReview(int id, ReviewEdit model)
         {
-            if (!ModelState.IsValid)
+            var token = HttpContext.Session.GetString("AuthToken");
+
+            if (string.IsNullOrEmpty(token))
             {
-                return RedirectToAction("Detail", new { id = model.ProductId, editingReviewId = model.Id });
+                return RedirectToAction("Login", "Account");
+            }
+            var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+
+        
+            if (!string.Equals(userId, model.AppUserId, StringComparison.OrdinalIgnoreCase))
+            {
+                return Forbid("User ID does not match the review owner.");
             }
 
-            var response = await _reviewService.EditAsync(model, model.Id);
-            if (!response.IsSuccessStatusCode)
-                return BadRequest("Failed to edit review.");
 
-            return RedirectToAction("Detail", new { id = model.ProductId });
+            if (!ModelState.IsValid)
+                return View(model);
+
+
+              var dto = new ReviewEditApi
+              {
+                  AppUserId = userId,
+                  Comment = model.Comment
+              };
+
+            var response = await _reviewService.EditAsync(dto, id);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Detail", new { id = model.ProductId });
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            {
+                ModelState.AddModelError("", "You are not authorized to edit this review.");
+                return View(model);
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+
+            ModelState.AddModelError("", "An error occurred while editing the review.");
+            return View(model);
         }
+
+
+
+
 
         //[Authorize]
         [HttpPost]

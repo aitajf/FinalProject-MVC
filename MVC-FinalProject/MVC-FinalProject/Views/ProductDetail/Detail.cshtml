@@ -1,4 +1,7 @@
-﻿ @model ProductReviewPage
+﻿<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
+ 
+ @model ProductReviewPage
 
  <div id="site-main" class="site-main"> 
  	<div id="main-content" class="main-content">
@@ -142,25 +145,66 @@
                                                     <ol class="comment-list">
                                                         @foreach (var review in Model.Reviews)
                                                         {
-                                                            <li class="review">
+                                                            var userIdd = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                                                            <li class="review" data-review-id="@review.Id">
                                                                 <div class="content-comment-container">
                                                                     <div class="comment-container">
                                                                         <img src="media/user.jpg" class="avatar" height="60" width="60" alt="User Avatar" />
                                                                         <div class="comment-text">
                                                                             <div class="rating small">
-                                                                                <div class="star star-5"></div> @* Yoxsa review.ReviewScore varsa onu göstər *@
+                                                                                <div class="star star-5"></div>
                                                                             </div>
                                                                             <div class="review-author">@review.UserName</div>
-                                                                            <div class="review-time">@review.CreatedAt.ToString("MMMM dd, yyyy")</div> @* Tarixi formatla göstər *@
+                                                                            <div class="review-time">@review.CreatedAt.ToString("MMMM dd, yyyy")</div>
+
+                                                                            @{
+                                                                                var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                                                                                Guid.TryParse(userId, out var currentUserGuid);
+                                                                                Guid.TryParse(review.AppUserId, out var reviewUserGuid);
+                                                                            }                                
+
+                                                                            @* Redaktə icazəsi yalnız öz rəyinə *@
+                                                                            @if (User.Identity.IsAuthenticated && userId == review.AppUserId)
+                                                                            {
+                                                                                <button class="btn btn-link btn-sm edit-review-btn" type="button" onclick="toggleEditForm(@review.Id)">
+                                                                                    <i class="fas fa-edit"></i> Edit
+                                                                                </button>
+
+                                                                                <form asp-action="EditReview" method="post" id="edit-form-@review.Id" style="display:none; margin-top:10px;">
+                                                                                    <input type="hidden" name="Id" value="@review.Id" />
+                                                                                    <input type="hidden" name="AppUserId" value="@review.AppUserId" />
+                                                                                    <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+                                                                                    <div class="form-group">
+                                                                                        <label for="Comment">Comment</label>
+                                                                                        <textarea name="Comment" class="form-control">@review.Comment</textarea>
+                                                                                    </div>
+
+                                                                                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                                                                    <button type="button" class="btn btn-secondary btn-sm" onclick="toggleEditForm(@review.Id)">Cancel</button>
+                                                                                </form>
+                                                                            }
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="description">
-                                                                        <p>@review.Comment</p>
+                                                                        <p class="review-comment-text">@review.Comment</p>
                                                                     </div>
                                                                 </div>
                                                             </li>
                                                         }
                                                     </ol>
+
+                                                    <script>
+                                                        function toggleEditForm(reviewId) {
+                                                            const form = document.getElementById(`edit-form-${reviewId}`);
+                                                            if (form) {
+                                                                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+                                                            }
+                                                        }
+                                                    </script>
+
 
 												</div> 
 												<div id="review-form"> 
@@ -201,13 +245,43 @@
 
 
     <script>
-        function showEditForm(reviewId) {
-            document.getElementById('comment-text-' + reviewId).style.display = 'none';
-            document.getElementById('edit-form-' + reviewId).style.display = 'block';
-        }
+           $(document).ready(function() {
+        // Edit düyməsinə klikləyincə forma açılır
+        $(".edit-review-btn").click(function() {
+            var reviewItem = $(this).closest("li.review");
+            reviewItem.find(".review-comment-text").hide();
+            reviewItem.find(".edit-review-form").show();
+        });
 
-        function cancelEdit(reviewId) {
-            document.getElementById('edit-form-' + reviewId).style.display = 'none';
-            document.getElementById('comment-text-' + reviewId).style.display = 'block';
-        }
+        // Cancel düyməsi redaktəni ləğv edir
+        $(".cancel-edit-btn").click(function() {
+            var reviewItem = $(this).closest("li.review");
+            reviewItem.find(".edit-review-form").hide();
+            reviewItem.find(".review-comment-text").show();
+        });
+
+        // Save düyməsi API-yə AJAX POST göndərir (sadə nümunə)
+        $(".save-edit-btn").click(function() {
+            var btn = $(this);
+            var reviewId = btn.data("review-id");
+            var reviewItem = btn.closest("li.review");
+            var newComment = reviewItem.find(".edit-comment-text").val();
+
+            $.ajax({
+                url: '/ProductDetail/EditReview/' + reviewId,
+                type: 'POST',
+                data: JSON.stringify({ Comment: newComment }),
+                contentType: 'application/json',
+                success: function() {
+                    // Comment mətnini yenilə, forma gizlədilir
+                    reviewItem.find(".review-comment-text").text(newComment).show();
+                    reviewItem.find(".edit-review-form").hide();
+                },
+                error: function() {
+                    alert("Failed to update review.");
+                }
+            });
+        });
+    });
+
     </script>

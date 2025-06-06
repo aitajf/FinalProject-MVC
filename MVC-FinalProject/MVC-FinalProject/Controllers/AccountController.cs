@@ -119,11 +119,13 @@ namespace MVC_FinalProject.Controllers
                 HttpContext.Session.SetString("AuthToken", loginResponse.Token);
                 HttpContext.Session.SetString("UserName", loginResponse.UserName ?? "");
 
-                var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, loginResponse.UserName ?? ""),
-            new Claim("access_token", loginResponse.Token ?? "")
-        };
+                 var claims = new List<Claim>
+                 {
+                    new Claim(ClaimTypes.Name, loginResponse.UserName ?? ""),
+                    new Claim(ClaimTypes.NameIdentifier, loginResponse.UserId),
+                    new Claim("access_token", loginResponse.Token ?? "")
+                  };
+
 
                 if (loginResponse.Roles != null && loginResponse.Roles.Any())
                 {

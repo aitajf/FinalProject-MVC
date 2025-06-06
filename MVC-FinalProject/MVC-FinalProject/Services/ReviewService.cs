@@ -32,10 +32,9 @@ namespace MVC_FinalProject.Services
         }
 
 
-
-        public async Task<HttpResponseMessage> EditAsync(ReviewEdit model, int id)
+        public async Task<HttpResponseMessage> EditAsync(ReviewEditApi model, int id)
         {
-            return await _httpClient.PutAsJsonAsync($"{Urls.ReviewClientUrl}{id}", model);
+            return await _httpClient.PutAsJsonAsync($"{Urls.ReviewClientUrl}Edit/{id}", model);
         }
 
         public async Task<HttpResponseMessage> DeleteAsync(int id)
@@ -81,6 +80,5 @@ namespace MVC_FinalProject.Services
                 return Enumerable.Empty<Review>();
             }
         }
-
     }
 }

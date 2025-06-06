@@ -11,7 +11,7 @@ namespace MVC_FinalProject.Services.Interfaces
             Task<Review> GetByIdAsync(int id);  
 
             Task<HttpResponseMessage> CreateAsync(ReviewCreateApi model, string token); 
-            Task<HttpResponseMessage> EditAsync(ReviewEdit model, int id);
+            Task<HttpResponseMessage> EditAsync(ReviewEditApi model, int id);
             Task<HttpResponseMessage> DeleteAsync(int id); 
             Task<bool> CanUserEditOrDelete(int reviewId, string userId); 
 
