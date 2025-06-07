@@ -6,5 +6,8 @@ namespace MVC_FinalProject.Services.Interfaces
     public interface IAskUsFromService
     {
         Task<HttpResponseMessage> CreateQuestionAsync(AskUsFromCreate model);
+        Task ApproveMessageAsync(int id);
+        Task<IEnumerable<AskUsFrom>> GetAllAsync();
+        Task<IEnumerable<AskUsFrom>> GetApprovedMessagesAsync();
     }
 }

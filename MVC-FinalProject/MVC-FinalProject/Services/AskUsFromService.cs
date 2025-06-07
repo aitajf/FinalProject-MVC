@@ -17,5 +17,21 @@ namespace MVC_FinalProject.Services
         {
             return await _httpClient.PostAsJsonAsync($"{Urls.AskUsFromClientUrl}Create", model);
         }
+
+        public async Task<IEnumerable<AskUsFrom>> GetAllAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<AskUsFrom>>($"{Urls.AskUsFromUrl}GetAll");
+        }
+
+        public async Task ApproveMessageAsync(int id)
+        {
+            var response = await _httpClient.PutAsync($"{Urls.AskUsFromUrl}ApproveMessage?id={id}", null);
+            response.EnsureSuccessStatusCode();
+        }
+        public async Task<IEnumerable<AskUsFrom>> GetApprovedMessagesAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<AskUsFrom>>($"{Urls.AskUsFromClientUrl}GetApprovedMessages");
+        }
+
     }
 }

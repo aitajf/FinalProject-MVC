@@ -7,5 +7,6 @@
         public string Email { get; set; }
         public string Message { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public bool IsApproved { get; set; }
     }
 }
