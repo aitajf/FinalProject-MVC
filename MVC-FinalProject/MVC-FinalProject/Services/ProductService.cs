@@ -172,14 +172,6 @@ namespace MVC_FinalProject.Services
             return await _httpClient.GetFromJsonAsync<int>($"{Urls.ProductClientUrl}GetProductsCount");
         }
 
-        //public async Task<IEnumerable<Product>> FilterAsync(string categoryName, string colorName, string tagName, string brandName)
-        //{
-        //   return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductClientUrl}Filter?categoryName = {categoryName}" +
-        //       $"                                                                                   colorName = {colorName} tagName = {tagName} " +
-        //       $"                                                                                   brandName = {brandName}");
-        //}
-
-
         public async Task<IEnumerable<Product>> FilterAsync(string categoryName, string colorName, string tagName, string brandName)
         {
             var queryParams = new List<string>();
@@ -212,7 +204,10 @@ namespace MVC_FinalProject.Services
 
 
 
-
+        public async Task<IEnumerable<Product>> GetSortedProductsAsync(string sortType)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductClientUrl}GetSortedProducts?sortType={sortType}");
+        }
 
 
 

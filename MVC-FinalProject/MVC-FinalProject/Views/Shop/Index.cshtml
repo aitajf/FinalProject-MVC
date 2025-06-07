@@ -139,18 +139,18 @@
 											Showing all 21 results
 										</div>
 									</div>
-									<div class="products-topbar-right">
+									<div class="products-topbar-right">						
 										<div class="products-sort dropdown">
-											<span class="sort-toggle dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Default sorting</span>
-											<ul class="sort-list dropdown-menu" x-placement="bottom-start">
-												<li class="active"><a href="#">Default sorting</a></li>
-												<li><a href="#">Sort by popularity</a></li>
-												<li><a href="#">Sort by average rating</a></li>
-												<li><a href="#">Sort by latest</a></li>
-												<li><a href="#">Sort by price: low to high</a></li>
-												<li><a href="#">Sort by price: high to low</a></li>
+											<span class="sort-toggle dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Sorting</span>
+											<ul class="sort-list dropdown-menu">
+												<li><a href="javascript:void(0);" onclick="sortProducts('A-Z')">A-Z</a></li>
+												<li><a href="javascript:void(0);" onclick="sortProducts('Z-A')">Z-A</a></li>
+												<li><a href="javascript:void(0);" onclick="sortProducts('Latest')">Sort By Latest</a></li>
+												<li><a href="javascript:void(0);" onclick="sortProducts('PriceLowToHigh')">Sort By Price: Low To High</a></li>
+												<li><a href="javascript:void(0);" onclick="sortProducts('PriceHighToLow')">Sort By Price: High To Low</a></li>
 											</ul>
 										</div>
+
 										<ul class="layout-toggle nav nav-tabs">
 											<li class="nav-item">
 												<a class="layout-grid nav-link active" data-toggle="tab" href="#layout-grid" role="tab"><span class="icon-column"><span class="layer first"><span></span><span></span><span></span></span><span class="layer middle"><span></span><span></span><span></span></span><span class="layer last"><span></span><span></span><span></span></span></span></a>
@@ -245,6 +245,29 @@
 
 
 <script>
+	function sortProducts(sortType) {
+		let currentUrl = new URL(window.location.href);
+		currentUrl.searchParams.set("sortType", sortType);
+
+		fetch(currentUrl.toString())
+			.then(response => response.text())
+			.then(data => {
+				let parser = new DOMParser();
+				let doc = parser.parseFromString(data, "text/html");
+				document.getElementById("productsContainer").innerHTML = doc.getElementById("productsContainer").innerHTML;
+
+				// Şəkillərin itməməsi üçün img src yeniləyək
+				let productImages = doc.querySelectorAll(".product-thumb img");
+				document.querySelectorAll(".product-thumb img").forEach((img, index) => {
+					img.src = productImages[index].src;
+				});
+			})
+			.catch(error => console.error("Error fetching sorted products:", error));
+	}
+</script>
+
+
+<script>
 	function filterProducts(categoryName, brandName, tagName, colorName) {
 		let queryParams = [];
 		if (categoryName) queryParams.push(`categoryName=${encodeURIComponent(categoryName)}`);
@@ -265,40 +288,4 @@
 		.catch(error => console.error("Error fetching products:", error));
 	}
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* <script> *@
-@* 	function filterProducts(categoryName, brandName, colorName, tagName) { *@
-@* 		let queryParams = []; *@
-@* 		if (categoryName) queryParams.push(`categoryName=${encodeURIComponent(categoryName)}`); *@
-@* 		if (brandName) queryParams.push(`brandName=${encodeURIComponent(brandName)}`); *@
-@* 		if (colorName) queryParams.push(`colorName=${encodeURIComponent(colorName)}`); *@
-@* 		if (tagName) queryParams.push(`tagName=${encodeURIComponent(tagName)}`); *@
-
-@* 		let queryString = queryParams.join("&"); *@
-@* 		let url = `/Shop/Index?${queryString}`; *@
-
-@* 		fetch(url) *@
-@* 		.then(response => response.text()) *@
-@* 		.then(data => { *@
-@* 			let parser = new DOMParser(); *@
-@* 			let doc = parser.parseFromString(data, "text/html"); *@
-@* 			document.getElementById("productsContainer").innerHTML = doc.getElementById("productsContainer").innerHTML; *@
-@* 		}) *@
-@* 		.catch(error => console.error("Error fetching products:", error)); *@
-@* 	} *@
-@* </script> *@
 

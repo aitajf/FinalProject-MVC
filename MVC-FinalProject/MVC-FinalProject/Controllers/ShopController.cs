@@ -20,20 +20,33 @@ namespace MVC_FinalProject.Controllers
             _brandService = brandService;
             _tagService = tagService;
         }
-        //public async Task<IActionResult> Index()
+
+        //public async Task<IActionResult> Index(string categoryName, string colorName, string tagName, string brandName)
         //{
         //    var categories = await _categoryService.GetAllAsync();
         //    var brands = await _brandService.GetAllAsync();
-        //    var products = await _productService.GetAllTakenAsync(6,0);
+
+        //    var products = string.IsNullOrEmpty(categoryName) && string.IsNullOrEmpty(colorName) &&
+        //                   string.IsNullOrEmpty(tagName) && string.IsNullOrEmpty(brandName)
+        //                   ? await _productService.GetAllTakenAsync(6, 0)
+        //                   : await _productService.FilterAsync(categoryName, colorName, tagName, brandName);
+
+        //    var tags = await _tagService.GetAllAsync();
         //    var productCount = await _productService.GetProductsCountAsync();
 
+        //    var categoryProductCounts = await _categoryService.GetCategoryProductCountsAsync(); 
+        //    var brandProductCounts = await _brandService.GetBrandProductCountsAsync(); 
+
         //    ViewBag.ProductsCount = productCount;
+        //    ViewBag.CategoryProductCounts = categoryProductCounts;
+        //    ViewBag.BrandProductCounts = brandProductCounts;
 
         //    ShopVM model = new ShopVM()
         //    {
         //        Categories = categories,
         //        Products = products,
         //        Brands = brands,
+        //        Tags = tags,
         //        TotalProductCount = productCount
         //    };
 
@@ -41,19 +54,24 @@ namespace MVC_FinalProject.Controllers
         //}
 
 
-        public async Task<IActionResult> Index(string categoryName, string colorName, string tagName, string brandName)
+        public async Task<IActionResult> Index(string categoryName, string colorName, string tagName, string brandName, string sortType)
         {
             var categories = await _categoryService.GetAllAsync();
             var brands = await _brandService.GetAllAsync();
+            var tags = await _tagService.GetAllAsync();
+            var productCount = await _productService.GetProductsCountAsync();
+            var categoryProductCounts = await _categoryService.GetCategoryProductCountsAsync();
+            var brandProductCounts = await _brandService.GetBrandProductCountsAsync();
+
             var products = string.IsNullOrEmpty(categoryName) && string.IsNullOrEmpty(colorName) &&
                            string.IsNullOrEmpty(tagName) && string.IsNullOrEmpty(brandName)
                            ? await _productService.GetAllTakenAsync(6, 0)
                            : await _productService.FilterAsync(categoryName, colorName, tagName, brandName);
-            var tags = await _tagService.GetAllAsync();
-            var productCount = await _productService.GetProductsCountAsync();
 
-            var categoryProductCounts = await _categoryService.GetCategoryProductCountsAsync(); 
-            var brandProductCounts = await _brandService.GetBrandProductCountsAsync(); 
+            if (!string.IsNullOrEmpty(sortType))
+            {
+                products = await _productService.GetSortedProductsAsync(sortType);
+            }
 
             ViewBag.ProductsCount = productCount;
             ViewBag.CategoryProductCounts = categoryProductCounts;
@@ -70,8 +88,6 @@ namespace MVC_FinalProject.Controllers
 
             return View(model);
         }
-
-
 
 
 
