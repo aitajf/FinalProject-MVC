@@ -149,23 +149,7 @@
 												</li>
 												<li class="level-0 menu-item">
 													<a asp-controller="Shop" asp-action="Index"><span class="menu-item-text">Shop</span></a>
-													@* <ul class="sub-menu"> *@
-													@* 	<li class="level-1 menu-item menu-item-has-children"> *@
-													@* 		<a href="shop-grid-left.html"><span class="menu-item-text">Shop - Products</span></a>															 *@
-													@* 	</li> *@
-													@* 	<li> *@
-													@* 		<a href="shop-details.html"><span class="menu-item-text">Shop Details</span></a> *@
-													@* 	</li> *@
-													@* 	<li> *@
-													@* 		<a href="shop-cart.html"><span class="menu-item-text">Shop - Cart</span></a> *@
-													@* 	</li> *@
-													@* 	<li> *@
-													@* 		<a href="shop-checkout.html"><span class="menu-item-text">Shop - Checkout</span></a> *@
-													@* 	</li> *@
-													@* 	<li> *@
-													@* 		<a href="shop-wishlist.html"><span class="menu-item-text">Shop - Wishlist</span></a> *@
-													@* 	</li> *@
-													@* </ul> *@
+													
 												</li>
 												<li class="level-0 menu-item">
 													<a asp-controller="Blog" asp-action="Index"><span class="menu-item-text">Blog</span></a>
@@ -179,23 +163,16 @@
 													<ul class="sub-menu">
 												
 														<li>
-															<a href="page-forgot-password.html"><span class="menu-item-text">Forgot Password</span></a>
+															<a asp-controller="Account" asp-action="ForgotPassword"><span class="menu-item-text">Forgot Password</span></a>
 														</li>
 														<li>
-															<a href="page-my-account.html"><span class="menu-item-text">My Account</span></a>
+															<a asp-controller="MyAccount" asp-action="Index"><span class="menu-item-text">My Account</span></a>
 														</li>
+														
 														<li>
-															<a href="page-about.html"><span class="menu-item-text">About Us</span></a>
+															<a asp-controller="FAQ" asp-action="Index"><span class="menu-item-text">FAQ</span></a>
 														</li>
-														<li>
-															<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
-														</li>
-														<li>
-															<a href="page-faq.html"><span class="menu-item-text">FAQ</span></a>
-														</li>
-														<li>
-															<a href="page-404.html"><span class="menu-item-text">Page 404</span></a>
-														</li>
+														
 													</ul>
 												</li>
 												<li class="level-0 menu-item">
@@ -234,7 +211,7 @@
 
 										<!-- Wishlist -->
 										<div class="wishlist-box">
-											<a href="shop-wishlist.html"><i class="icon-heart"></i></a>
+											<a asp-controller="Wishlist" asp-action="Index"><i class="icon-heart"></i></a>
 											<span class="count-wishlist">1</span>
 										</div>
 
@@ -280,8 +257,8 @@
 															<div class="total-percent"><div class="percent" style="width:20%"></div></div>
 														</div>
 														<div class="buttons">
-															<a href="shop-cart.html" class="button btn view-cart btn-primary">View cart</a>
-															<a href="shop-checkout.html" class="button btn checkout btn-default">Check out</a>
+															<a asp-controller="Basket" asp-action="Index" class="button btn view-cart btn-primary">View cart</a>
+															<a asp-controller="Checkout" asp-action="Index" class="button btn checkout btn-default">Check out</a>
 														</div>
 													</div>
 												</div>

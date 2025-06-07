@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.ViewModels;
 
@@ -15,11 +16,36 @@ namespace MVC_FinalProject.Controllers
             _categoryService = categoryService;
             _brandService = brandService;
         }
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var categories = await _categoryService.GetAllAsync();
+        //    var brands = await _brandService.GetAllAsync();
+        //    var products = await _productService.GetAllTakenAsync(6,0);
+        //    var productCount = await _productService.GetProductsCountAsync();
+
+        //    ViewBag.ProductsCount = productCount;
+
+        //    ShopVM model = new ShopVM()
+        //    {
+        //        Categories = categories,
+        //        Products = products,
+        //        Brands = brands,
+        //        TotalProductCount = productCount
+        //    };
+
+        //    return View(model);
+        //}
+
+
+        public async Task<IActionResult> Index(string categoryName, string colorName, string tagName, string brandName)
         {
             var categories = await _categoryService.GetAllAsync();
             var brands = await _brandService.GetAllAsync();
-            var products = await _productService.GetAllTakenAsync(6,0);
+            var products = string.IsNullOrEmpty(categoryName) && string.IsNullOrEmpty(colorName) &&
+                           string.IsNullOrEmpty(tagName) && string.IsNullOrEmpty(brandName)
+                           ? await _productService.GetAllTakenAsync(6, 0)
+                           : await _productService.FilterAsync(categoryName, colorName, tagName, brandName);
+
             var productCount = await _productService.GetProductsCountAsync();
 
             ViewBag.ProductsCount = productCount;
@@ -34,6 +60,10 @@ namespace MVC_FinalProject.Controllers
 
             return View(model);
         }
+
+
+
+
 
         public async Task<IActionResult> ShowMore(int skip)
         {

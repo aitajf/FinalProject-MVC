@@ -26,13 +26,15 @@
 									<div class="block-title"><h2>Categories</h2></div>
 									<div class="block-content">
 										<div class="product-cats-list">
-											<ul>
+											
+											@* 			@* 	@* <span class="count">@category.ProductCount</span>      YAZILACAQ ! ! !*@        
+											<ul id="categoryList">
 												@foreach (var item in Model.Categories)
 												{
 													<li>
-														<a href="shop-grid-left.html">@item.Name </a>
-
-														@* <span class="count">@category.ProductCount</span>            YAZILACAQ ! ! !*@      
+														<a href="javascript:void(0);" onclick="filterProducts('@item.Name', null, null, null)">
+															@item.Name
+														</a>
 													</li>
 												}
 											</ul>
@@ -55,30 +57,26 @@
 									</div>
 								</div>
 
+							
 								<!-- Block Product Filter -->
-								@* <div class="block block-product-filter clearfix"> *@
-								@* 	<div class="block-title"><h2>Size</h2></div> *@
-								@* 	<div class="block-content"> *@
-								@* 		<ul class="filter-items text"> *@
-								@* 			<li><span>L</span></li> *@
-								@* 			<li><span>M</span></li> *@
-								@* 			<li><span>S</span></li> *@
-								@* 		</ul> *@
-								@* 	</div> *@
-								@* </div> *@
-
-								<!-- Block Product Filter -->
-								<div class="block block-product-filter clearfix">
+								<div class="block block-product-cats">
 									<div class="block-title"><h2>Brands</h2></div>
 									<div class="block-content">
-										<ul class="filter-items image">
-											@foreach (var item in Model.Brands)
-											{
-												<li><span><img src="@item.Image"></span></li>
-											}
-										</ul>
+										<div class="product-cats-list">
+											<ul id="brandList">
+												@foreach (var item in Model.Brands)
+												{
+													<li>
+														<a href="javascript:void(0);" onclick="filterProducts(null, '@item.Name', null, null)">
+															@item.Name
+														</a>
+													</li>
+												}
+											</ul>
+										</div>
 									</div>
 								</div>
+
 
 								<!-- Block Products -->
 								<div class="block block-products">
@@ -147,7 +145,7 @@
 									<div class="tab-pane fade show active" id="layout-grid" role="tabpanel">
 										<div class="products-list grid">
 											<input type="hidden" class="products-count" value="@ViewBag.ProductsCount" />
-											<div class="row products-area">
+											<div class="row products-area" id="productsContainer">
 												@await Html.PartialAsync("_ProductPartial", Model.Products)												
 											</div>
 											 <div class="btn-all"> 
@@ -214,17 +212,7 @@
 
 										</div>
 									</div>
-								</div>
-
-								@* <nav class="pagination"> *@
-								@* 	<ul class="page-numbers"> *@
-								@* 		<li><a class="prev page-numbers" href="#">Previous</a></li> *@
-								@* 		<li><span aria-current="page" class="page-numbers current">1</span></li> *@
-								@* 		<li><a class="page-numbers" href="#">2</a></li> *@
-								@* 		<li><a class="page-numbers" href="#">3</a></li> *@
-								@* 		<li><a class="next page-numbers" href="#">Next</a></li> *@
-								@* 	</ul> *@
-								@* </nav> *@
+								</div>							
 							</div>
 						</div>
 					</div>
@@ -233,3 +221,28 @@
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
 </div>
+
+
+
+
+<script>
+	function filterProducts(categoryName, brandName, colorName, tagName) {
+		let queryParams = [];
+		if (categoryName) queryParams.push(`categoryName=${encodeURIComponent(categoryName)}`);
+		if (brandName) queryParams.push(`brandName=${encodeURIComponent(brandName)}`);
+		if (colorName) queryParams.push(`colorName=${encodeURIComponent(colorName)}`);
+		if (tagName) queryParams.push(`tagName=${encodeURIComponent(tagName)}`);
+
+		let queryString = queryParams.join("&");
+		let url = `/Shop/Index?${queryString}`;
+
+		fetch(url)
+		.then(response => response.text())
+		.then(data => {
+			let parser = new DOMParser();
+			let doc = parser.parseFromString(data, "text/html");
+			document.getElementById("productsContainer").innerHTML = doc.getElementById("productsContainer").innerHTML;
+		})
+		.catch(error => console.error("Error fetching products:", error));
+	}
+</script>

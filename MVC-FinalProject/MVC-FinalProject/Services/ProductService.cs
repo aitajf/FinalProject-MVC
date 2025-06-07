@@ -172,6 +172,57 @@ namespace MVC_FinalProject.Services
             return await _httpClient.GetFromJsonAsync<int>($"{Urls.ProductClientUrl}GetProductsCount");
         }
 
+        //public async Task<IEnumerable<Product>> FilterAsync(string categoryName, string colorName, string tagName, string brandName)
+        //{
+        //   return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductClientUrl}Filter?categoryName = {categoryName}" +
+        //       $"                                                                                   colorName = {colorName} tagName = {tagName} " +
+        //       $"                                                                                   brandName = {brandName}");
+        //}
+
+
+        public async Task<IEnumerable<Product>> FilterAsync(string categoryName, string colorName, string tagName, string brandName)
+        {
+            var queryParams = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(categoryName))
+                queryParams.Add($"categoryName={Uri.EscapeDataString(categoryName)}");
+
+            if (!string.IsNullOrWhiteSpace(colorName))
+                queryParams.Add($"colorName={Uri.EscapeDataString(colorName)}");
+
+            if (!string.IsNullOrWhiteSpace(tagName))
+                queryParams.Add($"tagName={Uri.EscapeDataString(tagName)}");
+
+            if (!string.IsNullOrWhiteSpace(brandName))
+                queryParams.Add($"brandName={Uri.EscapeDataString(brandName)}");
+
+            var query = string.Join("&", queryParams);
+            var url = $"{Urls.ProductClientUrl}Filter";
+
+            if (!string.IsNullOrEmpty(query))
+                url += "?" + query;
+
+            var response = await _httpClient.GetAsync(url);
+            var responseText = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseText);
+
+
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>(url);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //public async Task<List<Product>> SearchByNameAsync(string? search)
         //{
         //    var searchQuery = search ?? string.Empty;
