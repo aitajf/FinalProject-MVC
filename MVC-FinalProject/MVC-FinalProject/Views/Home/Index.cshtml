@@ -1,6 +1,9 @@
 ﻿@model HomeVM
 
 
+@await Component.InvokeAsync("Header", new { searchQuery = ViewBag.SearchQuery })
+
+
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
 		<div id="primary" class="content-area">
@@ -299,29 +302,7 @@
 										<div class="newsletter-title-wrap">
 											<h2 class="newsletter-title">Join our email list.</h2>
 											<div class="newsletter-text">Sign up for the latest trends, products, and inspiration.</div>
-										</div>										
-
-										@* <form id="subscribeForm" asp-action="SubscribeAjax"  asp-controller="Home" method="post" class="newsletter-form"> *@
-										@* 	@Html.AntiForgeryToken() *@
-										@* 	<div class="form-group"> *@
-										@* 		<input asp-for="Subscribe.Email" class="form-control" placeholder="Email address" /> *@
-										@* 		<span asp-validation-for="Subscribe.Email" class="text-danger"></span> *@
-										@* 		<button type="submit" class="btn subscribe-button">SUBSCRIBE</button> *@
-										@* 	</div> *@
-										@* </form> *@
-										@* <div id="subscribe-message" class="mt-2"></div> *@
-
-										@* @if (TempData["SubscribeSuccess"] != null) *@
-										@* { *@
-										@* 	<div class="alert alert-success mt-2">@TempData["SubscribeSuccess"]</div> *@
-										@* } *@
-										@* @if (TempData["SubscribeError"] != null) *@
-										@* { *@
-										@* 	<div class="alert alert-danger mt-2">@TempData["SubscribeError"]</div> *@
-										@* } *@
-
-
-										@* DUZGUN VERSIYA LAKIN REFRESHLE *@
+										</div>														
 
 										<form id="subscribeForm" method="post" class="newsletter-form">
 											@Html.AntiForgeryToken()
@@ -330,9 +311,7 @@
 												<button type="submit" class="btn subscribe-button">SUBSCRIBE</button>
 											</div>
 										</form>
-
 										<div id="subscribe-message" class="mt-2"></div>
-
 									</div>
 								</div>
 							</div>
@@ -503,8 +482,6 @@
 		});
 	});
 </script>
-
-
 
 
 <style>

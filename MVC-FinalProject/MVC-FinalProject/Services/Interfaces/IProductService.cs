@@ -18,6 +18,6 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<IEnumerable<Product>> FilterAsync(string categoryName, string colorName, string tagName, string brandName);
         Task<IEnumerable<Product>> GetSortedProductsAsync(string sortType);
 
-        //Task<List<Product>> SearchByNameAsync(string? search);
+        Task<IEnumerable<Product>> SearchByNameAsync(string search);
     }
 }

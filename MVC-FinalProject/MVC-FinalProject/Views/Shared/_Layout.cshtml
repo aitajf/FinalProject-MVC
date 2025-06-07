@@ -33,355 +33,11 @@
 
 <body class="home home-7 title-7">
 	<div id="page" class="hfeed page-wrapper">
-		<header id="site-header" class="site-header header-v3">
-			<div class="header-mobile">
-				<div class="section-padding">
-					<div class="section-container large">
-						<div class="row">
-							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-left">
-								<div class="navbar-header">
-									<button type="button" id="show-megamenu" class="navbar-toggle"></button>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
-								<div class="site-logo">
-									<a asp-controller="Home" asp-action="Index">
-										<img width="400" height="79" src="~/assets/img/logo.png" alt="Ruper – Furniture HTML Theme" />
-									</a>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-right">
-								<div class="ruper-topcart dropdown">
-									<div class="dropdown mini-cart top-cart">
-										<div class="remove-cart-shadow"></div>
-										<a class="dropdown-toggle cart-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">2</span></div>
-										</a>
-										<div class="dropdown-menu cart-popup">
-											<div class="cart-empty-wrap">
-												<ul class="cart-list">
-													<li class="empty">
-														<span>No products in the cart.</span>
-														<a class="go-shop" href="shop-grid-left.html">GO TO SHOP<i aria-hidden="true" class="arrow_right"></i></a>
-													</li>
-												</ul>
-											</div>
-											<div class="cart-list-wrap">
-												<ul class="cart-list ">
-													<li class="mini-cart-item">
-														<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>
-														<a href="shop-details.html" class="product-image"><img width="600" height="600" src="media/product/3.jpg" alt=""></a>
-														<a href="shop-details.html" class="product-name">Chair Oak Matt Lacquered</a>
-														<div class="quantity">Qty: 1</div>
-														<div class="price">$150.00</div>
-													</li>
-													<li class="mini-cart-item">
-														<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>
-														<a href="shop-details.html" class="product-image"><img width="600" height="600" src="media/product/1.jpg" alt=""></a>
-														<a href="shop-details.html" class="product-name">Zunkel Schwarz</a>
-														<div class="quantity">Qty: 1</div>
-														<div class="price">$100.00</div>
-													</li>
-												</ul>
-												<div class="total-cart">
-													<div class="title-total">Total: </div>
-													<div class="total-price"><span>$100.00</span></div>
-												</div>
-												<div class="free-ship">
-													<div class="title-ship">Buy <strong>$400</strong> more to enjoy <strong>FREE Shipping</strong></div>
-													<div class="total-percent"><div class="percent" style="width:20%"></div></div>
-												</div>
-												<div class="buttons">
-													<a href="shop-cart.html" class="button btn view-cart btn-primary">View cart</a>
-													<a href="shop-checkout.html" class="button btn checkout btn-default">Check out</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		@await Component.InvokeAsync("Header")
 
-				<div class="header-mobile-fixed">
-					<!-- Shop -->
-					<div class="shop-page">
-						<a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
-					</div>
-
-					<!-- Login -->
-					<div class="my-account">
-						<div class="login-header">
-							<a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
-						</div>
-					</div>
-
-					<!-- Search -->
-					<div class="search-box">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="shop-wishlist.html"><i class="wpb-icon-heart"></i></a>
-					</div>
-				</div>
-			</div>
-
-			<div class="header-desktop">
-				<div class="header-wrapper">
-					<div class="section-padding">
-						<div class="section-container large">
-							<div class="row">
-								<div class="col-lg-8 header-left">
-									<div class="site-logo" style="margin-bottom: -6pc;">
-										<a href="index7.html">
-											<img width="400" height="79" style="margin-top: -2pc;" src="~/assets/img/logo.png" alt="" />
-										</a>
-									</div>
-
-									<div class="site-navigation">
-										<nav id="main-navigation">
-											<ul id="menu-main-menu" class="menu" style="margin-left:6pc;">
-												<li class="level-0 menu-item">
-													<a asp-controller="Home" asp-action="Index"><span class="menu-item-text">Home</span></a>
-												</li>
-												<li class="level-0 menu-item">
-													<a asp-controller="Shop" asp-action="Index"><span class="menu-item-text">Shop</span></a>
-													
-												</li>
-												<li class="level-0 menu-item">
-													<a asp-controller="Blog" asp-action="Index"><span class="menu-item-text">Blog</span></a>
-					
-												</li><li class="level-0 menu-item">
-													<a asp-controller="About" asp-action="Index"><span class="menu-item-text">About</span></a>
-					
-												</li>
-												<li class="level-0 menu-item menu-item-has-children">
-													<a href="#"><span class="menu-item-text">Pages</span></a>
-													<ul class="sub-menu">
-												
-														<li>
-															<a asp-controller="Account" asp-action="ForgotPassword"><span class="menu-item-text">Forgot Password</span></a>
-														</li>
-														<li>
-															<a asp-controller="MyAccount" asp-action="Index"><span class="menu-item-text">My Account</span></a>
-														</li>
-														
-														<li>
-															<a asp-controller="FAQ" asp-action="Index"><span class="menu-item-text">FAQ</span></a>
-														</li>
-														
-													</ul>
-												</li>
-												<li class="level-0 menu-item">
-													<a asp-controller="Contact" asp-action="Index"><span class="menu-item-text">Contact</span></a>
-												</li>
-
-											</ul>
-										</nav>
-									</div>
-								</div>
-
-								<div class="col-lg-4 header-right">
-									<div class="header-page-link">
-										<!-- Login -->
-										<div>
-											@if (User.Identity.IsAuthenticated)
-											{
-												<span>Hi @User.Identity.Name!</span>
-
-												@if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
-												{
-													<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a>
-												}
-											}
-											else
-											{
-												<a asp-controller="Account" asp-action="Login">Login</a>
-											}
-										</div>
-
-
-										<!-- Search -->
-										<div class="search-box">
-											<div class="search-toggle"><i class="icon-search"></i></div>
-										</div>
-
-										<!-- Wishlist -->
-										<div class="wishlist-box">
-											<a asp-controller="Wishlist" asp-action="Index"><i class="icon-heart"></i></a>
-											<span class="count-wishlist">1</span>
-										</div>
-
-										<!-- Cart -->
-										<div class="ruper-topcart dropdown light">
-											<div class="dropdown mini-cart top-cart">
-												<div class="remove-cart-shadow"></div>
-												<a class="dropdown-toggle cart-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">2</span></div>
-												</a>
-												<div class="dropdown-menu cart-popup">
-													<div class="cart-empty-wrap">
-														<ul class="cart-list">
-															<li class="empty">
-																<span>No products in the cart.</span>
-																<a class="go-shop" href="shop-grid-left.html">GO TO SHOP<i aria-hidden="true" class="arrow_right"></i></a>
-															</li>
-														</ul>
-													</div>
-													<div class="cart-list-wrap">
-														<ul class="cart-list ">
-															<li class="mini-cart-item">
-																<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>
-																<a href="shop-details.html" class="product-image"><img width="600" height="600" src="media/product/3.jpg" alt=""></a>
-																<a href="shop-details.html" class="product-name">Chair Oak Matt Lacquered</a>
-																<div class="quantity">Qty: 1</div>
-																<div class="price">$150.00</div>
-															</li>
-															<li class="mini-cart-item">
-																<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>
-																<a href="shop-details.html" class="product-image"><img width="600" height="600" src="media/product/1.jpg" alt=""></a>
-																<a href="shop-details.html" class="product-name">Zunkel Schwarz</a>
-																<div class="quantity">Qty: 1</div>
-																<div class="price">$100.00</div>
-															</li>
-														</ul>
-														<div class="total-cart">
-															<div class="title-total">Total: </div>
-															<div class="total-price"><span>$100.00</span></div>
-														</div>
-														<div class="free-ship">
-															<div class="title-ship">Buy <strong>$400</strong> more to enjoy <strong>FREE Shipping</strong></div>
-															<div class="total-percent"><div class="percent" style="width:20%"></div></div>
-														</div>
-														<div class="buttons">
-															<a asp-controller="Basket" asp-action="Index" class="button btn view-cart btn-primary">View cart</a>
-															<a asp-controller="Checkout" asp-action="Index" class="button btn checkout btn-default">Check out</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
             @RenderBody()
-		<footer id="site-footer" class="site-footer three-columns">
-			<div class="footer">
-				<div class="section-padding">
-					<div class="section-container">
-						<div class="block-widget-wrap">
-							<div class="row">
-								<div class="col-lg-4 column-left">
-									<div class="column-wrap">
-										<div class="row">
-											<div class="col-lg-6 md-b-20">
-												<div class="block block-menu m-b-20">
-													<h2 class="block-title">Contact Us</h2>
-													<div class="block-content">
-														<ul>
-															<li>
-																<a href="page-contact.html">616.774.0561</a>
-															</li>
-															<li>
-																<a href="page-contact.html">866.453.4748</a>
-															</li>
-															<li>
-																<a href="page-contact.html">HR Fax: 810.222.5439</a>
-															</li>
-															<li>
-																<a href="page-contact.html">sales@ruperfurniture.com</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<div class="block block-menu">
-													<h2 class="block-title">Services</h2>
-													<div class="block-content">
-														<ul>
-															<li>
-																<a href="page-about.html">Sale</a>
-															</li>
-															<li>
-																<a href="page-about.html">Quick Ship</a>
-															</li>
-															<li>
-																<a href="page-about.html">New Designs</a>
-															</li>
-															<li>
-																<a href="page-about.html">Accidental Fabric Protection</a>
-															</li>
-															<li>
-																<a href="page-about.html">Furniture Care</a>
-															</li>
-															<li>
-																<a href="page-about.html">Gift Cards</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 column-center">
-									<div class="column-wrap">
-										<div class="block block-image m-b-20">
-											<img width="100" src="~/assets/img/logo.png" alt="">
-										</div>
-										<div class="block block-social">
-											<ul class="social-link">
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-												<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-												<li><a href="#"><i class="fa fa-behance"></i></a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 column-right">
-									<div class="column-wrap">
-										<div class="block block-newsletter">
-											<h2 class="block-title">Newsletter</h2>
-											<div class="block-content">
-												<div class="newsletter-text">Enter your email below to be the first to know about new collections and product launches.</div>
-												<form action="" method="post" class="newsletter-form">
-													<input type="email" name="your-email" value="" size="40" placeholder="Email address">
-													<span class="btn-submit">
-														<input type="submit" value="Subscribe">
-													</span>
-												</form>
-											</div>
-										</div>
-										<div class="block block-image">
-											<img width="309" height="32" src="~/assets/img/payments.png" alt="">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-				<div class="section-padding">
-					<div class="section-container">
-						<div class="block-widget-wrap">
-							<p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
+		@await Component.InvokeAsync("Footer")
+
 	</div>
 
 	<!-- Back Top button -->
@@ -390,31 +46,31 @@
 	</div>
 
 	<!-- Search -->
-	<div class="search-overlay">
-		<div class="close-search"></div>
-		<div class="wrapper-search">
-			<form method="get" class="search-from ajax-search" action="">
-				<div class="search-box">
-					<button id="searchsubmit" class="btn" type="submit">
-						<i class="icon-search"></i>
-					</button>
-					<input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s" placeholder="Search...">
-					<div class="search-top">
-						<div class="close-search">Cancel</div>
-					</div>
-					<div class="content-menu_search">
-						<label>Suggested</label>
-						<ul id="menu_search" class="menu">
-							<li><a href="#">Furniture</a></li>
-							<li><a href="#">Home Décor</a></li>
-							<li><a href="#">Industrial</a></li>
-							<li><a href="#">Kitchen</a></li>
-						</ul>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+	@* <div class="search-overlay"> *@
+	@* 	<div class="close-search"></div> *@
+	@* 	<div class="wrapper-search"> *@
+	@* 		<form method="get" class="search-from ajax-search" action=""> *@
+	@* 			<div class="search-box"> *@
+	@* 				<button id="searchsubmit" class="btn" type="submit"> *@
+	@* 					<i class="icon-search"></i> *@
+	@* 				</button> *@
+	@* 				<input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s" placeholder="Search..."> *@
+	@* 				<div class="search-top"> *@
+	@* 					<div class="close-search">Cancel</div> *@
+	@* 				</div> *@
+	@* 				<div class="content-menu_search"> *@
+	@* 					<label>Suggested</label> *@
+	@* 					<ul id="menu_search" class="menu"> *@
+	@* 						<li><a href="#">Furniture</a></li> *@
+	@* 						<li><a href="#">Home Décor</a></li> *@
+	@* 						<li><a href="#">Industrial</a></li> *@
+	@* 						<li><a href="#">Kitchen</a></li> *@
+	@* 					</ul> *@
+	@* 				</div> *@
+	@* 			</div> *@
+	@* 		</form> *@
+	@* 	</div> *@
+	@* </div> *@
 
 
 

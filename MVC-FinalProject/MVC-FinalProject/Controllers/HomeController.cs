@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Subscription;
 using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.ViewModels;
@@ -32,7 +33,30 @@ namespace MVC_FinalProject.Controllers
             _subscriptionService = subscriptionService;
         }
 
-        public async Task<IActionResult> Index(string? search)
+        //public async Task<IActionResult> Index(string search)
+        //{
+        //    var sliders = await _sliderService.GetAllAsync();
+        //    var categories = await _categoryService.GetAllAsync();
+        //    var products = await _productService.GetAllAsync();
+        //    var landingBanners = await _landingBannerService.GetAllAsync();
+        //    var instagrams = await _instagramService.GetAllAsync();
+        //    var subscribeImgs = await _subscribeImgService.GetAllAsync();
+        //    var searchText = await _productService.SearchByNameAsync(search);
+
+        //    HomeVM model = new HomeVM()
+        //    {
+        //        Sliders = sliders,
+        //        Categories = categories,
+        //        Products = products,
+        //        LandingBanners = landingBanners,
+        //        Instagrams = instagrams,
+        //        SubscribeImgs = subscribeImgs,
+        //        SearchResults = searchText
+        //    };
+        //    return View(model);
+        //}
+
+        public async Task<IActionResult> Index(string? searchQuery)
         {
             var sliders = await _sliderService.GetAllAsync();
             var categories = await _categoryService.GetAllAsync();
@@ -40,7 +64,10 @@ namespace MVC_FinalProject.Controllers
             var landingBanners = await _landingBannerService.GetAllAsync();
             var instagrams = await _instagramService.GetAllAsync();
             var subscribeImgs = await _subscribeImgService.GetAllAsync();
-            //var searchText = await _productService.SearchByNameAsync(search);
+
+            var searchResults = string.IsNullOrEmpty(searchQuery) ? new List<Product>() : await _productService.SearchByNameAsync(searchQuery);
+
+            ViewBag.SearchQuery = searchQuery; 
 
             HomeVM model = new HomeVM()
             {
@@ -50,10 +77,28 @@ namespace MVC_FinalProject.Controllers
                 LandingBanners = landingBanners,
                 Instagrams = instagrams,
                 SubscribeImgs = subscribeImgs,
-                //SearchText = searchText
+                SearchResults = searchResults
             };
+
             return View(model);
         }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> SearchByName(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                return Ok(new List<Product>());
+            }
+            var products = await _productService.SearchByNameAsync(searchQuery);
+            return Ok(products);
+        }
+
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -87,5 +132,9 @@ namespace MVC_FinalProject.Controllers
                 return Json(new { success = false, message = "An unexpected error occurred." });
             }
         }
+
+
+
+       
     }
 }

@@ -218,19 +218,18 @@ namespace MVC_FinalProject.Services
 
 
 
-        //public async Task<List<Product>> SearchByNameAsync(string? search)
-        //{
-        //    var searchQuery = search ?? string.Empty;
-        //    var response = await _httpClient.GetAsync($"{Urls.ProductClientUrl}SearchByName?name={searchQuery}");
+        public async Task<IEnumerable<Product>> SearchByNameAsync(string search)
+        {
+            var searchQuery = search?.Trim() ?? string.Empty;
 
-        //    if (!response.IsSuccessStatusCode) return new List<Product>();
+            var response = await _httpClient.GetAsync($"{Urls.ProductClientUrl}SearchByName?name={searchQuery}");
+            response.EnsureSuccessStatusCode(); 
 
-        //    var json = await response.Content.ReadAsStringAsync();
-        //    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        //    var result = JsonSerializer.Deserialize<List<Product>>(json, options);
+            var json = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var result = JsonSerializer.Deserialize<List<Product>>(json, options);
 
-        //    return result ?? new List<Product>();
-        //}
-
+            return result ?? new List<Product>();
+        }
     }
 }
