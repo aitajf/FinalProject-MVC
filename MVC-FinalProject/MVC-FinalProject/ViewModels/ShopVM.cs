@@ -1,6 +1,7 @@
 ﻿using MVC_FinalProject.Models.Brand;
 using MVC_FinalProject.Models.Category;
 using MVC_FinalProject.Models.Product;
+using MVC_FinalProject.Models.Tag;
 
 namespace MVC_FinalProject.ViewModels
 {
@@ -9,6 +10,7 @@ namespace MVC_FinalProject.ViewModels
         public IEnumerable<Category> Categories { get; set; }
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Brand> Brands { get; set; }
+        public IEnumerable<Tag> Tags { get; set; }
         public int TotalProductCount { get; set; }
     }
 }

@@ -9,12 +9,16 @@ namespace MVC_FinalProject.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly ITagService _tagService;
         private  IBrandService _brandService;
-        public ShopController(IProductService productService, ICategoryService categoryService, IBrandService brandService)
+        public ShopController(IProductService productService, 
+
+            ICategoryService categoryService, IBrandService brandService, ITagService tagService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
+            _tagService = tagService;
         }
         //public async Task<IActionResult> Index()
         //{
@@ -45,21 +49,28 @@ namespace MVC_FinalProject.Controllers
                            string.IsNullOrEmpty(tagName) && string.IsNullOrEmpty(brandName)
                            ? await _productService.GetAllTakenAsync(6, 0)
                            : await _productService.FilterAsync(categoryName, colorName, tagName, brandName);
-
+            var tags = await _tagService.GetAllAsync();
             var productCount = await _productService.GetProductsCountAsync();
 
+            var categoryProductCounts = await _categoryService.GetCategoryProductCountsAsync(); 
+            var brandProductCounts = await _brandService.GetBrandProductCountsAsync(); 
+
             ViewBag.ProductsCount = productCount;
+            ViewBag.CategoryProductCounts = categoryProductCounts;
+            ViewBag.BrandProductCounts = brandProductCounts;
 
             ShopVM model = new ShopVM()
             {
                 Categories = categories,
                 Products = products,
                 Brands = brands,
+                Tags = tags,
                 TotalProductCount = productCount
             };
 
             return View(model);
         }
+
 
 
 

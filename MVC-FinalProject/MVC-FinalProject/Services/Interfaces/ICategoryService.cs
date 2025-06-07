@@ -13,5 +13,6 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<IEnumerable<Category>> GetAllAsync();
         Task<Category> GetByIdAsync(int id);
         Task<PaginationResponse<Category>> GetPaginatedProductsAsync(int page, int pageSize);
+        Task<Dictionary<string, int>> GetCategoryProductCountsAsync();
     }
 }

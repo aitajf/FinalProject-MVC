@@ -93,5 +93,21 @@ namespace MVC_FinalProject.Services
             return PaginationResponse<Category>.Create(apiResponse.Datas, apiResponse.TotalCount, apiResponse.CurrentPage, pageSize);
         }
 
+        public async Task<Dictionary<string, int>> GetCategoryProductCountsAsync()
+        {
+            var response = await _httpClient.GetAsync($"{Urls.CategoryUrl}GetCategoryProductCounts");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Not found.");
+            }
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var productCounts = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonString);
+
+            return productCounts ?? new Dictionary<string, int>();
+        }
+
+
     }
 }

@@ -10,5 +10,7 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<IEnumerable<Brand>> GetAllAsync();
         Task<Brand> GetByIdAsync(int id);
+        Task<Dictionary<string, int>> GetBrandProductCountsAsync();
+
     }
 }
