@@ -31,6 +31,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AboutBannerImgCreate request)
         {
+            if (!ModelState.IsValid) return View(request);
 
             var result = await _bannerService.CreateAsync(request);
             if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));

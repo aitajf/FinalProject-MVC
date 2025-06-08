@@ -112,7 +112,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 return View(model);
             }
 
-            var response = await _blogPostService.EditAsync(id, model, model.DeleteImageIds, model.MainImageId);
+            var response = await _blogPostService.EditAsync(id, model, model.MainImageId);
             if (!response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError("", "Error updating blog post.");
@@ -131,8 +131,9 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 return BadRequest(new { message = "Error deleting image." });
             }
 
-            return RedirectToAction("Edit", new { id = blogPostId });
+            return Ok(new { message = "Image deleted successfully." }); // ✅ Burada JSON qaytarırıq, redirect yox!
         }
+
 
     }
 }

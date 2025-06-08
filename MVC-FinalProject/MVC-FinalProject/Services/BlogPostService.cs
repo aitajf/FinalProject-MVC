@@ -87,12 +87,7 @@ namespace MVC_FinalProject.Services
 
         public async Task<HttpResponseMessage> DeleteImageAsync(int blogPostId, int blogPostImageId)
         {
-            return await _httpClient.DeleteAsync($"{Urls.BlogPostUrl}DeleteImage/{blogPostId}/{blogPostImageId}");           
-        }
-
-        public Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model, List<int> imagesToDelete, int? mainImageId)
-        {
-            throw new NotImplementedException();
+            return await _httpClient.DeleteAsync($"{Urls.BlogPostUrl}DeleteImage?blogPostId={blogPostId}&blogPostImageId={blogPostImageId}");           
         }
 
         public async Task<PaginationResponse<BlogPost>> GetPaginatedAsync(int page, int pageSize)

@@ -31,6 +31,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AboutPromoCreate request)
         {
+            if (!ModelState.IsValid) return View(request);
 
             var result = await _aboutPromoService.CreateAsync(request);
             if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));

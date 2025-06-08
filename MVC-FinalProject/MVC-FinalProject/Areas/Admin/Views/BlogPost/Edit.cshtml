@@ -33,7 +33,10 @@
                                             Main Image
                                         </label>
                                     </div>
-                                    <button type="button" class="btn btn-outline-danger btn-sm mt-2" onclick="deleteImage(@item.Id)">Delete</button>
+                                    @if (!(Model.ExistingImages.Count == 1 && item.IsMain))
+                                    {
+                                        <button type="button" class="btn btn-outline-danger btn-sm mt-2" onclick="deleteImage(@item.Id)">Delete</button>
+                                    }
                                 </div>
                             }
                         </div>
@@ -60,38 +63,36 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Save Changes</button>
-            <a asp-action="Index" class="btn btn-outline-primary mt-3">← Back</a>
+            <a asp-action="Index" class="btn btn-outline-primary">← Back</a>
         </form>
     </div>
 </div>
 
 <script>
-       function deleteImage(imageId) {
+    function deleteImage(imageId) {
         const blogPostId = document.getElementById("blog-container")?.dataset.routeId;
 
-        // Debug üçün konsolda ID-ləri yoxlayırıq
-        console.log("DELETE Request:", `/api/admin/BlogPost/DeleteImage?blogPostId=${blogPostId}&blogPostImageId=${imageId}`);
-        console.log("BlogPostId:", blogPostId);
-        console.log("ImageId:", imageId);
-
-        if (!blogPostId || !imageId) {
-            alert("Xəta: BlogPostId və ya ImageId düzgün ötürülməyib!");
-            return;
-        }
-
-        fetch(`/api/admin/BlogPost/DeleteImage?blogPostId=${blogPostId}&blogPostImageId=${imageId}`, {
+        fetch(`/Admin/BlogPost/DeleteImage?blogPostId=${blogPostId}&blogPostImageId=${imageId}`, {
             method: "DELETE"
         }).then(response => {
             if (!response.ok) {
                 console.error("Error:", response.status, response.statusText);
-                alert("Şəkili silmək mümkün olmadı!");
                 return;
             }
-            document.getElementById(`image-${imageId}`)?.remove();
+
+            const deletedImageDiv = document.getElementById(`image-${imageId}`);
+            deletedImageDiv?.remove();
+
+            const remainingImages = document.querySelectorAll('[id^="image-"]');
+
+            if (remainingImages.length === 1) {
+                const deleteBtn = remainingImages[0].querySelector("button");
+                if (deleteBtn) {
+                    deleteBtn.style.display = "none";
+                }
+            }
         }).catch(error => {
-            console.error("Şəbəkə xətası:", error);
-            alert("Şəbəkə problemi baş verdi.");
+            console.error("Error:", error);
         });
     }
-
 </script>

@@ -33,29 +33,6 @@ namespace MVC_FinalProject.Controllers
             _subscriptionService = subscriptionService;
         }
 
-        //public async Task<IActionResult> Index(string search)
-        //{
-        //    var sliders = await _sliderService.GetAllAsync();
-        //    var categories = await _categoryService.GetAllAsync();
-        //    var products = await _productService.GetAllAsync();
-        //    var landingBanners = await _landingBannerService.GetAllAsync();
-        //    var instagrams = await _instagramService.GetAllAsync();
-        //    var subscribeImgs = await _subscribeImgService.GetAllAsync();
-        //    var searchText = await _productService.SearchByNameAsync(search);
-
-        //    HomeVM model = new HomeVM()
-        //    {
-        //        Sliders = sliders,
-        //        Categories = categories,
-        //        Products = products,
-        //        LandingBanners = landingBanners,
-        //        Instagrams = instagrams,
-        //        SubscribeImgs = subscribeImgs,
-        //        SearchResults = searchText
-        //    };
-        //    return View(model);
-        //}
-
         public async Task<IActionResult> Index(string? searchQuery)
         {
             var sliders = await _sliderService.GetAllAsync();
