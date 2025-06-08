@@ -8,67 +8,202 @@
 <br />
 <br />
 
+@* <div class="page-login-register"> *@
+@* 	<div class="row" style="margin-left: 1pc; margin-right: 2px;"> *@
+@* 		<div class="col-lg-6 col-md-6 col-sm-12" style="margin-left: 20pc;"> *@
+@* 			<div class="box-form-login"> *@
+@* 				<h2 class="register">Register</h2> *@
+@* 				<div class="box-content"> *@
+@* 					<div class="form-register">						 *@
+@* 						<form class="user" asp-controller="Account" asp-action="Register" method="post">					 *@
+@* 								<div class="fullname">  *@
+@* 						 	<label>FullName <span class="required">*</span></label>  *@
+@* 							<input type="text" class="form-control form-control-user input-text" id="exampleFirstName" asp-for="FullName"> *@
+@* 							<span class="text-danger" asp-validation-for="FullName"></span> *@
+@* 						    	</div>  *@
+
+@* 							<div class="username">  *@
+@* 						  	<label>Username <span class="required">*</span></label>  *@
+@* 							<input type="text" class="form-control form-control-user input-text" id="exampleLastName" asp-for="UserName"> *@
+@* 							<span class="text-danger" asp-validation-for="UserName"></span> *@
+@* 					         	</div> *@
+
+@* 								<div class="email">  *@
+@* 							   <label>Email address <span class="required">*</span></label>  *@
+@* 							<input type="email" class="form-control input-text form-control-user" id="exampleInputEmail" asp-for="Email"> *@
+@* 							<span class="text-danger" asp-validation-for="Email"></span> *@
+@* 								</div> *@
+
+@* 								<div class="password">  *@
+@* 								   <label>Password <span class="required">*</span></label>  *@
+@* 							   <input type="password" class="form-control input-text form-control-user" id="exampleRepeatPassword" asp-for="Password"> *@
+@* 							<div class="input-group-append"> *@
+@* 								<span class="input-group-text" onclick="togglePasswordVisibility()"> *@
+@* 									<i class="fa fa-eye" id="togglePasswordIcon"></i> *@
+@* 								</span> *@
+@* 							</div> *@
+@* 							<span class="text-danger" asp-validation-for="Password"></span> *@
+@* 							   </div> *@
+
+
+@* 							 <div class="password">  *@
+@* 							 	<label> Confirm Password <span class="required">*</span></label>  *@
+@* 							 	<input type="password" class="form-control input-text form-control-user" id="exampleRepeatPassword" asp-for="Password">  *@
+@* 							 	<div class="input-group-append">  *@
+@* 							 		<span class="input-group-text" onclick="togglePasswordVisibility()">  *@
+@* 							 			<i class="fa fa-eye" id="togglePasswordIcon"></i>  *@
+@* 							 		</span>  *@
+@* 							 	</div>  *@
+@* 							 	<span class="text-danger" asp-validation-for="ConfirmPassword"></span>  *@
+@* 							 </div>  *@
+
+@* 							<div>  *@
+@* 						   		<a asp-controller="Account" asp-action="Login">Do you have an account?</a>  *@
+@* 						   	</div>  *@
+@* 						   	<div class="button-register">  *@
+@* 						   		<input type="submit" class="button" name="register" value="Register">  *@
+@* 						   	</div>  *@
+@* 						</form> *@
+@* 					</div> *@
+@* 				</div> *@
+@* 			</div> *@
+@* 		</div> *@
+@* 	</div> *@
+@* </div> *@
+
 <div class="page-login-register">
-	<div class="row" style="margin-left: 1pc; margin-right: 2px;">
-		<div class="col-lg-6 col-md-6 col-sm-12" style="margin-left: 20pc;">
-			<div class="box-form-login">
-				<h2 class="register">Register</h2>
-				<div class="box-content">
-					<div class="form-register">						
-						<form class="user" asp-controller="Account" asp-action="Register" method="post">					
-								<div class="fullname"> 
-						 	<label>FullName <span class="required">*</span></label> 
-							<input type="text" class="form-control form-control-user input-text" id="exampleFirstName" asp-for="FullName">
-							<span class="text-danger" asp-validation-for="FullName"></span>
-						    	</div> 
+    <div class="row" style="margin-left: 1pc; margin-right: 2px;">
+        <div class="col-lg-6 col-md-6 col-sm-12" style="margin-left: 20pc;">
+            <div class="box-form-login">
+                <h2 class="register">Register</h2>
+                <div class="box-content">
+                    <div class="form-register">
+                        <form id="registerForm" method="post" asp-controller="Account" asp-action="Register">
+                            @Html.AntiForgeryToken()
+                            <div asp-validation-summary="All" class="text-danger"></div>
 
-							<div class="username"> 
-						  	<label>Username <span class="required">*</span></label> 
-							<input type="text" class="form-control form-control-user input-text" id="exampleLastName" asp-for="UserName">
-							<span class="text-danger" asp-validation-for="UserName"></span>
-					         	</div>
+                         
 
-								<div class="email"> 
-							   <label>Email address <span class="required">*</span></label> 
-							<input type="email" class="form-control input-text form-control-user" id="exampleInputEmail" asp-for="Email">
-							<span class="text-danger" asp-validation-for="Email"></span>
-								</div>
+                            <div class="fullname">
+                                <label>FullName <span class="required">*</span></label>
+                                <input type="text" class="form-control form-control-user input-text" id="exampleFirstName" asp-for="FullName">
+                                <span class="text-danger" asp-validation-for="FullName"></span>
+                            </div>
 
-								<div class="password"> 
-								   <label>Password <span class="required">*</span></label> 
-							   <input type="password" class="form-control input-text form-control-user" id="exampleRepeatPassword" asp-for="Password">
-							<div class="input-group-append">
-								<span class="input-group-text" onclick="togglePasswordVisibility()">
-									<i class="fa fa-eye" id="togglePasswordIcon"></i>
-								</span>
-							</div>
-							<span class="text-danger" asp-validation-for="Password"></span>
-							   </div> 										
-							<div> 
-						   		<a asp-controller="Account" asp-action="Login">Do you have an account?</a> 
-						   	</div> 
-						   	<div class="button-register"> 
-						   		<input type="submit" class="button" name="register" value="Register"> 
-						   	</div> 
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <div class="username">
+                                <label>Username <span class="required">*</span></label>
+                                <input type="text" class="form-control form-control-user input-text" id="exampleLastName" asp-for="UserName">
+                                <span class="text-danger" asp-validation-for="UserName"></span>
+                            </div>
+
+                            <div class="email">
+                                <label>Email address <span class="required">*</span></label>
+                                <input type="email" class="form-control input-text form-control-user" id="exampleInputEmail" asp-for="Email">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+
+                            <div class="password">
+                                <label>Password <span class="required">*</span></label>
+                                <input type="password" class="form-control input-text form-control-user" id="password" asp-for="Password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" onclick="togglePasswordVisibility('password', 'togglePasswordIcon')">
+                                        <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                                    </span>
+                                </div>
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+
+                            <div class="password">
+                                <label>Confirm Password <span class="required">*</span></label>
+                                <input type="password" class="form-control input-text form-control-user" id="confirmPassword" asp-for="ConfirmPassword">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPasswordIcon')">
+                                        <i class="fa fa-eye" id="toggleConfirmPasswordIcon"></i>
+                                    </span>
+                                </div>
+                                <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                            </div>
+
+                            <div>
+                                <a asp-controller="Account" asp-action="Login">Do you have an account?</a>
+                            </div>
+
+                            <div class="button-register">
+                                <input type="submit" class="button" name="register" value="Register">
+                            </div>
+                        </form>
+
+                        <div id="registerResult" class="mt-3 text-danger"></div>
+
+
+                        <span class="text-danger" data-valmsg-for="FullName"></span>
+                        <span class="text-danger" data-valmsg-for="UserName"></span>
+                        <span class="text-danger" data-valmsg-for="Email"></span>
+                        <span class="text-danger" data-valmsg-for="Password"></span>
+                        <span class="text-danger" data-valmsg-for="ConfirmPassword"></span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <br />
 <br />
 
 <script>
-	$(document).ready(function () {
-		var usernameExists = '@(ViewData.ModelState["UserName"] != null && ViewData.ModelState["UserName"].Errors.Count > 0)';
-		if (usernameExists === 'True') {
-			alert('Username already exists. Please choose a different username.');
-		}
-	});
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("registerForm");
+        const resultDiv = document.getElementById("registerResult");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            // Clear previous messages
+            document.querySelectorAll('[data-valmsg-for]').forEach(span => span.innerText = '');
+            resultDiv.innerText = '';
+
+            fetch("/Account/Register", {
+                method: "POST",
+                body: formData
+            })
+            .then(res => {
+                if (res.ok) return res.json();
+                return res.json().then(data => { throw data });
+            })
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirectUrl || "/";
+                } else if (data.errors) {
+                    for (const key in data.errors) {
+                        const span = document.querySelector(`[data-valmsg-for="${key}"]`);
+                        if (span) {
+                            span.innerText = data.errors[key][0];
+                        }
+                    }
+                } else {
+                    resultDiv.innerText = "Something went wrong. Please try again.";
+                }
+            })
+            .catch(data => {
+                if (data.errors) {
+                    for (const key in data.errors) {
+                        const span = document.querySelector(`[data-valmsg-for="${key}"]`);
+                        if (span) {
+                            span.innerText = data.errors[key][0];
+                        }
+                    }
+                } else {
+                    resultDiv.innerText = "Unexpected error occurred.";
+                }
+            });
+        });
+    });
 
 		function togglePasswordVisibility() {
 			var passwordField = document.getElementById("exampleRepeatPassword");
@@ -85,4 +220,18 @@
 		}
 
 
+
+          function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
 </script>

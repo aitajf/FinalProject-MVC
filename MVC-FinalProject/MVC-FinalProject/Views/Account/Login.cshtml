@@ -16,21 +16,27 @@
 				<div class="box-content">
 					<div class="form-login">
 						<form method="post" class="login">
-							<div class="username">
-								<label>Username or email address <span class="required">*</span></label>
-								<input type="text" class="form-control form-control-user" id="exampleInputUsername" autocomplete="off" asp-for="EmailOrUserName">
-								<span class="text-danger" asp-validation-for="EmailOrUserName"></span>
+
+						@Html.AntiForgeryToken()
+
+						<div id="loginErrors"></div>
+
+						<div class="username">
+							<label>Username or email address <span class="required">*</span></label>
+							<input type="text" class="form-control form-control-user" asp-for="EmailOrUserName" autocomplete="off">
+							<span class="text-danger" asp-validation-for="EmailOrUserName"></span>
+						</div>
+						<div class="password">
+							<label>Password <span class="required">*</span></label>
+							<input type="password" class="form-control input-text form-control-user" asp-for="Password">
+							<div class="input-group-append">
+								<span class="input-group-text" onclick="togglePasswordVisibility()">
+									<i class="fa fa-eye" id="togglePasswordIcon"></i>
+								</span>
 							</div>
-							<div class="password">
-								<label>Password <span class="required">*</span></label>
-								<input type="password" class="form-control input-text form-control-user" id="exampleRepeatPassword" asp-for="Password">
-								<div class="input-group-append">
-									<span class="input-group-text" onclick="togglePasswordVisibility()">
-										<i class="fa fa-eye" id="togglePasswordIcon"></i>
-									</span>
-								</div>
-								<span class="text-danger" asp-validation-for="Password"></span>
-							</div>
+							<span class="text-danger" asp-validation-for="Password"></span>
+						</div>
+
 							<div class="rememberme-lost">
 								<div class="remember-me">
 									<input name="rememberme" type="checkbox" value="forever">
@@ -38,15 +44,18 @@
 								</div>
 								<div class="lost-password">
 									<a asp-controller="Account" asp-action="ForgetPassword">Lost your password?</a>
-								</div>								
+								</div>
 							</div>
+
 							<div>
-								<a asp-controller="Account" asp-action="Register">Dont have an account?</a>
+								<a asp-controller="Account" asp-action="Register">Don't have an account?</a>
 							</div>
+
 							<div class="button-login">
 								<input type="submit" class="button" name="login" value="Login">
 							</div>
 						</form>
+
 					</div>
 				</div>
 			</div>
@@ -73,4 +82,36 @@
 			passwordIcon.classList.add("fa-eye");
 		}
 	}
+
+
+	document.querySelector("form.login").addEventListener("submit", async function (e) {
+		e.preventDefault();
+
+		const form = e.target;
+		const formData = new FormData(form);
+
+		const response = await fetch(form.action || window.location.href, {
+			method: 'POST',
+			headers: {
+				'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+			},
+			body: formData
+		});
+
+		const result = await response.json();
+
+		const errorContainer = document.getElementById("loginErrors");
+		errorContainer.innerHTML = "";
+
+		if (result.success) {
+			window.location.href = result.redirectUrl;
+		} else if (result.errors) {
+			result.errors.forEach(err => {
+				const p = document.createElement("p");
+				p.classList.add("text-danger");
+				p.innerText = err;
+				errorContainer.appendChild(p);
+			});
+		}
+	});
 </script>

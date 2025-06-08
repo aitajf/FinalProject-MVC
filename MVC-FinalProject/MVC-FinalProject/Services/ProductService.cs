@@ -69,19 +69,19 @@ namespace MVC_FinalProject.Services
                 }
             }
 
-            if (model.ColorImages != null)
-            {
-                foreach (var colorImage in model.ColorImages)
-                {
-                    using var ms = new MemoryStream();
-                    await colorImage.CopyToAsync(ms);
-                    var fileBytes = ms.ToArray();
+            //if (model.ColorImages != null)
+            //{
+            //    foreach (var colorImage in model.ColorImages)
+            //    {
+            //        using var ms = new MemoryStream();
+            //        await colorImage.CopyToAsync(ms);
+            //        var fileBytes = ms.ToArray();
 
-                    var byteContent = new ByteArrayContent(fileBytes);
-                    byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    content.Add(byteContent, "ColorImages", colorImage.FileName);
-                }
-            }
+            //        var byteContent = new ByteArrayContent(fileBytes);
+            //        byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+            //        content.Add(byteContent, "ColorImages", colorImage.FileName);
+            //    }
+            //}
 
             return await _httpClient.PostAsync($"{Urls.ProductUrl}Create", content);
         }
@@ -158,7 +158,7 @@ namespace MVC_FinalProject.Services
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductUrl}GetAll");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductUrl}GetAll");       
         }
 
 
@@ -210,10 +210,18 @@ namespace MVC_FinalProject.Services
         }
 
 
+        public async Task<IEnumerable<Product>> GetComparisonProductsAsync(int categoryId, int selectedProduct)
+        {
+            if (categoryId <= 0) throw new ArgumentException("Invalid category ID");
 
+            var response = await _httpClient.GetFromJsonAsync<IEnumerable<Product>>($"{Urls.ProductClientUrl}GetComparisonProducts?categoryId={categoryId}&selectedProduct={selectedProduct}");
 
-
-
+            if (response == null || !response.Any())
+            {
+                throw new KeyNotFoundException($"No comparison products found for category ID: {categoryId}");
+            }
+            return response;
+        }
 
 
 

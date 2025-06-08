@@ -119,9 +119,10 @@
 																			<div class="btn-wishlist" data-title="Wishlist">
 																				<button class="product-btn">Add to wishlist</button>
 																			</div>
-																			<div class="btn-compare" data-title="Compare">
-																				<button class="product-btn">Compare</button>
+																			<div class="btn-compare" data-title="Compare" data-category-id="@item.CategoryId">
+																				<button class="product-btn" data-product-id="@item.Id">Compare</button>
 																			</div>
+
 																			<span class="product-quickview" data-title="Quick View">
 																				<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
 																			</span>
@@ -165,9 +166,10 @@
 																			<div class="btn-wishlist" data-title="Wishlist">
 																				<button class="product-btn">Add to wishlist</button>
 																			</div>
-																			<div class="btn-compare" data-title="Compare">
-																				<button class="product-btn">Compare</button>
+																			<div class="btn-compare" data-title="Compare" data-category-id="@item.CategoryId.">
+																				<button class="product-btn" data-product-id="@item.Id">Compare</button>
 																			</div>
+
 																			<span class="product-quickview" data-title="Quick View">
 																				<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
 																			</span>
@@ -211,9 +213,10 @@
 																			<div class="btn-wishlist" data-title="Wishlist">
 																				<button class="product-btn">Add to wishlist</button>
 																			</div>
-																			<div class="btn-compare" data-title="Compare">
-																				<button class="product-btn">Compare</button>
+																			<div class="btn-compare" data-title="Compare" data-category-id="@item.CategoryId">
+																				<button class="product-btn" data-product-id="@item.Id">Compare</button>
 																			</div>
+
 																			<span class="product-quickview" data-title="Quick View">
 																				<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
 																			</span>
@@ -350,7 +353,7 @@
 														<span class="number-lookbook">@(i + 1)</span>
 														<div class="content-lookbook" style="@(i == 0 ? "left:33px; bottom:10px;" : "right:33px; bottom:10px;")">
 															<div class="item-thumb">
-																<a href="shop-details.html">
+																	<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@latestProducts[i].Id">
 																	<img width="1000" height="1000" src="@latestProducts[i].MainImage" alt="">
 																</a>
 															</div>
@@ -445,6 +448,57 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+
+	$(".product-btn").click(function() {
+		let productId = $(this).data("product-id");
+		let categoryId = $(this).closest(".btn-compare").attr("data-category-id");
+
+		console.log("Clicked Product ID:", productId);
+		console.log("Category ID:", categoryId);
+
+		if (!categoryId || categoryId === "undefined" || categoryId === "0") {
+			alert("Category ID not found");
+			return;
+		}
+
+		window.location.href = `/ComparisonProducts/GetComparisonProducts?categoryId=${categoryId}&selectedProduct=${productId}`;
+	});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <script> *@
+@* 	$(".product-btn").click(function() { *@
+@* 		console.log("Click detected"); // Əgər bu konsolda çıxmırsa, kod işləmir *@
+
+@* 		let categoryId = $(this).parent().data("category-id"); *@
+@* 		console.log("Category ID:", categoryId); // ID-ni yoxlamaq üçün *@
+
+@* 		if (!categoryId || categoryId === "undefined") { *@
+@* 			alert("Category ID not found"); *@
+@* 			return; *@
+@* 		} *@
+
+@* 		window.location.href = `/ComparisonProducts/GetComparisonProducts?categoryId=${categoryId}`; *@
+@* 	}); *@
+
+
+@* </script> *@
+
 
 <script>
 	$(document).ready(function () {

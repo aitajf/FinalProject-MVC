@@ -38,7 +38,6 @@ namespace MVC_FinalProject.Models.Product
         [Required]
         public List<IFormFile> Images { get; set; }
 
-        public List<IFormFile> ColorImages { get; set; }
+        //public List<IFormFile> ColorImages { get; set; }
     }
-
 }

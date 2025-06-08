@@ -9,7 +9,7 @@
 					<div class="hot">@item.Tags.FirstOrDefault()</div>
 				</div>
 				<div class="product-thumb-hover">
-					<a asp-controller="ProductDetail" asp-action="Index" asp-route-id="@item.Id">
+					<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id">
 						<img width="600" height="600" src="@item.MainImage" class="post-image" alt="">
 						<img width="600" height="600" src="@item.Images.Where(img => img != item.MainImage).FirstOrDefault()" class="hover-image back" alt="">
 					</a>
