@@ -6,6 +6,7 @@ using MVC_FinalProject.Models.Category;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Services.Interfaces;
+using MVC_FinalProject.Models.Brand;
 
 namespace MVC_FinalProject.Services
 {
@@ -68,7 +69,6 @@ namespace MVC_FinalProject.Services
                 return await _httpClient.PutAsync($"{Urls.CategoryUrl}Edit/{id}", multipartContent);
             }
         }
-
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<Category>>($"{Urls.CategoryUrl}GetAll");

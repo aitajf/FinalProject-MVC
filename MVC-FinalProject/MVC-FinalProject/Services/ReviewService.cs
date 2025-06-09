@@ -9,19 +9,33 @@ namespace MVC_FinalProject.Services
     public class ReviewService : IReviewService
     {
         private readonly HttpClient _httpClient;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ReviewService(HttpClient httpClient)
+        public ReviewService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
+            _httpContextAccessor = httpContextAccessor;
         }
+
+        private void AddBearerToken()
+        {
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("AuthToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+        }
+
 
         public async Task<IEnumerable<Review>> GetAllAsync()
         {
+            AddBearerToken();
             return await _httpClient.GetFromJsonAsync<IEnumerable<Review>>($"{Urls.ReviewUrl}GetAllReviews");
         }
 
         public async Task<HttpResponseMessage> DeleteReviewAsync(int reviewid)
         {
+            AddBearerToken();
             return await _httpClient.DeleteAsync($"{Urls.ReviewUrl}DeleteReview?id={reviewid}");
         }
 

@@ -60,14 +60,14 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             var res = await _brandService.GetByIdAsync(id);
             if (res == null) return NotFound();
 
-            var categoryEdit = new CategoryEdit
+            var brandEdit = new BrandEdit
             {
                 Id = res.Id,
                 Name = res.Name,
                 ImageUrl = res.Image
 
             };
-            return View(categoryEdit);
+            return View(brandEdit);
         }
 
         [HttpPost]

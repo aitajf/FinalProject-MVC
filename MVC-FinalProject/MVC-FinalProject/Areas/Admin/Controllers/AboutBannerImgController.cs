@@ -17,9 +17,11 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var res = await _bannerService.GetAllAsync();
-            return View(res);
+            var banners = await _bannerService.GetAllAsync();
+            ViewBag.TotalCount = banners.Count();
+            return View(banners);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()

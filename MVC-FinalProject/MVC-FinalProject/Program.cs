@@ -5,7 +5,6 @@ using Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Authentication
 builder.Services.AddAuthentication("MyCookieAuth")
     .AddCookie("MyCookieAuth", options =>
     {
@@ -18,7 +17,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.IdleTimeout = TimeSpan.FromDays(1);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -52,13 +51,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-// ✅ Session əvvəl gəlməlidir
 app.UseSession();
 
-// ✅ Routing əvvəl middleware
 app.UseRouting();
 
-// ✅ Session'dan User yükləmə middleware
 app.Use(async (context, next) =>
 {
     var token = context.Session.GetString("AuthToken");
@@ -89,11 +85,9 @@ app.Use(async (context, next) =>
 
 
 
-// ✅ Yalnız bir dəfə çağır
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Routes
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");

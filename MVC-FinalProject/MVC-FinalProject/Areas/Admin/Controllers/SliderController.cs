@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC_FinalProject.Models.Response;
 using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Services;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class SliderController : Controller
     {
@@ -29,16 +33,35 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(SliderCreate request)
+        //{        
+        //    if(!ModelState.IsValid) return View(request);
+        //    var result = await _sliderService.CreateAsync(request);
+        //    if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
+        //    ModelState.AddModelError(string.Empty, "Error creating");           
+        //    return View(request);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SliderCreate request)
-        {        
-            if(!ModelState.IsValid) return View(request);
-            var result = await _sliderService.CreateAsync(request);
-            if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
-            ModelState.AddModelError(string.Empty, "Error creating");           
+        {
+            if (!ModelState.IsValid) return View(request);
+
+            var response = await _sliderService.CreateAsync(request);
+
+            if (response.IsSuccessStatusCode)
+                return RedirectToAction(nameof(Index));
+
+            if (response.StatusCode == HttpStatusCode.Forbidden)
+                return View("AccessDenied");
+
+            ModelState.AddModelError(string.Empty, "Error creating slider.");
             return View(request);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
@@ -77,6 +100,8 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(request);
             var result = await _sliderService.EditAsync(request, id);
+            if (result.StatusCode == HttpStatusCode.Forbidden)
+                return View("AccessDenied");
             if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
             ModelState.AddModelError("", "Error editing.");
             return View(request);

@@ -1,8 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Review;
