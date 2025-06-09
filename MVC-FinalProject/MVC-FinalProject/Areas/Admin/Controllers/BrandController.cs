@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.Brand;
 using MVC_FinalProject.Models.Category;
 using MVC_FinalProject.Services;
@@ -6,6 +7,7 @@ using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class BrandController : Controller
     {
@@ -19,6 +21,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var res = await _brandService.GetAllAsync();
+            ViewBag.TotalCount = res.Count();
             return View(res);
         }
 

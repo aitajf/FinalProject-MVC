@@ -24,6 +24,8 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
             var paginatedProducts = await _sliderService.GetPaginatedAsync(page, pageSize);
+            ViewBag.TotalCount =paginatedProducts.TotalCount;
+
             return View(paginatedProducts);
         }
 

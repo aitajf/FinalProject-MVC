@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.AboutPromo;
 using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Services;
@@ -6,6 +7,7 @@ using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class AboutPromoController : Controller
     {
@@ -18,7 +20,9 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _aboutPromoService.GetAllAsync());
+            var promos = await _aboutPromoService.GetAllAsync();
+            ViewBag.TotalCount = promos.Count();
+            return View(promos);
         }
 
         [HttpGet]

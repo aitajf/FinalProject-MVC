@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.BlogCategory;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class BlogCategoryController : Controller
     {
@@ -12,12 +14,14 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         {
             _blogCategoryService = blogCategoryService;
         }
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var res = await _blogCategoryService.GetAllAsync();
-            return View(res);
+            var categories = await _blogCategoryService.GetAllAsync();
+            ViewBag.TotalCount = categories.Count();
+            return View(categories);
         }
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {

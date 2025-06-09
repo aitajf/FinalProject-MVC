@@ -18,6 +18,13 @@
                         </tr>
                     </thead>
                     <tbody>
+
+
+                        @{
+                            int totalCount = ViewBag.TotalCount ?? 0;
+                            bool isSuperAdmin = User.IsInRole("SuperAdmin");
+                        }
+
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -38,9 +45,12 @@
                                 <td>
                                     <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-secondary">Detail</a>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Edit</a>
-                                    <form class="d-inline" asp-action="Delete" asp-route-id="@item.Id" method="post">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    @if (totalCount > 1 || isSuperAdmin)
+                                    {
+                                        <form class="d-inline" asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    }
                                 </td>
                             </tr>
                         }

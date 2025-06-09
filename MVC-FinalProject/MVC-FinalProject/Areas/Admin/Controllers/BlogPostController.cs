@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_FinalProject.Models.BlogPost;
 using MVC_FinalProject.Services;
@@ -6,6 +7,7 @@ using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class BlogPostController : Controller
     {
@@ -29,7 +31,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 Value = c.Id.ToString(),
                 Text = c.Name
             }).ToList();
-
+            ViewBag.TotalCount = blogPosts.Count();
             return View(blogPosts);
         }
 

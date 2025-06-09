@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.AboutBannerImg;
 using MVC_FinalProject.Models.SubscribeImg;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class SubscribeImgController : Controller
     {
@@ -17,6 +19,8 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var res = await _subscribeImgService.GetAllAsync();
+            ViewBag.TotalCount = res.Count();
+
             return View(res);
         }
 

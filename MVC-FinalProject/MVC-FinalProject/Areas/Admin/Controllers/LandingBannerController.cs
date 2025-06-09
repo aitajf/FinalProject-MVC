@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.LandingBanner;
 using MVC_FinalProject.Models.Slider;
 using MVC_FinalProject.Services;
@@ -6,6 +7,7 @@ using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class LandingBannerController : Controller
     {
@@ -20,6 +22,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
             var paginatedProducts = await _landingBannerService.GetPaginatedAsync(page, pageSize);
+            ViewBag.TotalCount = paginatedProducts.TotalCount;
             return View(paginatedProducts);
         }
 

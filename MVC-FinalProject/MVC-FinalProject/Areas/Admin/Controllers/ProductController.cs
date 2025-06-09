@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class ProductController : Controller
     {
@@ -65,6 +67,8 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
             var paginatedProducts = await _productService.GetPaginatedProductsAsync(page, pageSize);
+            ViewBag.TotalCount =paginatedProducts.TotalCount;
+
             return View(paginatedProducts);
         }
 

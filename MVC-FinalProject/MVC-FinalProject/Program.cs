@@ -9,8 +9,17 @@ builder.Services.AddAuthentication("MyCookieAuth")
     .AddCookie("MyCookieAuth", options =>
     {
         options.LoginPath = "/Account/Login";
-        options.AccessDeniedPath = "/Account/AccessDenied";
+
+        options.Events.OnRedirectToAccessDenied = context =>
+        {
+            context.Response.StatusCode = 401;
+            context.Response.Redirect("/Unauthorized/Index");
+            return Task.CompletedTask;
+        };
+
+        options.AccessDeniedPath = "/Unauthorized/Index";
     });
+
 
 builder.Services.AddAuthorization();
 
@@ -83,10 +92,35 @@ app.Use(async (context, next) =>
 });
 
 
-
-
 app.UseAuthentication();
+
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
+
+    if (response.StatusCode == 401 || response.StatusCode == 403)
+    {
+        response.Redirect("/Unauthorized/Index");
+    }
+
+    await Task.CompletedTask; // await use
+});
+
+
 app.UseAuthorization();
+
+
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
+
+    if (response.StatusCode == 404)
+    {
+        response.Redirect("/NotFound/Index");
+    }
+
+    await Task.CompletedTask; // await use
+});
 
 app.MapControllerRoute(
     name: "areas",

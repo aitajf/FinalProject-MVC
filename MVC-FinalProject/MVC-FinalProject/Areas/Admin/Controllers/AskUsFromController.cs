@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using MVC_FinalProject.Services.Interfaces;
@@ -6,6 +7,8 @@ using Newtonsoft.Json.Linq;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
+
     [Area("Admin")]
     public class AskUsFromController : Controller
     {

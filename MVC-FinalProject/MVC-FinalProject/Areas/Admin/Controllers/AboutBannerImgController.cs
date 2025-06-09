@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.AboutBannerImg;
 using MVC_FinalProject.Models.Category;
 using MVC_FinalProject.Services;
@@ -6,6 +7,7 @@ using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("Admin")]
     public class AboutBannerImgController : Controller
     {
@@ -14,6 +16,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         {
             _bannerService = bannerService;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
