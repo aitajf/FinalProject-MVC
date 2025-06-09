@@ -51,6 +51,14 @@
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
+
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Review" asp-action="Index">Review</a></li>
+                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Subscription" asp-action="Index">Subscribe</a></li>
+                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="AskUsFrom" asp-action="Index">Message</a></li>
+                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="Index">Users</a></li>
+                }
                 <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Slider" asp-action="Index">Slider</a></li>
                 <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a></li>
                 <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="LandingBanner" asp-action="Index">Landing Banner</a></li>
@@ -66,12 +74,212 @@
                 <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="HelpSection" asp-action="Index">HelpSection</a></li>
                 <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="AboutBannerImg" asp-action="Index"> About Banner Image  </a></li>
 
-                @if (User.IsInRole("SuperAdmin"))
-                {
-                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Review" asp-action="Index">Review</a></li>
-                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Subscription" asp-action="Index">Subscribe</a></li>
-                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="AskUsFrom" asp-action="Index">Message</a></li>
-                }
+
+            </ul>
+                <style>
+                    /* Admin Panel Navigation - Dark Theme */
+                    .admin-nav-container {
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    /* SuperAdmin Contact Message */
+                    .admin-contact-link {
+                        text-decoration: none;
+                        display: block;
+                        padding: 0;
+                    }
+
+                    .admin-message-box {
+                        background: linear-gradient(135deg, #181e3f 0%, #000000 100%);
+                        border-radius: 8px;
+                        padding: 12px 16px;
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+                        border: 1px solid rgb(19 11 245 / 14%);
+                    }
+
+                        .admin-message-box:hover {
+                            transform: translateY(-1px);
+                            box-shadow: 0 4px 12px rgb(11 153 245 / 92%);
+                            background: linear-gradient(135deg, #1112c9 0%, #1c2b79 100%);
+                        }
+
+                    .message-icon {
+                        background: rgba(255, 255, 255, 0.2);
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 6px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-size: 14px;
+                        flex-shrink: 0;
+                    }
+
+                    .message-content {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2px;
+                    }
+
+                    .message-text {
+                        color: rgba(255, 255, 255, 0.9);
+                        font-size: 13px;
+                        font-weight: 500;
+                        line-height: 1.2;
+                    }
+
+                    .message-action {
+                        color: white;
+                        font-size: 14px;
+                        font-weight: 600;
+                        text-decoration: underline;
+                        text-underline-offset: 2px;
+                    }
+
+                    /* Search Form */
+                    .admin-search-form {
+                        width: 100%;
+                    }
+
+                    .search-wrapper {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        background: #374151;
+                        border: 1px solid #4b5563;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        transition: all 0.3s ease;
+                    }
+
+                        .search-wrapper:focus-within {
+                            border-color: #3b82f6;
+                            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                        }
+
+                    .search-icon {
+                        color: #9ca3af;
+                        font-size: 14px;
+                        padding: 0 12px;
+                        pointer-events: none;
+                    }
+
+                    .search-input {
+                        background: transparent;
+                        border: none;
+                        color: #f3f4f6;
+                        font-size: 14px;
+                        padding: 10px 0;
+                        flex: 1;
+                        outline: none;
+                    }
+
+                        .search-input::placeholder {
+                            color: #9ca3af;
+                        }
+
+                    .search-submit {
+                        background: #3b82f6;
+                        border: none;
+                        color: white;
+                        padding: 10px 12px;
+                        cursor: pointer;
+                        transition: background-color 0.2s ease;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                        .search-submit:hover {
+                            background: #2563eb;
+                        }
+
+                        .search-submit i {
+                            font-size: 12px;
+                        }
+
+                    /* Responsive adjustments */
+
+                    .message-icon {
+                        width: 28px;
+                        height: 28px;
+                        font-size: 12px;
+                    }
+
+                    .message-text {
+                        font-size: 12px;
+                    }
+
+                    .message-action {
+                        font-size: 13px;
+                    }
+
+                    .search-input {
+                        font-size: 13px;
+                        padding: 8px 0;
+                    }
+
+                    .search-submit {
+                        padding: 8px 10px;
+                    }
+
+
+                    /* Animation for smooth transitions */
+                    .fade-in {
+                        animation: fadeInUp 0.3s ease-out;
+                    }
+
+
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+
+                </style>
+
+
+                <div class="admin-nav-container">
+                    <ul class="navbar-nav w-100">
+                        <li class="nav-item w-100">
+                            <!-- SuperAdmin view -->
+                            <div id="superAdminView" class="@(User.IsInRole("SuperAdmin") ? "" : "d-none")">
+                                <a class="nav-link admin-contact-link" href="@Url.Action("SendMessage", "Account")">
+                                    <div class="admin-message-box">
+                                        <div class="message-icon">
+                                            <i class="fas fa-user-shield"></i>
+                                        </div>
+                                        <div class="message-content">
+                                            <span class="message-text">Need Admin ?</span>
+                                            <span class="message-action">Send message</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Regular user view -->
+                            <div id="regularUserView" class="@(User.IsInRole("SuperAdmin") ? "d-none" : "")">
+                                <form class="admin-search-form" action="@Url.Action("Search", "Products")" method="get">
+                                    <div class="search-wrapper">
+                                        <i class="fas fa-search search-icon"></i>
+                                        <input type="text" name="query" class="search-input" placeholder="Search products...">
+                                        <button type="submit" class="search-submit">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+
 
             </ul>
         </nav>
@@ -84,14 +292,9 @@
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                         <span class="mdi mdi-menu"></span>
                     </button>
-                    <ul class="navbar-nav w-100">
-                        <li class="nav-item w-100">
-                            <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                                <input type="text" class="form-control" placeholder="Search products">
-                            </form>
-                        </li>
-                    </ul>
-                    <button type="button" class="btn btn-primary btn-rounded btn-icon" style="margin-top: 13px;">
+                    <div class="admin-panel-nav-container">
+
+                        <button type="button" class="btn btn-primary btn-rounded btn-icon" style="margin-left: 57pc;">
                         <a asp-area="" asp-controller="Home" asp-action="Index">
                             <i class="mdi mdi-home-outline" style="color: black;padding: 13px;"></i>
                         </a>

@@ -42,7 +42,8 @@ namespace MVC_FinalProject.Controllers
             var instagrams = await _instagramService.GetAllAsync();
             var subscribeImgs = await _subscribeImgService.GetAllAsync();
 
-            var searchResults = string.IsNullOrEmpty(searchQuery) ? new List<Product>() : await _productService.SearchByNameAsync(searchQuery);
+            var searchResults = string.IsNullOrEmpty(searchQuery) ? new List<Product>() 
+                               : await _productService.SearchByNameAsync(searchQuery);
 
             ViewBag.SearchQuery = searchQuery; 
 

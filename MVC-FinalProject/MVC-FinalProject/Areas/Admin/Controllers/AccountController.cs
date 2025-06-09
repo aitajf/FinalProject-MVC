@@ -103,5 +103,26 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> SendMessage()
+        {
+            var emails = await _accountService.GetAdminsEmailsAsync();
+            ViewBag.AdminEmails = new SelectList(emails);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendMessage(AdminMessage request)
+        {
+            if(!ModelState.IsValid) return View(request);
+            var emails = await _accountService.GetAdminsEmailsAsync();
+            ViewBag.AdminEmails = new SelectList(emails);
+
+            var result = await _accountService.SendMessageToAdminAsync(request);
+            ViewBag.Message = result;
+
+            return View(request);
+        }
+
     }
 }

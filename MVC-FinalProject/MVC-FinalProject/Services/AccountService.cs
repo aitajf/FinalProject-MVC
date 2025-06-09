@@ -24,7 +24,7 @@ namespace MVC_FinalProject.Services
         }
         public async Task<HttpResponseMessage> Login(Login model)
         {
-            return await _httpClient.PostAsJsonAsync($"{Urls.AccountClientUrl}Login", model);                  
+            return await _httpClient.PostAsJsonAsync($"{Urls.AccountClientUrl}Login", model);
         }
         public async Task<string> ForgetPasswordAsync(string email)
         {
@@ -55,7 +55,7 @@ namespace MVC_FinalProject.Services
 
         public async Task<string> RemoveRoleAsync(string username, string roleName)
         {
-           
+
 
             var response = await _httpClient.PostAsync($"{Urls.AccountUrl}RemoveRole?username={username}&roleName={roleName}", null);
             return await response.Content.ReadAsStringAsync();
@@ -95,5 +95,25 @@ namespace MVC_FinalProject.Services
             var json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<string>>(json);
         }
+
+
+        public async Task<string> SendMessageToAdminAsync(AdminMessage model)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{Urls.AccountUrl}SendMessageToAdmin", model);
+            return await response.Content.ReadAsStringAsync();
+
+        }
+
+        public async Task<List<string>> GetAdminsEmailsAsync()
+        {
+            var response = await _httpClient.GetAsync($"{Urls.AccountUrl}GetAdminsEmails");
+
+            if (!response.IsSuccessStatusCode)
+                return new List<string>();
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<string>>(json);
+        }
+
     }
 }
