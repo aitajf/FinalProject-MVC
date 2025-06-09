@@ -16,7 +16,8 @@
         public const string BlogPostClientUrl = "https://localhost:7004/api/BlogPost/";
         public const string ProductUrl = "https://localhost:7004/api/admin/Product/";
         public const string ProductClientUrl = "https://localhost:7004/api/Product/";
-        public const string AccountUrl = "https://localhost:7004/api/Account/";
+        public const string AccountUrl = "https://localhost:7004/api/admin/Account/";
+        public const string AccountClientUrl = "https://localhost:7004/api/Account/";
         public const string SubscriptionUrl = "https://localhost:7004/api/admin/Subscription/";
         public const string SubscriptionClientUrl = "https://localhost:7004/api/Subscription/";
         public const string AboutPromoUrl = "https://localhost:7004/api/admin/AboutPromo/";
