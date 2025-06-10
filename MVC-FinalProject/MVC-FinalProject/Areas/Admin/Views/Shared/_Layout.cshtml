@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="~/admin/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="~/admin/assets/images/favicon.png" />
+
+    @RenderSection("Css", required: false)
 </head>
 <body>
     <div class="container-scroller">
@@ -58,6 +60,8 @@
                     <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Subscription" asp-action="Index">Subscribe</a></li>
                     <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="AskUsFrom" asp-action="Index">Message</a></li>
                     <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="Index">Users</a></li>
+                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="BlockUser"> Block Users</a></li>
+                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="UnBlockUser">UnBlock Users</a></li>
                 }
                 <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Slider" asp-action="Index">Slider</a></li>
                 <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a></li>
@@ -337,6 +341,7 @@
     <!-- Custom js for this page -->
     <script src="~/admin/assets/js/dashboard.js"></script>
     <script src="~/assets/js/custom.js"></script>
+    @RenderSection("Scripts", required: false)
 
     <!-- End custom js for this page -->
 </body>

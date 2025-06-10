@@ -64,7 +64,6 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return View(request);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {

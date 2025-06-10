@@ -72,7 +72,6 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             var roles = await _accountService.GetUserRolesAsync(username);
             if (roles == null || !roles.Any())
             {
-                // İstifadəçinin heç bir rolu yoxdursa xəbərdar edə bilərik
                 ViewBag.Message = "This user has no roles to remove.";
                 return View(new Role { Username = username });
             }
@@ -122,6 +121,66 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             ViewBag.Message = result;
 
             return View(request);
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> BlockUser()
+        {
+            var users = await _accountService.GetAllUsersAsync();
+
+            var filteredUsers = users
+                .Where(u => !u.Roles.Contains("SuperAdmin"))
+                .ToList();
+
+            ViewBag.Users = new SelectList(filteredUsers, "Username", "Username");
+
+            return View(new BlockUser());
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> BlockUser(BlockUser model)
+        {
+            var users = await _accountService.GetAllUsersAsync();
+
+            var filteredUsers = users
+                .Where(u => !u.Roles.Contains("SuperAdmin"))
+                .ToList();
+
+            ViewBag.Users = new SelectList(filteredUsers, "Username", "Username");
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            string result = await _accountService.BlockUserAsync(model.Username, model.BlockDurationMinutes);
+            ViewBag.Message = result;
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UnblockUser()
+        {
+            var blockedUsers = await _accountService.GetAllBlockedUsersAsync();
+            ViewBag.BlockedUsers = new SelectList(blockedUsers, "Id", "Username");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnblockUser(string userId)
+        {
+            var result = await _accountService.UnblockUserAsync(userId);
+            ViewBag.Message = result;
+
+            var blockedUsers = await _accountService.GetAllBlockedUsersAsync();
+            ViewBag.BlockedUsers = new SelectList(blockedUsers, "Id", "Username");
+
+            return View();
         }
 
     }

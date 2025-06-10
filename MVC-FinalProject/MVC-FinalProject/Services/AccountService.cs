@@ -115,5 +115,70 @@ namespace MVC_FinalProject.Services
             return JsonConvert.DeserializeObject<List<string>>(json);
         }
 
+
+
+        public async Task<string> BlockUserAsync(string username, int minutes)
+        {
+            var response = await _httpClient.PostAsync($"{Urls.AccountUrl}BlockUser?username={username}&minutes={minutes}", null);
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                return "An error occurred while trying to block the user.";
+
+            try
+            {
+                var result = JsonSerializer.Deserialize<StringResponse>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                return result?.Message ?? "No response message.";
+            }
+            catch
+            {
+                return "Failed to parse response.";
+            }
+        }
+
+
+        public async Task<string> UnblockUserAsync(string userId)
+        {
+            var response = await _httpClient.PostAsync($"{Urls.AccountUrl}UnblockUser?userId={userId}", null);
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                return "An error occurred while trying to unblock the user.";
+
+            try
+            {
+                var result = JsonSerializer.Deserialize<StringResponse>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                return result?.Message ?? "No response message.";
+            }
+            catch
+            {
+                return "Failed to parse response.";
+            }
+        }
+
+        public async Task<UserRole> GetUserByUsernameAsync(string username)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.AccountUrl}GetUserByUsername?username={username}");
+            if (!response.IsSuccessStatusCode) return null;
+
+            return await response.Content.ReadFromJsonAsync<UserRole>();
+        }
+
+        public async Task<List<UserRole>> GetAllBlockedUsersAsync()
+        {
+            var response = await _httpClient.GetAsync($"{Urls.AccountUrl}GetAllBlockedUsers");
+            if (!response.IsSuccessStatusCode)
+                return new List<UserRole>();
+
+            return await response.Content.ReadFromJsonAsync<List<UserRole>>();
+        }
     }
 }

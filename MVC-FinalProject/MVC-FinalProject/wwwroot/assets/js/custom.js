@@ -1,5 +1,29 @@
 ﻿"use strict"
 
+//Admin Panel Dashboard saat
+function updateDateTime() {
+    const now = new Date();
+
+    const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
+    const date = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    const time = now.toLocaleTimeString('en-US', { hour12: false });
+
+    const hours = now.getHours();
+    let greeting = "Welcome!";
+    if (hours < 12) greeting = "Good morning";
+    else if (hours < 18) greeting = "Good afternoon";
+    else greeting = "Good evening";
+
+    document.getElementById('weekday').textContent = weekday;
+    document.getElementById('date').textContent = date;
+    document.getElementById('clock').textContent = time;
+    document.getElementById('greeting').textContent = greeting;
+}
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+
 //Show more button
 document.addEventListener("DOMContentLoaded", function () {
     let button = document.querySelector(".show-more");
@@ -31,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//Blog page UI pagination
 
+//Blog page UI pagination
 document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('#pagination-content').addEventListener('click', function (e) {
 		if (e.target.matches('.page-numbers[data-page]')) {
@@ -58,35 +82,109 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 
+
 ////Delete without refresh
 
-//Slider
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.delete-form').forEach(form => {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const id = this.getAttribute('data-id');
-            const url = this.getAttribute('action');
 
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
+//BlogPost Edit üçün Deletİmg metodu
+function deleteImage(imageId) {
+    const blogPostId = document.getElementById("blog-container")?.dataset.routeId;
 
-                        const row = document.getElementById('row-' + id);
-                        if (row) row.remove();
-                    } else {
-                        alert("Error deleting item.");
-                    }
-                })
-                .catch(error => {
-                    console.error('Delete error:', error);
-                    alert("Something went wrong.");
-                });
-        });
+    fetch(`/Admin/BlogPost/DeleteImage?blogPostId=${blogPostId}&blogPostImageId=${imageId}`, {
+        method: "DELETE"
+    }).then(response => {
+        if (!response.ok) {
+            console.error("Error:", response.status, response.statusText);
+            return;
+        }
+
+        const deletedImageDiv = document.getElementById(`image-${imageId}`);
+        deletedImageDiv?.remove();
+
+        const remainingImages = document.querySelectorAll('[id^="image-"]');
+
+        if (remainingImages.length === 1) {
+            const deleteBtn = remainingImages[0].querySelector("button");
+            if (deleteBtn) {
+                deleteBtn.style.display = "none";
+            }
+        }
+    }).catch(error => {
+        console.error("Error:", error);
     });
-});
+}
+
+
+
+
+//////Login
+
+////$(document).ready(function () {
+////    $('.login').submit(function (e) {
+////        e.preventDefault();
+
+////        var form = $(this);
+////        var actionUrl = form.attr('action') || '@Url.Action("Login", "Account")';
+////        var formData = form.serialize();
+
+////        $.post(actionUrl, formData, function (response) {
+////            if (response.success) {
+////                window.location.href = response.redirectUrl;
+////            } else {
+////                var errorHtml = '<div class="alert alert-danger">';
+////                response.errors.forEach(function (err) {
+////                    errorHtml += '<p>' + err + '</p>';
+////                });
+////                errorHtml += '</div>';
+////                $('#loginErrors').html(errorHtml);
+////            }
+////        });
+////    });
+////});
+
+//document.querySelector("form.login").addEventListener("submit", async function (e) {
+//    e.preventDefault();
+
+//    const form = e.target;
+//    const formData = new FormData(form);
+
+//    const response = await fetch(form.action || window.location.href, {
+//        method: 'POST',
+//        headers: {
+//            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+//        },
+//        body: formData
+//    });
+
+//    const result = await response.json();
+
+//    const errorContainer = document.getElementById("loginErrors");
+//    errorContainer.innerHTML = "";
+
+//    if (result.success) {
+//        window.location.href = result.redirectUrl;
+//    } else if (result.errors) {
+//        result.errors.forEach(err => {
+//            const p = document.createElement("p");
+//            p.classList.add("text-danger");
+//            p.innerText = err;
+//            errorContainer.appendChild(p);
+//        });
+//    }
+//});
+
+////Login eye icon
+//function togglePasswordVisibility() {
+//    var passwordInput = document.querySelector('input[asp-for="Password"]');
+//    var icon = document.getElementById("togglePasswordIcon");
+
+//    if (passwordInput.type === "password") {
+//        passwordInput.type = "text";
+//        icon.classList.remove("fa-eye");
+//        icon.classList.add("fa-eye-slash");
+//    } else {
+//        passwordInput.type = "password";
+//        icon.classList.remove("fa-eye-slash");
+//        icon.classList.add("fa-eye");
+//    }
+//}

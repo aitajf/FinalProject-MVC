@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.Account;
@@ -18,6 +19,11 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<List<string>> GetUserRolesAsync(string username);
 
         Task<string> SendMessageToAdminAsync(AdminMessage model);
-        Task<List<string>> GetAdminsEmailsAsync(); 
+        Task<List<string>> GetAdminsEmailsAsync();
+
+        Task<string> BlockUserAsync(string username, int minutes);
+        Task<string> UnblockUserAsync(string userId);
+        Task<UserRole> GetUserByUsernameAsync(string username);
+        Task<List<UserRole>> GetAllBlockedUsersAsync();
     }
 }

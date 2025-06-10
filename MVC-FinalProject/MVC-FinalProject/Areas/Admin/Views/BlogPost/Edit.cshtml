@@ -68,31 +68,11 @@
     </div>
 </div>
 
-<script>
-    function deleteImage(imageId) {
-        const blogPostId = document.getElementById("blog-container")?.dataset.routeId;
 
-        fetch(`/Admin/BlogPost/DeleteImage?blogPostId=${blogPostId}&blogPostImageId=${imageId}`, {
-            method: "DELETE"
-        }).then(response => {
-            if (!response.ok) {
-                console.error("Error:", response.status, response.statusText);
-                return;
-            }
 
-            const deletedImageDiv = document.getElementById(`image-${imageId}`);
-            deletedImageDiv?.remove();
 
-            const remainingImages = document.querySelectorAll('[id^="image-"]');
+@section Scripts {
+         <script src="~/assets/js/custom.js"></script>
+}
 
-            if (remainingImages.length === 1) {
-                const deleteBtn = remainingImages[0].querySelector("button");
-                if (deleteBtn) {
-                    deleteBtn.style.display = "none";
-                }
-            }
-        }).catch(error => {
-            console.error("Error:", error);
-        });
-    }
-</script>
+

@@ -28,6 +28,7 @@
 	<!-- Site Stylesheet -->
 	<link rel="stylesheet" href="~/assets/css/responsive.css">
 	<link rel="stylesheet" href="~/assets/css/app.css">
+	@RenderSection("Css", required: false)
 
 </head>
 
@@ -253,5 +254,7 @@
 	<!-- Site Scripts -->
 	<script src="~/assets/js/app.js"></script>
 	<script src="~/assets/js/custom.js"></script>
+	@RenderSection("Scripts", required: false)
+
 </body>
 </html>
