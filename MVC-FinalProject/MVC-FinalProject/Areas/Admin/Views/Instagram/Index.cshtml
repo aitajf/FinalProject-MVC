@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Instagram>
+﻿
+@model IEnumerable<Instagram>
 
 <div class="main-panel">
     <div class="content-wrapper" style="width: 65pc;">
@@ -14,23 +15,20 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @{
                             int totalCount = ViewBag.TotalCount ?? 0;
                             bool isSuperAdmin = User.IsInRole("SuperAdmin");
                         }
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td> <img src="@item.Img" style="width: 200px; height: 180px" /> </td>
+                            <tr id="row-@item.Id">
+                                <td><img src="@item.Img" style="width: 200px; height: 180px" /></td>
                                 <td>
                                     <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-secondary">Detail</a>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Edit</a>
                                     @if (totalCount > 1 || isSuperAdmin)
                                     {
-                                        <form class="d-inline" asp-action="Delete" asp-route-id="@item.Id" method="post">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        <button class="btn btn-danger delete-instagram" data-id="@item.Id">Delete</button>
                                     }
                                 </td>
                             </tr>
@@ -39,8 +37,30 @@
                 </table>
             </div>
         </div>
-
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-instagram').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.dataset.id;
+                try {
+                    const response = await fetch(`/Admin/Instagram/Delete/${id}`, {
+                        method: 'POST',
+                    });
 
+                    if (response.ok) {
+                        const row = document.getElementById(`row-${id}`);
+                        if (row) row.remove();
+                    } else {
+                        alert("Delete failed.");
+                    }
+                } catch (err) {
+                    console.error("Error deleting:", err);
+                    alert("An error occurred while deleting.");
+                }
+            });
+        });
+    });
+</script>

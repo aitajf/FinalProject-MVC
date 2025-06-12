@@ -25,7 +25,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _reviewService.DeleteReviewAsync(id);
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 var errorMsg = await response.Content.ReadAsStringAsync();
             }
 
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
     }
 }

@@ -33,5 +33,9 @@ namespace MVC_FinalProject.Services
             return await _httpClient.GetFromJsonAsync<IEnumerable<AskUsFrom>>($"{Urls.AskUsFromClientUrl}GetApprovedMessages");
         }
 
+        public async Task<HttpResponseMessage> DeleteAsync(int id)
+        {
+            return await _httpClient.DeleteAsync($"{Urls.AskUsFromUrl}Delete?id={id}");
+        }
     }
 }

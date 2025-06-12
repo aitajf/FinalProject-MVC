@@ -86,7 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
 ////Delete without refresh
 
 
+
 //BlogPost Edit üçün Deletİmg metodu
+
+
 function deleteImage(imageId) {
     const blogPostId = document.getElementById("blog-container")?.dataset.routeId;
 
@@ -116,75 +119,28 @@ function deleteImage(imageId) {
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
 
-//////Login
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
 
-////$(document).ready(function () {
-////    $('.login').submit(function (e) {
-////        e.preventDefault();
-
-////        var form = $(this);
-////        var actionUrl = form.attr('action') || '@Url.Action("Login", "Account")';
-////        var formData = form.serialize();
-
-////        $.post(actionUrl, formData, function (response) {
-////            if (response.success) {
-////                window.location.href = response.redirectUrl;
-////            } else {
-////                var errorHtml = '<div class="alert alert-danger">';
-////                response.errors.forEach(function (err) {
-////                    errorHtml += '<p>' + err + '</p>';
-////                });
-////                errorHtml += '</div>';
-////                $('#loginErrors').html(errorHtml);
-////            }
-////        });
-////    });
-////});
-
-//document.querySelector("form.login").addEventListener("submit", async function (e) {
-//    e.preventDefault();
-
-//    const form = e.target;
-//    const formData = new FormData(form);
-
-//    const response = await fetch(form.action || window.location.href, {
-//        method: 'POST',
-//        headers: {
-//            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-//        },
-//        body: formData
-//    });
-
-//    const result = await response.json();
-
-//    const errorContainer = document.getElementById("loginErrors");
-//    errorContainer.innerHTML = "";
-
-//    if (result.success) {
-//        window.location.href = result.redirectUrl;
-//    } else if (result.errors) {
-//        result.errors.forEach(err => {
-//            const p = document.createElement("p");
-//            p.classList.add("text-danger");
-//            p.innerText = err;
-//            errorContainer.appendChild(p);
-//        });
-//    }
-//});
-
-////Login eye icon
-//function togglePasswordVisibility() {
-//    var passwordInput = document.querySelector('input[asp-for="Password"]');
-//    var icon = document.getElementById("togglePasswordIcon");
-
-//    if (passwordInput.type === "password") {
-//        passwordInput.type = "text";
-//        icon.classList.remove("fa-eye");
-//        icon.classList.add("fa-eye-slash");
-//    } else {
-//        passwordInput.type = "password";
-//        icon.classList.remove("fa-eye-slash");
-//        icon.classList.add("fa-eye");
-//    }
-//}
+                fetch(`/Admin/Slider/Delete/${id}`, {
+                    method: "POST",
+                    headers: {
+                        "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const row = document.getElementById(`row-${id}`);
+                            if (row) row.remove();
+                        } else {
+                            alert("Silinmə zamanı xəta baş verdi.");
+                        }
+                    });
+        });
+    });
+});

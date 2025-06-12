@@ -3,28 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\views\\tag\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\views\\tag\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\services\\interfaces\\iaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\services\\interfaces\\iaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\views\\subscription\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\views\\subscription\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\views\\account\\blockuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\views\\account\\blockuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\views\\account\\unblockuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\views\\account\\unblockuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\areas\\admin\\views\\subscribeimg\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\areas\\admin\\views\\subscribeimg\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,89 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BlockUser.cshtml",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Account\\BlockUser.cshtml",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Views\\Account\\BlockUser.cshtml",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Account\\BlockUser.cshtml",
-              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Views\\Account\\BlockUser.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Tag\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Views\\Tag\\Index.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Tag\\Index.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Views\\Tag\\Index.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-10T08:09:00.875Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UnblockUser.cshtml",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Account\\UnblockUser.cshtml",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Views\\Account\\UnblockUser.cshtml",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Account\\UnblockUser.cshtml",
-              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Views\\Account\\UnblockUser.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-10T08:08:32.96Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAAA+wK8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T08:07:36.764Z",
+              "WhenOpened": "2025-06-12T07:29:22.63Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "MVC-FinalProject\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAEEBAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T07:59:17.282Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\SubscribeImg\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Views\\SubscribeImg\\Index.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\SubscribeImg\\Index.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Views\\SubscribeImg\\Index.cshtml",
+              "ViewState": "AgIAACwAAAAAAAAAAAAUwDUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-12T07:23:43.592Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "IAccountService.cs",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Services\\Interfaces\\IAccountService.cs",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Services\\Interfaces\\IAccountService.cs",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Services\\Interfaces\\IAccountService.cs",
-              "RelativeToolTip": "MVC-FinalProject\\Services\\Interfaces\\IAccountService.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAIAzwBgAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T07:59:13.502Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Subscription\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Areas\\Admin\\Views\\Subscription\\Index.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Areas\\Admin\\Views\\Subscription\\Index.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Areas\\Admin\\Views\\Subscription\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-12T07:21:30.974Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AccountService.cs",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Services\\AccountService.cs",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Services\\AccountService.cs",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Services\\AccountService.cs",
-              "RelativeToolTip": "MVC-FinalProject\\Services\\AccountService.cs",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAgwI8AAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T07:59:10.751Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             }
           ]
         },

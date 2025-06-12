@@ -55,7 +55,8 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _aboutPromoService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
         [HttpGet]

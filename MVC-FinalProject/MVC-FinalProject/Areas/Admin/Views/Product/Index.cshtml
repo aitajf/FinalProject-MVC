@@ -1,4 +1,5 @@
-﻿@model PaginationResponse<Product>
+﻿
+@model PaginationResponse<Product>
 
 <div class="main-panel">
     <div class="content-wrapper" style="width: 65pc;">
@@ -19,36 +20,29 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @{
                             int totalCount = ViewBag.TotalCount ?? 0;
                             bool isSuperAdmin = User.IsInRole("SuperAdmin");
                         }
-
                         @foreach (var item in Model.Items)
                         {
-                            <tr>
+                            <tr id="row-@item.Id">
                                 <td><img src="@item.MainImage" style="width:100px" alt=""></td>
                                 <td>@item.Name</td>
                                 <td>@item.Description</td>
                                 <td>@item.Brand</td>
                                 <td>@item.Category</td>
                                 <td>@item.Price</td>
-
-
                                 <td>
                                     <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-secondary">Detail</a>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Edit</a>
                                     @if (totalCount > 1 || isSuperAdmin)
                                     {
-                                        <form class="d-inline" asp-action="Delete" asp-route-id="@item.Id" method="post">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        <button class="btn btn-danger delete-product" data-id="@item.Id">Delete</button>
                                     }
                                 </td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
 
@@ -88,10 +82,35 @@
                         }
                     </ul>
                 </nav>
-          
             </div>
         </div>
-
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.delete-product').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.dataset.id;
+                try {
+                    const response = await fetch(`/Admin/Product/Delete/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const row = document.getElementById(`row-${id}`);
+                        if (row) row.remove();
+                    } else {
+                        alert("Delete failed.");
+                    }
+                } catch (error) {
+                    console.error("Error deleting:", error);
+                    alert("An error occurred while deleting.");
+                }
+            });
+        });
+    });
+</script>

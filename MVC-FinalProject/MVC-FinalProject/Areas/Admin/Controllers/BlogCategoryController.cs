@@ -51,7 +51,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _blogCategoryService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
         [HttpGet]

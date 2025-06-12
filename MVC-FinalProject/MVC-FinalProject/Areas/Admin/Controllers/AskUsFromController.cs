@@ -28,7 +28,14 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Approve(int id)
         {
             await _askUsFromService.ApproveMessageAsync(id);
-            return RedirectToAction("Index");
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _askUsFromService.DeleteAsync(id);
+            return Ok();
         }
     }
 }

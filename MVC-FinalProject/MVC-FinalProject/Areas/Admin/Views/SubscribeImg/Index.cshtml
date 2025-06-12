@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SubscribeImg>
+﻿
+@model IEnumerable<SubscribeImg>
 
 <div class="main-panel">
     <div class="content-wrapper" style="width: 65pc;">
@@ -13,35 +14,57 @@
                             <th> Operations </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="subscribe-img-table-body">
 
                         @{
                             int totalCount = ViewBag.TotalCount ?? 0;
                             bool isSuperAdmin = User.IsInRole("SuperAdmin");
                         }
 
-
                         @foreach (var item in Model)
                         {
-                                <tr>
-                                    <td> <img src="@item.Img" style="width: 200px; height: 180px" /> </td>
-                                    <td>
-                                        <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-secondary">Detail</a>
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Edit</a>
+                            <tr id="row-@item.Id">
+                                <td> <img src="@item.Img" style="width: 200px; height: 180px" /> </td>
+                                <td>
+                                    <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-secondary">Detail</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Edit</a>
                                     @if (totalCount > 1 || isSuperAdmin)
                                     {
-                                        <form class="d-inline" asp-action="Delete" asp-route-id="@item.Id" method="post">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        <button type="button" class="btn btn-danger delete-subscribe-img" data-id="@item.Id">Delete</button>
                                     }
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.delete-subscribe-img').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = this.dataset.id;
+                try {
+                    const response = await fetch(`/Admin/SubscribeImg/Delete/${id}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+
+                    });
+
+                    if (response.ok) {
+                        const row = document.getElementById(`row-${id}`);
+                        if (row) row.remove();
+                    } else {
+                        alert("Delete failed.");
+                    }
+                } catch (error) {
+                    console.error("Error deleting subscribe image:", error);
+                    alert("An error occurred while deleting.");
+                }
+            });
+        });
+    });
+</script>

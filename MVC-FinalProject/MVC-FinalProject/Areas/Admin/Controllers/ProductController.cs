@@ -110,7 +110,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             var response = await _productService.DeleteAsync(id);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return Ok();
             }          
             return RedirectToAction("Index");
         }
