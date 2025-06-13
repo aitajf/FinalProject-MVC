@@ -11592,17 +11592,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"vewj4653qh"},{"Name":"integrity","Value":"sha256-15ZYSQwd8yZcxoh0YvyOicZnBuibh3XOSPqoEHCtNiI="},{"Name":"label","Value":"_content/MVC-FinalProject/assets/js/app.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"26218"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u002215ZYSQwd8yZcxoh0YvyOicZnBuibh3XOSPqoEHCtNiI=\u0022"},{"Name":"Last-Modified","Value":"Fri, 06 Jun 2025 08:44:32 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/MVC-FinalProject/assets/js/custom.9az5g2clv7.js">
+    <StaticWebAssetEndpoint Include="_content/MVC-FinalProject/assets/js/custom.ehsbsunpvl.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\js\custom.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"9az5g2clv7"},{"Name":"integrity","Value":"sha256-H2aB2gZxvqvKZ9yRIc\u002BmmgzAourc8SoLk0IVzFxMvhA="},{"Name":"label","Value":"_content/MVC-FinalProject/assets/js/custom.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4939"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022H2aB2gZxvqvKZ9yRIc\u002BmmgzAourc8SoLk0IVzFxMvhA=\u0022"},{"Name":"Last-Modified","Value":"Tue, 10 Jun 2025 15:50:41 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ehsbsunpvl"},{"Name":"integrity","Value":"sha256-Dhf5eRceNDPVuYL7h4KGlHLXqS47haZdwrRMh5buz\u002BQ="},{"Name":"label","Value":"_content/MVC-FinalProject/assets/js/custom.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3899"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022Dhf5eRceNDPVuYL7h4KGlHLXqS47haZdwrRMh5buz\u002BQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 12 Jun 2025 10:03:43 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/MVC-FinalProject/assets/js/custom.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\js\custom.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-H2aB2gZxvqvKZ9yRIc\u002BmmgzAourc8SoLk0IVzFxMvhA="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4939"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022H2aB2gZxvqvKZ9yRIc\u002BmmgzAourc8SoLk0IVzFxMvhA=\u0022"},{"Name":"Last-Modified","Value":"Tue, 10 Jun 2025 15:50:41 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Dhf5eRceNDPVuYL7h4KGlHLXqS47haZdwrRMh5buz\u002BQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3899"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022Dhf5eRceNDPVuYL7h4KGlHLXqS47haZdwrRMh5buz\u002BQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 12 Jun 2025 10:03:43 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/MVC-FinalProject/lib/bootstrap/dist/css/bootstrap-grid.agp80tu62r.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css'))</AssetFile>

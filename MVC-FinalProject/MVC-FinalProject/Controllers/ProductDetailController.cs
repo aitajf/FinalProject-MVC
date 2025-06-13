@@ -35,6 +35,7 @@ namespace MVC_FinalProject.Controllers
                 return View("Index");
             }
 
+
             var reviews = await _reviewService.GetAllByProductIdAsync(id);
 
             var productColorImages = product.Images.Select(img =>
@@ -198,10 +199,6 @@ namespace MVC_FinalProject.Controllers
             ModelState.AddModelError("", "An error occurred while editing the review.");
             return View(model);
         }
-
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

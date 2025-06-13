@@ -86,10 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 ////Delete without refresh
 
 
-
 //BlogPost Edit üçün Deletİmg metodu
-
-
 function deleteImage(imageId) {
     const blogPostId = document.getElementById("blog-container")?.dataset.routeId;
 
@@ -118,29 +115,3 @@ function deleteImage(imageId) {
 }
 
 
-
-document.addEventListener("DOMContentLoaded", function () {
-    const deleteButtons = document.querySelectorAll(".delete-btn");
-
-    deleteButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const id = this.getAttribute("data-id");
-
-                fetch(`/Admin/Slider/Delete/${id}`, {
-                    method: "POST",
-                    headers: {
-                        "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const row = document.getElementById(`row-${id}`);
-                            if (row) row.remove();
-                        } else {
-                            alert("Silinmə zamanı xəta baş verdi.");
-                        }
-                    });
-        });
-    });
-});

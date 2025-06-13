@@ -1,5 +1,8 @@
-﻿@using MVC_FinalProject.Models.BlogPost
-@model BlogPost
+﻿@using MVC_FinalProject.Models.BlogReview
+@* @using MVC_FinalProject.Models.BlogPost *@
+@* @model BlogPost *@
+
+@model PostReviewPage
 
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
@@ -133,7 +136,7 @@
 							<div class="col-xl-9 col-lg-9 col-md-12 col-12 md-b-30 blog-details-content">
 								<div class="post-details">
 									<div class="post-image">
-										<img src="@Model.Images.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
+										<img src="@Model.BlogPostImgs.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
 									</div>
 									<h2 class="post-title">
 										@Model.Title
@@ -148,7 +151,7 @@
 										<p>Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit. Etiam rhoncus. Nunc interdum lacus sit amet orci. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>
 										<blockquote><p><i class="icon-quote"></i>@Model.HighlightText</blockquote>
 										<div class="content-img">
-											<img width="1410" height="460" src="@Model.Images.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
+											<img width="1410" height="460" src="@Model.BlogPostImgs.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
 										</div>
 									</div>
 									<div class="post-content-entry">
@@ -176,51 +179,163 @@
 											</a>
 										</div>
 									</div>
-									<div id="comments" class="comments-area">
-										<h3 class="comments-title">1 Comment</h3>
-										<div class="comments-list">
-											<div class="comment-item">
-												<div class="comment-avatar">
-													<img alt="" src="media/user.jpg" class="avatar" height="70" width="70">
-												</div>
-												<div class="comment-content-wrap">
-													<div class="comment-author">
-														Peter Capidal
+
+
+									@* <div id="comments" class="comments-area"> *@
+									@* 	<h3 class="comments-title">1 Comment</h3> *@
+									@* 	<div class="comments-list"> *@
+									@* 		<div class="comment-item"> *@
+									@* 			<div class="comment-avatar"> *@
+									@* 				<img alt="" src="media/user.jpg" class="avatar" height="70" width="70"> *@
+									@* 			</div> *@
+									@* 			<div class="comment-content-wrap"> *@
+									@* 				<div class="comment-author"> *@
+									@* 					Peter Capidal *@
+									@* 				</div> *@
+									@* 				<div class="comment-time"> *@
+									@* 					June 15, 2022 *@
+									@* 				</div> *@
+									@* 				<div class="comment-content"> *@
+									@* 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p> *@
+									@* 				</div> *@
+									@* 				<a class="comment-reply-link" href="#">Reply</a> *@
+									@* 			</div> *@
+									@* 		</div> *@
+									@* 	</div> *@
+									@* 	<div class="comment-form"> *@
+									@* 		<div class="form-header"> *@
+									@* 			<h3>Leave a Reply</h3> *@
+									@* 		</div> *@
+									@* 		<form action="" method="post" class="row" novalidate=""> *@
+									@* 			<div class="comment-notes col-md-12 col-sm-12">Your email address will not be published.</div> *@
+									@* 			<div class="form-group col-md-12 col-sm-12"> *@
+									@* 				<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment" class="form-control"></textarea> *@
+									@* 			</div> *@
+									@* 			<div class="form-group col-md-6 col-sm-6"> *@
+									@* 				<input id="author" placeholder="Your Name *" name="author" type="text" value="" size="30" class="form-control"> *@
+									@* 			</div> *@
+									@* 			<div class="form-group col-md-6 col-sm-6"> *@
+									@* 				<input id="email" placeholder="Your Email *" name="email" type="text" value="" size="30" class="form-control"> *@
+									@* 			</div> *@
+									@* 			<div class="form-group col-md-12 col-sm-12"> *@
+									@* 				<input id="url" name="url" placeholder="Website" type="text" value="" size="30" class="form-control"> *@
+									@* 			</div> *@
+									@* 			<div class="form-group col-md-12"> *@
+									@* 				<input name="submit" type="submit" id="submit" class="btn button-outline" value="Post Comment"> *@
+									@* 			</div> *@
+									@* 		</form> *@
+									@* 	</div> *@
+									@* </div> *@
+
+
+
+									<!-- Reviews Tab -->
+									<div class="product-tabs">
+										<div class="section-padding">
+											<div class="section-container p-l-r">
+												<div class="product-tabs-wrap">
+													<ul class="nav nav-tabs" role="tablist">
+														<li class="nav-item">
+															<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (@Model.BlogReviews.Count)</a>
+														</li>
+													</ul>
+
+													<div class="tab-content">
+														<div class="tab-pane fade" id="reviews" role="tabpanel">
+															<div id="reviews" class="product-reviews">
+																<div id="comments">
+																	<h2 class="reviews-title">@Model.BlogReviews.Count review(s) for <span>@Model.PostName</span></h2>
+
+																	<ol class="comment-list">
+																		@foreach (var review in Model.BlogReviews)
+																		{
+																			var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+																			<li class="review" data-review-id="@review.Id">
+																				<div class="content-comment-container">
+																					<div class="comment-container">
+																						<div class="comment-text">
+																							<div class="review-author">@review.UserName</div>
+																							<div class="review-time">@review.CreatedAt.ToString("MMMM dd, yyyy")</div>
+
+																							@if (User.Identity.IsAuthenticated && userId == review.AppUserId)
+																							{
+																								<button type="button" class="btn btn-link btn-sm edit-review-btn" onclick="toggleEditForm(@review.Id)">
+																									<i class="fas fa-edit"></i>
+																								</button>
+																							}
+																						</div>
+																					</div>
+
+																					<div class="description">
+																						<p class="review-comment-text">@review.Comment</p>
+																					</div>
+
+																					@if (User.Identity.IsAuthenticated && userId == review.AppUserId)
+																					{
+																						<form asp-action="EditReview" method="post" id="edit-form-@review.Id" style="display:none;">
+																							<input type="hidden" name="Id" value="@review.Id" />
+																							<input type="hidden" name="AppUserId" value="@review.AppUserId" />
+																							<input type="hidden" name="PostId" value="@Model.PostId" />
+																							<div class="form-group">
+																								<label>Comment</label>
+																								<textarea name="Comment" class="form-control">@review.Comment</textarea>
+																							</div>
+																							<div class="edit-form-buttons">
+																								<button type="submit" class="btn btn-primary btn-sm">Save</button>
+																								<button type="button" class="btn btn-secondary btn-sm" onclick="toggleEditForm(@review.Id)">Cancel</button>
+																							</div>
+																						</form>
+
+
+																						<form asp-action="DeleteReview" method="post">
+																							<input type="hidden" name="id" value="@review.Id" />
+																							<input type="hidden" name="postId" value="@Model.PostId" />
+																							<button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+																						</form>
+																					}
+																				</div>
+																			</li>
+																		}
+																	</ol>
+
+																</div>
+
+																<!-- Review Form -->
+																<div id="review-form">
+																	<div id="respond" class="comment-respond">
+																		<span id="reply-title" class="comment-reply-title">Add a review</span>
+																		<form asp-controller="BlogDetail" asp-action="AddReview" method="post">
+																			<input type="hidden" name="PostId" value="@Model.PostId" />
+																			<div class="form-group">
+																				<label>Name *</label>
+																				<input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required />
+																			</div>
+																			<div class="form-group">
+																				<label>Email *</label>
+																				<input name="UserEmail" type="email" class="form-control" required />
+																			</div>
+																			<div class="form-group">
+																				<label>Your Review *</label>
+																				<textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea>
+																			</div>
+																			<button type="submit" class="btn btn-primary">Submit Review</button>
+																		</form>
+
+																	</div>
+																</div>
+
+															</div>
+														</div>
 													</div>
-													<div class="comment-time">
-														June 15, 2022
-													</div>
-													<div class="comment-content">
-														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-													</div>
-													<a class="comment-reply-link" href="#">Reply</a>
 												</div>
 											</div>
-										</div>
-										<div class="comment-form">
-											<div class="form-header">
-												<h3>Leave a Reply</h3>
-											</div>
-											<form action="" method="post" class="row" novalidate="">
-												<div class="comment-notes col-md-12 col-sm-12">Your email address will not be published.</div>
-												<div class="form-group col-md-12 col-sm-12">
-													<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment" class="form-control"></textarea>
-												</div>
-												<div class="form-group col-md-6 col-sm-6">
-													<input id="author" placeholder="Your Name *" name="author" type="text" value="" size="30" class="form-control">
-												</div>
-												<div class="form-group col-md-6 col-sm-6">
-													<input id="email" placeholder="Your Email *" name="email" type="text" value="" size="30" class="form-control">
-												</div>
-												<div class="form-group col-md-12 col-sm-12">
-													<input id="url" name="url" placeholder="Website" type="text" value="" size="30" class="form-control">
-												</div>
-												<div class="form-group col-md-12">
-													<input name="submit" type="submit" id="submit" class="btn button-outline" value="Post Comment">
-												</div>
-											</form>
 										</div>
 									</div>
+
+
+
+
+
 								</div>
 							</div>
 						</div>
@@ -230,3 +345,70 @@
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
 </div>
+
+
+
+<script>
+	function toggleEditForm(id) {
+		const form = document.getElementById(`edit-form-${id}`);
+		if (form) {
+			form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+		}
+	}
+</script>
+
+
+<style>
+	.review {
+		margin-bottom: 20px;
+	}
+
+	.content-comment-container {
+		background-color: #f8f9fa;
+		padding: 15px;
+		border-radius: 10px;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+		position: relative;
+	}
+
+	.review-author {
+		font-weight: bold;
+	}
+
+	.review-time {
+		font-size: 0.9rem;
+		color: #6c757d;
+	}
+
+	.edit-review-btn {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		color: #007bff;
+		font-size: 0.9rem;
+	}
+
+		.edit-review-btn:hover {
+			text-decoration: underline;
+		}
+
+	.review-comment-text {
+		margin-top: 10px;
+		font-size: 1rem;
+	}
+
+	form[id^="edit-form-"] {
+		margin-top: 15px;
+	}
+
+	.edit-form-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		margin-top: 10px;
+	}
+
+	textarea.form-control {
+		resize: vertical;
+	}
+</style>

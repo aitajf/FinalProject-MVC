@@ -25,6 +25,7 @@ namespace Service
             services.AddScoped<IHelpSectionService, HelpSectionService>();         
             services.AddScoped<IAskUsFromService, AskUsFromService>();         
             services.AddScoped<IReviewService, ReviewService>();         
+            services.AddScoped<IBlogReviewService, BlogReviewService>();         
             return services;
         }
     }

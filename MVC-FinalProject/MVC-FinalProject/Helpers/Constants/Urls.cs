@@ -26,6 +26,8 @@
         public const string AskUsFromUrl = "https://localhost:7004/api/admin/AskUsFrom/";
         public const string BasketUrl = "https://localhost:7004/api/Basket/";
         public const string ReviewUrl = "https://localhost:7004/api/admin/Review/";
-        public const string ReviewClientUrl = "https://localhost:7004/api/Review/";
+        public const string ReviewClientUrl = "https://localhost:7004/api/Review/";  
+        public const string BlogReviewUrl = "https://localhost:7004/api/admin/BlogReview/";
+        public const string BlogReviewClientUrl = "https://localhost:7004/api/BlogReview/";
     }
 }

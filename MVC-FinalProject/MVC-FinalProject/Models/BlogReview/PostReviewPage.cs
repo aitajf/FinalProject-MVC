@@ -1,0 +1,20 @@
+﻿using MVC_FinalProject.Models.BlogPost;
+using MVC_FinalProject.Models.Product;
+using MVC_FinalProject.Models.Review;
+
+namespace MVC_FinalProject.Models.BlogReview
+{
+    public class PostReviewPage
+    {
+        public int PostId { get; set; }
+        public string PostName { get; set; }
+        public string? BlogCategory { get; set; }
+        public string? Description { get; set; }
+        public string? Title { get; set; }
+        public string? HighlightText { get; set; }
+        public List<BlogReview> BlogReviews { get; set; } = new();
+        public BlogReviewCreate NewReview { get; set; } = new();
+        public List<BlogPostImg> BlogPostImgs { get; set; } = new();
+
+    }
+}
