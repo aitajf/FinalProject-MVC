@@ -116,5 +116,23 @@ namespace MVC_FinalProject.Services
             return JsonConvert.DeserializeObject<IEnumerable<BlogPost>>(content);
         }
 
+
+        public async Task<IEnumerable<BlogPost>> FilterAsync(string categoryName)
+        {
+            var queryParams = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(categoryName))
+                queryParams.Add($"categoryName={Uri.EscapeDataString(categoryName)}");
+
+            var query = string.Join("&", queryParams);
+            var url = $"{Urls.BlogPostClientUrl}Filter";
+
+            if (!string.IsNullOrEmpty(query))
+                url += "?" + query;
+
+            var response = await _httpClient.GetAsync(url);
+            var responseText = await response.Content.ReadAsStringAsync();
+            return await _httpClient.GetFromJsonAsync<IEnumerable<BlogPost>>(url);
+        }
     }
 }

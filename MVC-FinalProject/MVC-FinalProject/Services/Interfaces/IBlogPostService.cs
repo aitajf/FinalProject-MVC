@@ -13,8 +13,9 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<BlogPost> GetByIdAsync(int id);
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<HttpResponseMessage> EditAsync(int id, BlogPostEdit model, int? mainImageId);  
-            Task<HttpResponseMessage> DeleteImageAsync(int blogPostId, int blogPostImageId);
+        Task<HttpResponseMessage> DeleteImageAsync(int blogPostId, int blogPostImageId);
         Task<PaginationResponse<BlogPost>> GetPaginatedAsync(int page, int pageSize);
         Task<IEnumerable<BlogPost>> SearchByCategoryAndName(string name);
+        Task<IEnumerable<BlogPost>> FilterAsync(string categoryName);
     }
 }

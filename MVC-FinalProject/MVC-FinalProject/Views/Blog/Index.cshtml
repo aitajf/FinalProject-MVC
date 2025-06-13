@@ -54,7 +54,8 @@
 												@foreach (var item in Model.BlogCategories)
 												{
 													<li>
-														<a href="blog-grid-left.html">@item.Name
+															<a href="javascript:void(0);" onclick="filterByCategory('@item.Name', null, null, null)">
+																@item.Name
 																<span class="count">
 																	@(ViewBag.CategoryPostCounts != null && ViewBag.CategoryPostCounts.ContainsKey(item.Name)
 																														? ViewBag.CategoryPostCounts[item.Name]
@@ -244,6 +245,36 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+
+			function filterByCategory(categoryName) {
+		if (!categoryName) return;
+
+		let url = `/Blog/Index?categoryName=${encodeURIComponent(categoryName)}`;
+
+		fetch(url, {
+			headers: {
+				'X-Requested-With': 'XMLHttpRequest'  // Bu header AJAX olduğunu bildirir
+			}
+		})
+		.then(res => res.text())
+		.then(data => {
+			let parser = new DOMParser();
+			let doc = parser.parseFromString(data, "text/html");
+			let newContent = doc.getElementById("productsContainer");
+			if (newContent) {
+				document.getElementById("productsContainer").innerHTML = newContent.innerHTML;
+			} else {
+				console.error("productsContainer not found in response");
+			}
+		})
+		.catch(err => console.error("Error fetching data:", err));
+	}
+
+
+</script>
 
 <script>
 	function loadContent(url) {

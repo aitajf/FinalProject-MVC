@@ -1,7 +1,7 @@
 ﻿@model BlogVM
 
 <div class="posts-list grid">
-    <div class="row">
+    <div class="row" id="productsContainer">
         @if (Model.SearchResults != null)
         {
             if (!Model.SearchResults.Any())
