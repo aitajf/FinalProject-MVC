@@ -10,5 +10,8 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<IEnumerable<BlogCategory>> GetAllAsync();
         Task<BlogCategory> GetByIdAsync(int id);
+
+        Task<Dictionary<string, int>> GetCategoryPostCountsAsync();
+
     }
 }

@@ -33,7 +33,11 @@
 														<a href="javascript:void(0);" onclick="filterProducts('@item.Name', null, null, null)">
 															@item.Name
 
-															<span class="count">@ViewBag.CategoryProductCounts[item.Name]</span>
+															<span class="count">
+																@(ViewBag.CategoryProductCounts != null && ViewBag.CategoryProductCounts.ContainsKey(item.Name)
+																													? ViewBag.CategoryProductCounts[item.Name]
+																													: 0)
+															</span>
 														</a>
 													</li>
 												}

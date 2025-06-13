@@ -1,4 +1,5 @@
-﻿@model BlogVM
+﻿﻿
+@model BlogVM
 
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
@@ -25,12 +26,19 @@
 								<div class="block block-post-search">
 									<div class="block-title"><h2>Search</h2></div>
 									<div class="block-content">
-										<form method="get" class="search-from" asp-controller="Blog" asp-action="Search">
+										@* <form id="searchForm"  method="get" class="search-from" asp-controller="Blog" asp-action="Search"> *@
+										@* 	<input type="text" value="@Model.SearchText" name="name" class="s" placeholder="Search..."> *@
+										@* 	<button class="btn" type="submit"> *@
+										@* 		<i class="icon-search"></i> *@
+										@* 	</button> *@
+										@* </form> *@
+										<form id="searchForm" method="get" class="search-from" asp-controller="Blog" asp-action="Search">
 											<input type="text" value="@Model.SearchText" name="name" class="s" placeholder="Search...">
 											<button class="btn" type="submit">
 												<i class="icon-search"></i>
 											</button>
 										</form>
+									
 
 									</div>
 								</div>
@@ -46,7 +54,14 @@
 												@foreach (var item in Model.BlogCategories)
 												{
 													<li>
-														<a href="blog-grid-left.html">@item.Name <span class="count">2</span></a>
+														<a href="blog-grid-left.html">@item.Name
+																<span class="count">
+																	@(ViewBag.CategoryPostCounts != null && ViewBag.CategoryPostCounts.ContainsKey(item.Name)
+																														? ViewBag.CategoryPostCounts[item.Name]
+																														: 0)
+																</span>
+														
+														</a>
 													</li>
 												}												
 											</ul>
@@ -108,116 +123,118 @@
 								</div>			
 							</div>
 							<div class="col-xl-9 col-lg-9 col-md-12 col-12">
-						    <div id="pagination-content"> 
-									<div class="posts-list grid">
-										<div class="row">
-											@if (Model.SearchResults != null)
-											{
-												if (!Model.SearchResults.Any())
-												{
-													<div class="col-12"><p>No results found for "@Model.SearchText".</p></div>
-												}
-												else
-												{
-													foreach (var item in Model.SearchResults)
-													{
-														<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-															<div class="post-entry clearfix post-wapper">
-																<div class="post-image">
-																	<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
-																		<img src="@item.Images.FirstOrDefault(x=>x.IsMain)?.Image" alt="Blog image" />
-																	</a>
-																</div>
-																<div class="post-content">
-																	<div class="post-categories">
-																		<a href="#">Category name: </a>
-																	</div>
-																	<h2 class="post-title">
-																		<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a>
-																	</h2>
-																	<div class="post-meta">
-																		<span class="post-time">@item.CreatedDate.ToShortDateString()</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													}
-												}
-											}
-											else
-											{
-												@if (Model.Paginate?.Items != null && Model.Paginate.Items.Any())
-												{
-													foreach (var item in Model.Paginate.Items)
-													{
-														<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-															<div class="post-entry clearfix post-wapper">
-																<div class="post-image">
-																	<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">
-																		<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image">
-																	</a>
-																</div>
-																<div class="post-content">
-																	<div class="post-categories">
-																		<a href="#">Category Name:</a>
-																	</div>
-																	<h2 class="post-title">
-																		<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a>
-																	</h2>
-																	<div class="post-meta">
-																		<span class="post-time">@item.CreatedDate.ToShortDateString()</span>
-																		<span class="post-comment">1 Comment</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													}
-												}
-											}
-										</div>
+									@* <div class="posts-list grid"> *@
+									@* 	<div class="row"> *@
+									@* 		@if (Model.SearchResults != null) *@
+									@* 		{ *@
+									@* 			if (!Model.SearchResults.Any()) *@
+									@* 			{ *@
+									@* 				<div class="col-12"><p>No results found for "@Model.SearchText".</p></div> *@
+									@* 			} *@
+									@* 			else *@
+									@* 			{ *@
+									@* 				foreach (var item in Model.SearchResults) *@
+									@* 				{ *@
+									@* 					<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6"> *@
+									@* 						<div class="post-entry clearfix post-wapper"> *@
+									@* 							<div class="post-image"> *@
+									@* 								<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id"> *@
+									@* 									<img src="@item.Images.FirstOrDefault(x=>x.IsMain)?.Image" alt="Blog image" /> *@
+									@* 								</a> *@
+									@* 							</div> *@
+									@* 							<div class="post-content"> *@
+									@* 								<div class="post-categories"> *@
+									@* 									<a href="#">Category name:@item.BlogCategory </a> *@
+									@* 								</div> *@
+									@* 								<h2 class="post-title"> *@
+									@* 									<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a> *@
+									@* 								</h2> *@
+									@* 								<div class="post-meta"> *@
+									@* 									<span class="post-time">@item.CreatedDate.ToShortDateString()</span> *@
+									@* 								</div> *@
+									@* 							</div> *@
+									@* 						</div> *@
+									@* 					</div> *@
+									@* 				} *@
+									@* 			} *@
+									@* 		} *@
+									@* 		else *@
+									@* 		{ *@
+									@* 			@if (Model.Paginate?.Items != null && Model.Paginate.Items.Any()) *@
+									@* 			{ *@
+									@* 				foreach (var item in Model.Paginate.Items) *@
+									@* 				{ *@
+									@* 					<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6"> *@
+									@* 						<div class="post-entry clearfix post-wapper"> *@
+									@* 							<div class="post-image"> *@
+									@* 								<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id"> *@
+									@* 									<img src="@item.Images.FirstOrDefault(x => x.IsMain)?.Image" alt="Blog image"> *@
+									@* 								</a> *@
+									@* 							</div> *@
+									@* 							<div class="post-content"> *@
+									@* 								<div class="post-categories"> *@
+									@* 									<a href="#">Category Name: @item.BlogCategory</a> *@
+									@* 								</div> *@
+									@* 								<h2 class="post-title"> *@
+									@* 									<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a> *@
+									@* 								</h2> *@
+									@* 								<div class="post-meta"> *@
+									@* 									<span class="post-time">@item.CreatedDate.ToShortDateString()</span> *@
+									@* 									<span class="post-comment">1 Comment</span> *@
+									@* 								</div> *@
+									@* 							</div> *@
+									@* 						</div> *@
+									@* 					</div> *@
+									@* 				} *@
+									@* 			} *@
+									@* 		} *@
+									@* 	</div> *@
+									@* </div> *@
+
+									@* @if (Model.SearchResults == null && Model.Paginate != null) *@
+									@* { *@
+									@* 	<nav class="pagination"> *@
+									@* 		<ul class="page-numbers"> *@
+									@* 			@if (Model.Paginate.HasPreviousPage) *@
+									@* 			{ *@
+									@* 				<li> *@
+									@* 					<a class="prev page-numbers" href="#" data-page="@(Model.Paginate.PageIndex - 1)">Previous</a> *@
+									@* 				</li> *@
+									@* 			} *@
+									@* 			else *@
+									@* 			{ *@
+									@* 				<li class="disabled"> *@
+									@* 					<a class="prev page-numbers" href="#">Previous</a> *@
+									@* 				</li> *@
+									@* 			} *@
+
+									@* 			@for (var i = 1; i <= Model.Paginate.TotalPages; i++) *@
+									@* 			{ *@
+									@* 				<li class="@(i == Model.Paginate.PageIndex ? "active" : "")"> *@
+									@* 					<a class="page-numbers" href="#" data-page="@i">@i</a> *@
+									@* 				</li> *@
+									@* 			} *@
+
+									@* 			@if (Model.Paginate.HasNextPage) *@
+									@* 			{ *@
+									@* 				<li> *@
+									@* 					<a class="next page-numbers" href="#" data-page="@(Model.Paginate.PageIndex + 1)">Next</a> *@
+									@* 				</li> *@
+									@* 			} *@
+									@* 			else *@
+									@* 			{ *@
+									@* 				<li class="disabled"> *@
+									@* 					<a class="next page-numbers" href="#">Next</a> *@
+									@* 				</li> *@
+									@* 			} *@
+									@* 		</ul> *@
+									@* 	</nav> *@
+									@* } *@
+
+
+									<div id="pagination-content">
+										@await Html.PartialAsync("_BlogSearchPartial", Model)
 									</div>
-
-									@if (Model.SearchResults == null && Model.Paginate != null)
-									{
-										<nav class="pagination">
-											<ul class="page-numbers">
-												@if (Model.Paginate.HasPreviousPage)
-												{
-													<li>
-														<a class="prev page-numbers" href="#" data-page="@(Model.Paginate.PageIndex - 1)">Previous</a>
-													</li>
-												}
-												else
-												{
-													<li class="disabled">
-														<a class="prev page-numbers" href="#">Previous</a>
-													</li>
-												}
-
-												@for (var i = 1; i <= Model.Paginate.TotalPages; i++)
-												{
-													<li class="@(i == Model.Paginate.PageIndex ? "active" : "")">
-														<a class="page-numbers" href="#" data-page="@i">@i</a>
-													</li>
-												}
-
-												@if (Model.Paginate.HasNextPage)
-												{
-													<li>
-														<a class="next page-numbers" href="#" data-page="@(Model.Paginate.PageIndex + 1)">Next</a>
-													</li>
-												}
-												else
-												{
-													<li class="disabled">
-														<a class="next page-numbers" href="#">Next</a>
-													</li>
-												}
-											</ul>
-										</nav>
-									}
-
-							 </div> 
 							
 							</div>
 						</div>
@@ -228,6 +245,40 @@
 	</div>
 </div>
 
+<script>
+	function loadContent(url) {
+		fetch(url, {
+			headers: {
+				'X-Requested-With': 'XMLHttpRequest'
+			}
+		})
+		.then(res => res.text())
+		.then(html => {
+			const container = document.querySelector("#pagination-content");
+			container.innerHTML = html;
+		});
+	}
+
+	// Delegated event listener (həmişə işləyəcək, refresh olmadan)
+	document.addEventListener("submit", function (e) {
+		if (e.target && e.target.id === "searchForm") {
+			e.preventDefault();
+			const query = e.target.querySelector("input[name='name']").value;
+			loadContent(`/Blog/Search?name=${encodeURIComponent(query)}`);
+		}
+	});
+
+	// Pagination üçün (onsuz da işləyir, amma birləşdirək)
+	document.addEventListener("click", function (e) {
+		if (e.target.matches(".page-numbers")) {
+			e.preventDefault();
+			const page = e.target.getAttribute("data-page");
+			if (page) {
+				loadContent(`/Blog/Index?page=${page}`);
+			}
+		}
+	});
+</script>
 
 <script>
 

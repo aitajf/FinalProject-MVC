@@ -15,10 +15,48 @@ namespace MVC_FinalProject.Controllers
             _categoryService = categoryService;
             _postService = postService;
         }
+        //public async Task<IActionResult> Index(int page = 1, int pageSize = 3)
+        //{
+        //    var categories = await _categoryService.GetAllAsync();
+        //    var paginate = await _postService.GetPaginatedAsync(page, pageSize);
+
+        //    var categoryPostCounts = await _categoryService.GetCategoryPostCountsAsync();
+
+        //    ViewBag.CategoryPostCounts = categoryPostCounts;
+
+        //    BlogVM model = new()
+        //    {
+        //        BlogCategories = categories,
+        //        Paginate = paginate
+        //    };
+
+        //    return View(model);
+        //}
+
+        //[HttpGet]
+        //public async Task<IActionResult> Search(string name)
+        //{
+        //    var categories = await _categoryService.GetAllAsync();
+        //    var results = await _postService.SearchByCategoryAndName(name);
+
+        //    BlogVM model = new()
+        //    {
+        //        BlogCategories = categories,
+        //        SearchResults = results,
+        //        SearchText = name
+        //    };
+
+        //    return View("Index", model);
+        //}
+
+
         public async Task<IActionResult> Index(int page = 1, int pageSize = 3)
         {
             var categories = await _categoryService.GetAllAsync();
             var paginate = await _postService.GetPaginatedAsync(page, pageSize);
+            var categoryPostCounts = await _categoryService.GetCategoryPostCountsAsync();
+
+            ViewBag.CategoryPostCounts = categoryPostCounts;
 
             BlogVM model = new()
             {
@@ -26,24 +64,40 @@ namespace MVC_FinalProject.Controllers
                 Paginate = paginate
             };
 
+            // AJAX gəlibsə, sadəcə content hissəsini qayıt
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return PartialView("_BlogSearchPartial", model);
+
             return View(model);
         }
 
-        [HttpGet]
+
+
+
+
+
+
         public async Task<IActionResult> Search(string name)
         {
-            var categories = await _categoryService.GetAllAsync();
             var results = await _postService.SearchByCategoryAndName(name);
+            var categories = await _categoryService.GetAllAsync();
+            var categoryPostCounts = await _categoryService.GetCategoryPostCountsAsync();
 
-            BlogVM model = new()
+            ViewBag.CategoryPostCounts = categoryPostCounts;
+
+            var model = new BlogVM
             {
-                BlogCategories = categories,
+                SearchText = name,
                 SearchResults = results,
-                SearchText = name
+                BlogCategories = categories
             };
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return PartialView("_BlogSearchPartial", model);
 
             return View("Index", model);
         }
+
 
     }
 }

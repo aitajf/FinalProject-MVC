@@ -1,4 +1,5 @@
-﻿using MVC_FinalProject.Helpers.Constants;
+﻿using System.Text.Json;
+using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.BlogCategory;
 using MVC_FinalProject.Services.Interfaces;
 
@@ -35,6 +36,21 @@ namespace MVC_FinalProject.Services
         public async Task<BlogCategory> GetByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<BlogCategory>($"{Urls.BlogCategoryUrl}GetById/{id}");
+        }
+
+        public async Task<Dictionary<string, int>> GetCategoryPostCountsAsync()
+        {
+            var response = await _httpClient.GetAsync($"{Urls.BlogCategoryUrl}GetCategoryPostCounts");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Not found.");
+            }
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var productCounts = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonString);
+
+            return productCounts ?? new Dictionary<string, int>();
         }
     }
 }
