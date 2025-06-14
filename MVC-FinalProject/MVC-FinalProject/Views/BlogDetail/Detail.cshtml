@@ -269,7 +269,7 @@
 																						</form>
 
 
-																						<form asp-action="DeleteReview" method="post">
+																						<form method="post" class="delete-review-form" data-review-id="@review.Id" data-product-id="@Model.PostId">
 																							<input type="hidden" name="id" value="@review.Id" />
 																							<input type="hidden" name="postId" value="@Model.PostId" />
 																							<button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
@@ -329,6 +329,67 @@
 </div>
 
 
+
+@section Scripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<script>
+		// ------------------- TOKEN -------------------
+		function getToken() {
+			return 'HttpContextAccessor.HttpContext.Session.GetString("AuthToken")';
+		}
+
+		// ------------------- EDIT -------------------
+		function toggleEditForm(id) {
+			$("#edit-form-" + id).toggle();
+		}
+
+		$(document).on("submit", "form[id^='edit-form-']", function (e) {
+			e.preventDefault();
+			const form = $(this);
+			const data = form.serialize();
+			const reviewId = form.find("input[name='Id']").val();
+
+			$.ajax({
+				url: `/BlogDetail/EditReview/${reviewId}`,
+				type: "POST",
+				data: data,
+				headers: {
+					"Authorization": "Bearer " + getToken()
+				},
+					   success: function (res) {
+			$(`li[data-review-id='${reviewId}'] .review-comment-text`).text(res.comment);
+			toggleEditForm(reviewId);
+		},
+
+				error: function (xhr) {
+				 alert("Redaktə zamanı xəta baş verdi: " + xhr.responseText);
+				}
+			});
+		});
+
+		// ------------------- DELETE -------------------
+				$(document).on("submit", ".delete-review-form", function (e) {
+			e.preventDefault();
+
+			const form = $(this);
+			const data = form.serialize();
+			const reviewId = form.find("input[name='id']").val();
+
+			$.ajax({
+				url: `/BlogDetail/DeleteReview`,
+				type: "POST",
+				data: data,
+				success: function () {
+					$(`li[data-review-id='${reviewId}']`).remove();
+				},
+				error: function (xhr) {
+					 alert("Silinmə zamanı xəta: " + xhr.responseText);
+				}
+			});
+		});
+	</script>
+}
 
 <script>
 	function toggleEditForm(id) {

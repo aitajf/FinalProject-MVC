@@ -259,8 +259,6 @@
 				let parser = new DOMParser();
 				let doc = parser.parseFromString(data, "text/html");
 				document.getElementById("productsContainer").innerHTML = doc.getElementById("productsContainer").innerHTML;
-
-				// Şəkillərin itməməsi üçün img src yeniləyək
 				let productImages = doc.querySelectorAll(".product-thumb img");
 				document.querySelectorAll(".product-thumb img").forEach((img, index) => {
 					img.src = productImages[index].src;

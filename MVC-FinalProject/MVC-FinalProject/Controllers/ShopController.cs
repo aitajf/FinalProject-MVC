@@ -56,9 +56,6 @@ namespace MVC_FinalProject.Controllers
             return View(model);
         }
 
-
-
-
         public async Task<IActionResult> ShowMore(int skip)
         {
             var products = await _productService.GetAllAsync();

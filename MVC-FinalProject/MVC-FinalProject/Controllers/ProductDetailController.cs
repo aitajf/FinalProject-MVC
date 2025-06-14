@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Review;
 using MVC_FinalProject.Services.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
 
 namespace MVC_FinalProject.Controllers
 {
@@ -132,6 +134,8 @@ namespace MVC_FinalProject.Controllers
             return RedirectToAction("Detail", new { id = model.ProductId });
         }
 
+
+
         [HttpGet]
         public async Task<IActionResult> EditReview(int id)
         {
@@ -154,78 +158,37 @@ namespace MVC_FinalProject.Controllers
         public async Task<IActionResult> EditReview(int id, ReviewEdit model)
         {
             var token = HttpContext.Session.GetString("AuthToken");
+            if (string.IsNullOrEmpty(token)) return Unauthorized();
 
-            if (string.IsNullOrEmpty(token))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+            var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
-            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-        
-            if (!string.Equals(userId, model.AppUserId, StringComparison.OrdinalIgnoreCase))
+            if (userId != model.AppUserId) return Forbid();
+
+            var dto = new ReviewEditApi
             {
-                return Forbid("User ID does not match the review owner.");
-            }
-
-
-            if (!ModelState.IsValid)
-                return View(model);
-
-
-              var dto = new ReviewEditApi
-              {
-                  AppUserId = userId,
-                  Comment = model.Comment
-              };
+                AppUserId = userId,
+                Comment = model.Comment
+            };
 
             var response = await _reviewService.EditAsync(dto, id);
+            if (!response.IsSuccessStatusCode) return BadRequest();
 
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Detail", new { id = model.ProductId });
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
-            {
-                ModelState.AddModelError("", "You are not authorized to edit this review.");
-                return View(model);
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-
-            ModelState.AddModelError("", "An error occurred while editing the review.");
-            return View(model);
+            return Json(new { success = true, comment = model.Comment });
         }
 
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteReview(int id, int productId)
+        public async Task<IActionResult> DeleteReview(int id)
         {
             var token = HttpContext.Session.GetString("AuthToken");
-            if (string.IsNullOrEmpty(token))
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            if (string.IsNullOrEmpty(token)) return Unauthorized();
 
             var response = await _reviewService.DeleteAsync(id, token);
+            if (!response.IsSuccessStatusCode) return BadRequest();
 
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Detail", new { id = productId });
-            }
-            else if (response.StatusCode == HttpStatusCode.BadRequest)
-            {
-                TempData["Error"] = "You are not authorized to delete this review.";
-            }
-            else
-            {
-                TempData["Error"] = "An error occurred while deleting the review.";
-            }
-
-            return RedirectToAction("Detail", new { id = productId });
+            return Json(new { success = true, id });
         }
     }
 }

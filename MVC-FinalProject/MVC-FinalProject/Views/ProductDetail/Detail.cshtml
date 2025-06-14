@@ -94,8 +94,6 @@
                                             </table>
                                         </div>
 
-
-
                                   
                                             <script>
                                                 document.querySelectorAll('.color-swatch').forEach(function (el) {
@@ -109,11 +107,6 @@
                                                 });
                                             </script>
          
-
-
-
-
-
 
                                         <!-- Cart Buttons -->
                                         <div class="buttons">
@@ -206,11 +199,14 @@
                                                                       </form> 
 
 
-                                                                      <form asp-action="DeleteReview" method="post"> 
-                                                                          <input type="hidden" name="id" value="@review.Id" /> 
-                                                                          <input type="hidden" name="productId" value="@Model.ProductId" /> 
-                                                                          <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                                                                      </form>                                                                       
+                                                                   
+
+                                                                        <form method="post" class="delete-review-form" data-review-id="@review.Id" data-product-id="@Model.ProductId">
+                                                                            <input type="hidden" name="id" value="@review.Id" />
+                                                                            <input type="hidden" name="productId" value="@Model.ProductId" />
+                                                                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                                                        </form>
+
                                                                     }
                                                                 </div>
                                                             </li>
@@ -223,23 +219,44 @@
                                                 <div id="review-form">
                                                     <div id="respond" class="comment-respond">
                                                         <span id="reply-title" class="comment-reply-title">Add a review</span>
-                                                         <form asp-controller="ProductDetail" asp-action="AddReview" method="post"> 
-                                                             <input type="hidden" name="ProductId" value="@Model.ProductId" /> 
-                                                             <div class="form-group"> 
-                                                                 <label>Name *</label>
-                                                                 <input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required /> 
-                                                             </div> 
-                                                             <div class="form-group"> 
-                                                                 <label>Email *</label>
-                                                                 <input name="UserEmail" type="email" class="form-control" required /> 
-                                                             </div> 
-                                                             <div class="form-group"> 
-                                                                 <label>Your Review *</label> 
-                                                                 <textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea> 
-                                                             </div> 
-                                                             <button type="submit" class="btn btn-primary">Submit Review</button> 
-                                                         </form> 
-                                                       
+                                                         @* <form asp-controller="ProductDetail" asp-action="AddReview" method="post">  *@
+                                                         @*     <input type="hidden" name="ProductId" value="@Model.ProductId" />  *@
+                                                         @*     <div class="form-group">  *@
+                                                         @*         <label>Name *</label> *@
+                                                         @*         <input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required />  *@
+                                                         @*     </div>  *@
+                                                         @*     <div class="form-group">  *@
+                                                         @*         <label>Email *</label> *@
+                                                         @*         <input name="UserEmail" type="email" class="form-control" required />  *@
+                                                         @*     </div>  *@
+                                                         @*     <div class="form-group">  *@
+                                                         @*         <label>Your Review *</label>  *@
+                                                         @*         <textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea>  *@
+                                                         @*     </div>  *@
+                                                         @*     <button type="submit" class="btn btn-primary">Submit Review</button>  *@
+                                                         @* </form>  *@
+
+                                                        <form id="add-review-form" asp-controller="ProductDetail" asp-action="AddReview" method="post">
+                                                            <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+                                                            <div class="form-group">
+                                                                <label>Name *</label>
+                                                                <input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required />
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Email *</label>
+                                                                <input name="UserEmail" type="email" class="form-control" required />
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Your Review *</label>
+                                                                <textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                                                        </form>
+
                                                     </div>
                                                 </div>
 
@@ -259,6 +276,67 @@
 
 <!-- Scripts -->
 
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // ------------------- TOKEN -------------------
+        function getToken() {
+            return 'HttpContextAccessor.HttpContext.Session.GetString("AuthToken")';
+        }
+
+        // ------------------- EDIT -------------------
+        function toggleEditForm(id) {
+            $("#edit-form-" + id).toggle();
+        }
+
+        $(document).on("submit", "form[id^='edit-form-']", function (e) {
+            e.preventDefault();
+            const form = $(this);
+            const data = form.serialize();
+            const reviewId = form.find("input[name='Id']").val();
+
+            $.ajax({
+                url: `/ProductDetail/EditReview/${reviewId}`,
+                type: "POST",
+                data: data,
+                headers: {
+                    "Authorization": "Bearer " + getToken()
+                },
+                       success: function (res) {
+            $(`li[data-review-id='${reviewId}'] .review-comment-text`).text(res.comment);
+            toggleEditForm(reviewId);
+        },
+
+                error: function (xhr) {
+                    // alert("Redaktə zamanı xəta baş verdi: " + xhr.responseText);
+                }
+            });
+        });
+
+        // ------------------- DELETE -------------------
+                $(document).on("submit", ".delete-review-form", function (e) {
+            e.preventDefault();
+
+            const form = $(this);
+            const data = form.serialize();
+            const reviewId = form.find("input[name='id']").val();
+
+            $.ajax({
+                url: `/ProductDetail/DeleteReview`,
+                type: "POST",
+                data: data,
+                success: function () {
+                    $(`li[data-review-id='${reviewId}']`).remove();
+                },
+                error: function (xhr) {
+                    // alert("Silinmə zamanı xəta: " + xhr.responseText);
+                }
+            });
+        });
+    </script>
+}
+
 
 <script>
     function toggleEditForm(id) {
@@ -268,8 +346,6 @@
         }
     }
 </script>
-
-
 <style>
     .review {
         margin-bottom: 20px;
