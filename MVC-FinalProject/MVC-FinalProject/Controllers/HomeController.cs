@@ -61,8 +61,6 @@ namespace MVC_FinalProject.Controllers
             return View(model);
         }
 
-
-
         [HttpGet]
         public async Task<IActionResult> SearchByName(string searchQuery)
         {
@@ -73,10 +71,6 @@ namespace MVC_FinalProject.Controllers
             var products = await _productService.SearchByNameAsync(searchQuery);
             return Ok(products);
         }
-
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

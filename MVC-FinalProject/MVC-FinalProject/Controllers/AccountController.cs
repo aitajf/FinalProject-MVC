@@ -225,27 +225,36 @@ namespace MVC_FinalProject.Controllers
             return View();
         }
 
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> Register(Register request)
         //{
-        //    if (!ModelState.IsValid) return View(request);
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var errors = ModelState.Where(x => x.Value.Errors.Count > 0)
+        //                               .ToDictionary(
+        //                                   kvp => kvp.Key,
+        //                                   kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+        //                               );
+
+        //        return BadRequest(new { errors });
+        //    }
+
         //    var responseMessage = await _accountService.Register(request);
 
         //    if (responseMessage.IsSuccessStatusCode)
         //    {
-        //        return RedirectToAction("RegisterConfirmation");
+        //        return Ok(new { success = true, redirectUrl = Url.Action("RegisterConfirmation", "Account") });
         //    }
         //    else if (responseMessage.StatusCode == System.Net.HttpStatusCode.Conflict)
         //    {
-        //        ModelState.AddModelError("UserName", "Username already exists. Please choose a different username.");
+        //        return Conflict(new { errors = new { UserName = new[] { "Username already exists. Please choose a different username." } } });
         //    }
         //    else
         //    {
-        //        ModelState.AddModelError(string.Empty, "An error occurred while registering the account.");
+        //        return BadRequest(new { errors = new { General = new[] { "An error occurred while registering the account." } } });
         //    }
-
-        //    return View(request);
         //}
 
 
@@ -255,33 +264,47 @@ namespace MVC_FinalProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Model validation errorlarını JSON formatında qaytarırıq
-                var errors = ModelState.Where(x => x.Value.Errors.Count > 0)
-                                       .ToDictionary(
-                                           kvp => kvp.Key,
-                                           kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                                       );
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    );
 
                 return BadRequest(new { errors });
             }
 
             var responseMessage = await _accountService.Register(request);
+            var content = await responseMessage.Content.ReadFromJsonAsync<RegisterResponse>();
 
-            if (responseMessage.IsSuccessStatusCode)
+            if (responseMessage.IsSuccessStatusCode && content?.Success == true)
             {
-                // Uğurlu qeydiyyat
-                return Ok(new { success = true, redirectUrl = Url.Action("RegisterConfirmation", "Account") });
+                return Ok(new
+                {
+                    success = true,
+                    redirectUrl = Url.Action("RegisterConfirmation", "Account")
+                });
             }
-            else if (responseMessage.StatusCode == System.Net.HttpStatusCode.Conflict)
+
+            if (content != null && content.Message != null)
             {
-                // Username artıq mövcuddur
-                return Conflict(new { errors = new { UserName = new[] { "Username already exists. Please choose a different username." } } });
+                // Convert general messages into key-value pair for frontend validation span
+                var errorDict = new Dictionary<string, string[]>();
+
+                foreach (var msg in content.Message)
+                {
+                    if (msg.Contains("email", StringComparison.OrdinalIgnoreCase))
+                        errorDict["Email"] = new[] { msg };
+                    else if (msg.Contains("username", StringComparison.OrdinalIgnoreCase))
+                        errorDict["UserName"] = new[] { msg };
+                    else
+                        errorDict["General"] = new[] { msg };
+                }
+
+                return BadRequest(new { errors = errorDict });
             }
-            else
-            {
-                // Ümumi səhv
-                return BadRequest(new { errors = new { General = new[] { "An error occurred while registering the account." } } });
-            }
+
+            return BadRequest(new { errors = new { General = new[] { "Unknown error occurred during registration." } } });
         }
 
 
@@ -328,6 +351,28 @@ namespace MVC_FinalProject.Controllers
             return View(model);
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> ResetPassword(UserPassword userPasswordVM)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(userPasswordVM);
+        //    }
+
+        //    var responseMessage = await _accountService.ResetPasswordAsync(userPasswordVM);
+
+        //    if (responseMessage == "Invalid request.")
+        //    {
+        //        ModelState.AddModelError("", responseMessage);
+        //        return View(userPasswordVM);
+        //    }
+
+        //    TempData["Message"] = responseMessage;
+        //    return RedirectToAction("ResetPasswordConfirmation");
+        //}
+
+
+
         [HttpPost]
         public async Task<IActionResult> ResetPassword(UserPassword userPasswordVM)
         {
@@ -338,7 +383,11 @@ namespace MVC_FinalProject.Controllers
 
             var responseMessage = await _accountService.ResetPasswordAsync(userPasswordVM);
 
-            if (responseMessage == "Invalid request.")
+            // Bu hissəni genişləndir:
+            if (responseMessage == "Invalid request." ||
+                responseMessage == "User not found" ||
+                responseMessage == "TokenIsNotValid" ||
+                responseMessage == "New password cannot be the same as the old password.")
             {
                 ModelState.AddModelError("", responseMessage);
                 return View(userPasswordVM);
@@ -347,6 +396,7 @@ namespace MVC_FinalProject.Controllers
             TempData["Message"] = responseMessage;
             return RedirectToAction("ResetPasswordConfirmation");
         }
+
 
         public IActionResult ResetPasswordConfirmation()
         {

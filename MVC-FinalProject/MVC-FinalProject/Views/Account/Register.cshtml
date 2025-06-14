@@ -8,69 +8,6 @@
 <br />
 <br />
 
-@* <div class="page-login-register"> *@
-@* 	<div class="row" style="margin-left: 1pc; margin-right: 2px;"> *@
-@* 		<div class="col-lg-6 col-md-6 col-sm-12" style="margin-left: 20pc;"> *@
-@* 			<div class="box-form-login"> *@
-@* 				<h2 class="register">Register</h2> *@
-@* 				<div class="box-content"> *@
-@* 					<div class="form-register">						 *@
-@* 						<form class="user" asp-controller="Account" asp-action="Register" method="post">					 *@
-@* 								<div class="fullname">  *@
-@* 						 	<label>FullName <span class="required">*</span></label>  *@
-@* 							<input type="text" class="form-control form-control-user input-text" id="exampleFirstName" asp-for="FullName"> *@
-@* 							<span class="text-danger" asp-validation-for="FullName"></span> *@
-@* 						    	</div>  *@
-
-@* 							<div class="username">  *@
-@* 						  	<label>Username <span class="required">*</span></label>  *@
-@* 							<input type="text" class="form-control form-control-user input-text" id="exampleLastName" asp-for="UserName"> *@
-@* 							<span class="text-danger" asp-validation-for="UserName"></span> *@
-@* 					         	</div> *@
-
-@* 								<div class="email">  *@
-@* 							   <label>Email address <span class="required">*</span></label>  *@
-@* 							<input type="email" class="form-control input-text form-control-user" id="exampleInputEmail" asp-for="Email"> *@
-@* 							<span class="text-danger" asp-validation-for="Email"></span> *@
-@* 								</div> *@
-
-@* 								<div class="password">  *@
-@* 								   <label>Password <span class="required">*</span></label>  *@
-@* 							   <input type="password" class="form-control input-text form-control-user" id="exampleRepeatPassword" asp-for="Password"> *@
-@* 							<div class="input-group-append"> *@
-@* 								<span class="input-group-text" onclick="togglePasswordVisibility()"> *@
-@* 									<i class="fa fa-eye" id="togglePasswordIcon"></i> *@
-@* 								</span> *@
-@* 							</div> *@
-@* 							<span class="text-danger" asp-validation-for="Password"></span> *@
-@* 							   </div> *@
-
-
-@* 							 <div class="password">  *@
-@* 							 	<label> Confirm Password <span class="required">*</span></label>  *@
-@* 							 	<input type="password" class="form-control input-text form-control-user" id="exampleRepeatPassword" asp-for="Password">  *@
-@* 							 	<div class="input-group-append">  *@
-@* 							 		<span class="input-group-text" onclick="togglePasswordVisibility()">  *@
-@* 							 			<i class="fa fa-eye" id="togglePasswordIcon"></i>  *@
-@* 							 		</span>  *@
-@* 							 	</div>  *@
-@* 							 	<span class="text-danger" asp-validation-for="ConfirmPassword"></span>  *@
-@* 							 </div>  *@
-
-@* 							<div>  *@
-@* 						   		<a asp-controller="Account" asp-action="Login">Do you have an account?</a>  *@
-@* 						   	</div>  *@
-@* 						   	<div class="button-register">  *@
-@* 						   		<input type="submit" class="button" name="register" value="Register">  *@
-@* 						   	</div>  *@
-@* 						</form> *@
-@* 					</div> *@
-@* 				</div> *@
-@* 			</div> *@
-@* 		</div> *@
-@* 	</div> *@
-@* </div> *@
-
 <div class="page-login-register">
     <div class="row" style="margin-left: 1pc; margin-right: 2px;">
         <div class="col-lg-6 col-md-6 col-sm-12" style="margin-left: 20pc;">
@@ -80,8 +17,6 @@
                     <div class="form-register">
                         <form id="registerForm" method="post" asp-controller="Account" asp-action="Register">
                             @Html.AntiForgeryToken()
-                            <div asp-validation-summary="All" class="text-danger"></div>
-
                          
 
                             <div class="fullname">
@@ -133,7 +68,7 @@
                             </div>
                         </form>
 
-                        <div id="registerResult" class="mt-3 text-danger"></div>
+                        <div id="registerResult" class="text-danger" data-valmsg-for="General"></div>
 
 
                         <span class="text-danger" data-valmsg-for="FullName"></span>
@@ -183,7 +118,7 @@
                     for (const key in data.errors) {
                         const span = document.querySelector(`[data-valmsg-for="${key}"]`);
                         if (span) {
-                            span.innerText = data.errors[key][0];
+                           span.innerText = data.errors[key].join(" ");
                         }
                     }
                 } else {
