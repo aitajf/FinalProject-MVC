@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<SearchProduct>
 
+
 <header id="site-header" class="site-header header-v3">
     <div class="header-mobile">
         <div class="section-padding">
@@ -174,18 +175,31 @@
                         <div class="col-lg-4 header-right">
                             <div class="header-page-link">
 
-                                <!-- Login -->
-                                <div>
+                                @inject IHttpContextAccessor HttpContextAccessor
 
-                                    @if (User.Identity.IsAuthenticated)
+                                @{
+                                    var isAuthenticated = User.Identity != null && User.Identity.IsAuthenticated;
+                                    var hasToken = HttpContextAccessor.HttpContext?.Session.GetString("AuthToken") != null;
+                                }
+
+                                <div>
+                                    @if (isAuthenticated && hasToken)
                                     {
-                                        <span>Hi @User.Identity.Name!</span>
+                                        <span>
+                                            Hi, @User.Identity.Name
+                                            <form asp-controller="Account" asp-action="LogOut" method="post" style="display:inline;">
+                                                <button type="submit" class="btn btn-link" title="Log Out">
+                                                    <i class="fa-solid fa-right-from-bracket fa-fade fa-lg" style="color: #ffffff;"></i>
+                                                </button>
+                                            </form>
+                                        </span>
                                     }
                                     else
                                     {
                                         <a asp-controller="Account" asp-action="Login">Login</a>
                                     }
                                 </div>
+
 
 
                                 <!-- Search -->
@@ -498,3 +512,6 @@
         </form>
     </div>
 </div>
+
+
+<script src="https://kit.fontawesome.com/706de796d0.js" crossorigin="anonymous"></script>

@@ -402,5 +402,27 @@ namespace MVC_FinalProject.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //public IActionResult LogOut()
+        //{
+        //    HttpContext.Session.Remove("AuthToken");
+        //    return RedirectToAction("Index", "Home");
+        //}
+
+        [HttpPost]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("AuthToken");
+
+            return RedirectToAction("LogoutRedirect");
+        }
+
+        [HttpGet]
+        public IActionResult LogoutRedirect()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
