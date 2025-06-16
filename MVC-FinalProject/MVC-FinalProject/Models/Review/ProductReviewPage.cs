@@ -6,7 +6,7 @@ namespace MVC_FinalProject.Models.Review
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public List<ProductColorImage> ProductColorImages { get; set; } = new();
+        //public List<ProductColorImage> ProductColorImages { get; set; } = new();
         public List<string> Colors { get; set; } = new();
         public string? Category { get; set; }
         public string? Description { get; set; }

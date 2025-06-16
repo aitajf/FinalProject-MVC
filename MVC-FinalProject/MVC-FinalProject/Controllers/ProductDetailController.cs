@@ -40,22 +40,22 @@ namespace MVC_FinalProject.Controllers
 
             var reviews = await _reviewService.GetAllByProductIdAsync(id);
 
-            var productColorImages = product.Images.Select(img =>
-            {
-                var matchedColor = product.Colors.FirstOrDefault(color =>
-                    img.ToLower().Contains(color.ToLower()));
-                return new ProductColorImage
-                {
-                    Url = img,
-                    Color = matchedColor
-                };
-            }).ToList();
+            //var productColorImages = product.Images.Select(img =>
+            //{
+            //    var matchedColor = product.Colors.FirstOrDefault(color =>
+            //        img.ToLower().Contains(color.ToLower()));
+            //    return new ProductColorImage
+            //    {
+            //        Url = img,
+            //        Color = matchedColor
+            //    };
+            //}).ToList();
 
             var viewModel = new ProductReviewPage
             {
                 ProductId = product.Id,
                 ProductName = product.Name,
-                ProductColorImages = productColorImages,
+             
                 Colors = product.Colors.ToList(),
                 Category = product.Category,
                 Tags = product.Tags.ToList(),
@@ -78,21 +78,21 @@ namespace MVC_FinalProject.Controllers
                 var product = await _productService.GetByIdAsync(model.ProductId);
                 var reviews = await _reviewService.GetAllByProductIdAsync(model.ProductId);
 
-                var productImages = product.Images.Select(img =>
-                {
-                    var matchedColor = product.Colors.FirstOrDefault(color => img.ToLower().Contains(color.ToLower()));
-                    return new ProductColorImage
-                    {
-                        Url = img,
-                        Color = matchedColor
-                    };
-                }).ToList();
+                //var productImages = product.Images.Select(img =>
+                //{
+                //    var matchedColor = product.Colors.FirstOrDefault(color => img.ToLower().Contains(color.ToLower()));
+                //    //return new ProductColorImage
+                //    //{
+                //    //    Url = img,
+                //    //    Color = matchedColor
+                //    //};
+                //}).ToList();
 
                 var vm = new ProductReviewPage
                 {
                     ProductId = product.Id,
                     ProductName = product.Name,
-                    ProductColorImages = productImages,
+                    //ProductColorImages = productImages,
                     Colors = product.Colors.ToList(),
                     Category = product.Category,
                     Tags = product.Tags.ToList(),

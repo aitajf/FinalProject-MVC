@@ -9,9 +9,11 @@ namespace MVC_FinalProject.Services.Interfaces
         //Task<Dictionary<string, object>> GetAllDropdownDataAsync();
         Task<HttpResponseMessage> CreateAsync(ProductCreate model);
         Task<HttpResponseMessage> EditAsync(int id, ProductEdit model);
+        Task<HttpResponseMessage> DeleteImageAsync(int productId, int productImageId);
         Task<HttpResponseMessage> DeleteAsync(int id);
         Task<IEnumerable<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(int id);
+        Task<ProductWithImage> GetByIdWithImagesAsync(int id);
         Task<IEnumerable<Product>> GetAllTakenAsync(int take, int? skip = null);
         Task<int> GetProductsCountAsync();
 

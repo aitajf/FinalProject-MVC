@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_FinalProject.Models.Product;
+using MVC_FinalProject.Services;
 using MVC_FinalProject.Services.Interfaces;
 
 namespace MVC_FinalProject.Areas.Admin.Controllers
@@ -62,6 +64,18 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             }).ToList();
         }
 
+        private async Task<List<ProductImage>> GetProductImagesForView(int id)
+        {
+            var product = await _productService.GetByIdWithImagesAsync(id);
+            return product.ProductImages
+                .Select(img => new ProductImage
+                {
+                    Id = img.Id,
+                    Name = img.Name,
+                    IsMain = img.IsMain
+                })
+                .ToList();
+        }
 
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
@@ -115,35 +129,115 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var product = await _productService.GetByIdAsync(id);
-        //    if (product == null)
-        //        return NotFound();
 
-        //    var model = new ProductEdit
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _productService.GetByIdWithImagesAsync(id);
+            if (product == null) return NotFound();
+
+            var allTags = await _tagService.GetAllAsync();
+            var allColors = await _colorService.GetAllAsync();
+            var allBrands = await _brandService.GetAllAsync();
+            var allCategories = await _categoryService.GetAllAsync();
+
+            var tagIds = allTags.Where(t => product.Tags.Contains(t.Name)).Select(t => t.Id).ToList();
+            var colorIds = allColors.Where(c => product.Colors.Contains(c.Name)).Select(c => c.Id).ToList();
+            var brandId = allBrands.FirstOrDefault(b => b.Name == product.Brand)?.Id ?? 0;
+            var categoryId = allCategories.FirstOrDefault(c => c.Name == product.Category)?.Id ?? 0;
+
+            var editModel = new ProductEdit
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Stock = product.Stock,
+                Price = product.Price,
+                Description = product.Description,
+                BrandId = brandId,
+                CategoryId = categoryId,
+                TagIds = tagIds,
+                ColorIds = colorIds,
+                MainImageId = product.ProductImages.FirstOrDefault(i => i.IsMain)?.Id
+            };
+
+            await PopulateDropdownsAsync();
+            ViewBag.ExistingImages = product.ProductImages
+                .Select(img => new ProductImage
+                {
+                    Id = img.Id,
+                    Name = img.Name,
+                    IsMain = img.IsMain
+                })
+                .ToList();
+
+
+            return View(editModel);
+        }
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(int id, ProductEdit model)
+        //{
+        //    if (!ModelState.IsValid)
         //    {
-        //        Id = product.Id,
-        //        Name = product.Name,
-        //        Description = product.Description,
-        //        Price = product.Price,
-        //        Stock = product.Stock,
-        //        CategoryId = product.Category,
-        //        BrandId = product.BrandId,
-        //        ColorIds = product.P.Select(pc => pc.ColorId).ToList(),
-        //        TagIds = product.ProductTags.Select(pt => pt.TagId).ToList(),
-        //        ExistingImages = product.Images.Select(pi => new ProductImage
-        //        {
-        //            Id = pi.Id,
-        //            ImgUrl = pi.Img,
-        //            IsMain = pi.IsMain
-        //        }).ToList()
-        //    };
+        //        await PopulateDropdownsAsync();
+        //        return View(model);
+        //    }
+
+        //    var response = await _productService.EditAsync(id, model);
+
+        //    if (response.IsSuccessStatusCode)
+        //        return RedirectToAction(nameof(Index));
+
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        var error = await response.Content.ReadAsStringAsync();
+        //        ModelState.AddModelError("", $"Update failed. API response: {error}");
+        //        await PopulateDropdownsAsync();
+        //        return View(model);
+        //    }
 
         //    await PopulateDropdownsAsync();
         //    return View(model);
         //}
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ProductEdit model)
+        {
+            if (!ModelState.IsValid)
+            {
+                await PopulateDropdownsAsync();
+                ViewBag.ExistingImages = await GetProductImagesForView(id);
+                return View(model);
+            }
+
+            var response = await _productService.EditAsync(id, model);
+
+            if (response.IsSuccessStatusCode)
+                return RedirectToAction(nameof(Index));
+
+            var error = await response.Content.ReadAsStringAsync();
+            ModelState.AddModelError("", $"Update failed. API response: {error}");
+
+            await PopulateDropdownsAsync();
+            ViewBag.ExistingImages = await GetProductImagesForView(id);
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteImage(int productId, int productImageId)
+        {
+            var response = await _productService.DeleteImageAsync(productId, productImageId);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMsg = await response.Content.ReadAsStringAsync();
+                return BadRequest(new { message = "Error deleting image.", error = errorMsg });
+            }
+
+            return Ok(new { message = "Image deleted successfully." });
+        }
 
     }
 }

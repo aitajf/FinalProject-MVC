@@ -295,7 +295,9 @@
 				}
 
 
-				<!-- Subscribe -->
+			
+
+
 				<section class="section section-padding top-border p-t-50 p-b-50 m-b-0">
 					<div class="section-container">
 						<div class="row sm-m-0">
@@ -305,13 +307,13 @@
 										<div class="newsletter-title-wrap">
 											<h2 class="newsletter-title">Join our email list.</h2>
 											<div class="newsletter-text">Sign up for the latest trends, products, and inspiration.</div>
-										</div>														
+										</div>
 
 										<form id="subscribeForm" method="post" class="newsletter-form">
 											@Html.AntiForgeryToken()
-											<div class="form-group">
-												<input name="email" class="form-control" placeholder="Email address" />
-												<button type="submit" class="btn subscribe-button">SUBSCRIBE</button>
+											<div class="form-group" style="display: flex; gap: 2px; align-items: center;">
+												<input name="email" class="form-control" placeholder="Email address" style="flex: 3; min-width: 19pc; min-height: 3pc" />
+												<button type="submit" class="btn subscribe-button" style="flex-shrink: 0;">SUBSCRIBE</button>
 											</div>
 										</form>
 										<div id="subscribe-message" class="mt-2"></div>
@@ -330,7 +332,6 @@
 						</div>
 					</div>
 				</section>
-
 				@if (Model.Instagrams != null && Model.Instagrams.Any())
 			    {
 				<section class="section section-padding m-b-70">

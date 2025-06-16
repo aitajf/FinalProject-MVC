@@ -4,6 +4,8 @@ using MVC_FinalProject.Services.Interfaces;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Helpers;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace MVC_FinalProject.Services
 {
@@ -42,9 +44,10 @@ namespace MVC_FinalProject.Services
             content.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
             content.Add(new StringContent(model.BrandId.ToString()), "BrandId");
 
-            if (model.TagIds != null)
+
+            if (model.TagIds != null && model.TagIds.Any(x => x > 0))
             {
-                foreach (var tagId in model.TagIds)
+                foreach (var tagId in model.TagIds.Where(x => x > 0))
                     content.Add(new StringContent(tagId.ToString()), "TagIds");
             }
 
@@ -68,23 +71,65 @@ namespace MVC_FinalProject.Services
                     content.Add(byteContent, "Images", image.FileName);
                 }
             }
-
-            //if (model.ColorImages != null)
-            //{
-            //    foreach (var colorImage in model.ColorImages)
-            //    {
-            //        using var ms = new MemoryStream();
-            //        await colorImage.CopyToAsync(ms);
-            //        var fileBytes = ms.ToArray();
-
-            //        var byteContent = new ByteArrayContent(fileBytes);
-            //        byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-            //        content.Add(byteContent, "ColorImages", colorImage.FileName);
-            //    }
-            //}
-
             return await _httpClient.PostAsync($"{Urls.ProductUrl}Create", content);
         }
+
+
+
+        //public async Task<HttpResponseMessage> EditAsync(int id, ProductEdit model)
+        //{
+        //    using var content = new MultipartFormDataContent();
+
+        //    content.Add(new StringContent(model.Name), "Name");
+        //    content.Add(new StringContent(model.Description), "Description");
+        //    content.Add(new StringContent(model.Price.ToString()), "Price");
+        //    content.Add(new StringContent(model.Stock.ToString()), "Stock");
+        //    content.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
+        //    content.Add(new StringContent(model.BrandId.ToString()), "BrandId");
+
+        //    if (model.TagIds != null)
+        //    {
+        //        foreach (var tagId in model.TagIds)
+        //            content.Add(new StringContent(tagId.ToString()), "TagIds");
+        //    }
+
+        //    if (model.ColorIds != null)
+        //    {
+        //        foreach (var colorId in model.ColorIds)
+        //            content.Add(new StringContent(colorId.ToString()), "ColorIds");
+        //    }
+
+        //    // Yeni şəkillər
+        //    if (model.UploadImages != null)
+        //    {
+        //        foreach (var image in model.UploadImages)
+        //        {
+        //            using var ms = new MemoryStream();
+        //            await image.CopyToAsync(ms);
+        //            var fileBytes = ms.ToArray();
+
+        //            var byteContent = new ByteArrayContent(fileBytes);
+        //            byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+        //            content.Add(byteContent, "UploadImages", image.FileName);
+        //        }
+        //    }
+
+        //    // Silinəcək şəkillərin Id-ləri
+        //    if (model.DeleteImageIds != null)
+        //    {
+        //        foreach (var imgId in model.DeleteImageIds)
+        //            content.Add(new StringContent(imgId.ToString()), "DeleteImageIds");
+        //    }
+
+        //    // Əsas şəkil Id-si
+        //    if (model.MainImageId.HasValue)
+        //    {
+        //        content.Add(new StringContent(model.MainImageId.Value.ToString()), "MainImageId");
+        //    }
+
+        //    return await _httpClient.PutAsync($"{Urls.ProductUrl}Edit/{id}", content);
+        //}
+
 
 
 
@@ -111,7 +156,6 @@ namespace MVC_FinalProject.Services
                     content.Add(new StringContent(colorId.ToString()), "ColorIds");
             }
 
-            // Yeni şəkillər
             if (model.UploadImages != null)
             {
                 foreach (var image in model.UploadImages)
@@ -126,14 +170,12 @@ namespace MVC_FinalProject.Services
                 }
             }
 
-            // Silinəcək şəkillərin Id-ləri
             if (model.DeleteImageIds != null)
             {
                 foreach (var imgId in model.DeleteImageIds)
                     content.Add(new StringContent(imgId.ToString()), "DeleteImageIds");
             }
 
-            // Əsas şəkil Id-si
             if (model.MainImageId.HasValue)
             {
                 content.Add(new StringContent(model.MainImageId.Value.ToString()), "MainImageId");
@@ -146,6 +188,24 @@ namespace MVC_FinalProject.Services
 
 
 
+
+
+
+
+
+        public async Task<HttpResponseMessage> DeleteImageAsync(int productId, int productImageId)
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+              new KeyValuePair<string, string>("productId", productId.ToString()),
+              new KeyValuePair<string, string>("productImageId", productImageId.ToString())
+            });
+
+            return await _httpClient.PostAsync($"{Urls.ProductUrl}DeleteImage", content);
+        }
+
+
+
         public async Task<HttpResponseMessage> DeleteAsync(int id)
         {
             return await _httpClient.DeleteAsync($"{Urls.ProductUrl}Delete/{id}");
@@ -154,6 +214,11 @@ namespace MVC_FinalProject.Services
         public async Task<Product> GetByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<Product>($"{Urls.ProductUrl}GetById/{id}");
+        } 
+        
+        public async Task<Product> GetByIdWithIncludesAsync(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<Product>($"{Urls.ProductUrl}GetByIdWithIncludesAsync/{id}");
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync()
@@ -239,5 +304,14 @@ namespace MVC_FinalProject.Services
 
             return result ?? new List<Product>();
         }
+
+        public async Task<ProductWithImage> GetByIdWithImagesAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.ProductUrl}GetByIdWithImages/{id}");
+            if (!response.IsSuccessStatusCode) return null;
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ProductWithImage>(content);
+        }      
     }
 }

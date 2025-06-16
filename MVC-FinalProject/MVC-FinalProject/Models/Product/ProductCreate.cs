@@ -29,15 +29,12 @@ namespace MVC_FinalProject.Models.Product
         [Required]
         public int CategoryId { get; set; }
 
-        [Required]
-        public List<int> TagIds { get; set; }
+        public List<int> TagIds { get; set; } = new();
 
         [Required]
         public List<int> ColorIds { get; set; }
 
         [Required]
         public List<IFormFile> Images { get; set; }
-
-        //public List<IFormFile> ColorImages { get; set; }
     }
 }
