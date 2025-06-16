@@ -411,9 +411,12 @@ namespace MVC_FinalProject.Controllers
         //}
 
         [HttpPost]
-        public IActionResult LogOut()
+        public async Task<IActionResult> LogOut()
         {
             HttpContext.Session.Remove("AuthToken");
+
+            await HttpContext.SignOutAsync("MyCookieAuth");
+            HttpContext.Session.Clear();
 
             return RedirectToAction("LogoutRedirect");
         }

@@ -10,6 +10,10 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         
         public IActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
     }

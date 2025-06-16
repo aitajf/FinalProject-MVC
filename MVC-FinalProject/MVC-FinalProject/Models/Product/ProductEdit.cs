@@ -5,8 +5,9 @@ namespace MVC_FinalProject.Models.Product
     public class ProductEdit
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "Name is required")]
-        [RegularExpression(@"^(?=.*[A-Za-z])[A-Za-z0-9]+$", ErrorMessage = "Name must contain at least one letter and only letters and digits are allowed")]
+        [Required]
+        [RegularExpression(@"^(?=.*[A-Za-z])[A-Za-z0-9\s\-_, -.()!%]+$",
+              ErrorMessage = "Name must contain at least one letter and cannot be only numbers.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Description is required")]

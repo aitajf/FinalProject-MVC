@@ -78,7 +78,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 6)
         {
             var paginatedProducts = await _productService.GetPaginatedProductsAsync(page, pageSize);
             ViewBag.TotalCount =paginatedProducts.TotalCount;

@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Session;
 using Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,7 +62,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseSession();
-
+app.UseMiddleware<SessionMiddleware>();
 app.UseRouting();
 
 app.Use(async (context, next) =>
