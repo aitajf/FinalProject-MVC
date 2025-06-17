@@ -26,7 +26,8 @@
                                 <div class="remove-cart-shadow"></div> <a class="dropdown-toggle cart-icon" href="#"
                                                                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="icons-cart">
-                                        <i class="icon-large-paper-bag"></i><span class="cart-count">2</span>
+                                        <i class="icon-large-paper-bag"></i>
+                                        @await Component.InvokeAsync("BasketCount")
                                     </div>
                                 </a>
                                 <div class="dropdown-menu cart-popup">
@@ -34,7 +35,7 @@
                                         <ul class="cart-list">
                                             <li class="empty">
                                                 <span>No products in the cart.</span> <a class="go-shop"
-                                                                                         href="shop-grid-left.html">
+                                                                                       asp-controller="Shop" asp-action="Index">
                                                     GO TO SHOP<i aria-hidden="true"
                                                                  class="arrow_right"></i>
                                                 </a>
@@ -221,7 +222,8 @@
                                            href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                                            aria-expanded="false">
                                             <div class="icons-cart">
-                                                <i class="icon-large-paper-bag"></i><span class="cart-count">2</span>
+                                                <i class="icon-large-paper-bag"></i>
+                                                @await Component.InvokeAsync("BasketCount")
                                             </div>
                                         </a>
                                         <div class="dropdown-menu cart-popup">

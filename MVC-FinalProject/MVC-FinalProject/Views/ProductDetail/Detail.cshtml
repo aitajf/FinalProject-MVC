@@ -31,14 +31,14 @@
                                             <div class="col-md-2">
                                                 <div class="content-thumbnail-scroll">
                                                     <div class="image-thumbnail slick-carousel slick-vertical" id="thumbnail-list">
-                                                        @* @foreach (var item in Model.ProductColorImages) *@
-                                                        @* { *@
-                                                        @*     <div class="img-item slick-slide"> *@
-                                                        @*         <span class="img-thumbnail-scroll"> *@
-                                                        @*             <img width="600" height="600" src="@item.Url" alt="" data-color="@item.Color"> *@
-                                                        @*         </span> *@
-                                                        @*     </div> *@
-                                                        @* } *@
+                                                        @foreach (var item in Model.Images) 
+                                                        { 
+                                                            <div class="img-item slick-slide"> 
+                                                                <span class="img-thumbnail-scroll">
+                                                                    <img width="600" height="600" src="@item.Name" alt=""> 
+                                                                </span> 
+                                                            </div> 
+                                                        } 
                                                     </div>
                                                 </div>
                                             </div>
@@ -47,9 +47,10 @@
                                             <div class="col-md-10">
                                                 <div class="scroll-image main-image">
                                                     <div class="image-additional slick-carousel">
-                                                        @* <img id="main-product-image" width="900" height="900" *@
-                                                        @*      src="@Model.ProductColorImages.FirstOrDefault()?.Url" *@
-                                                        @*      alt="" title=""> *@
+                                                        <img id="main-product-image" width="900" height="900"
+                                                             src="@Model.Images.FirstOrDefault(i => i.IsMain)?.Name"
+                                                             alt="" title="">
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,25 +111,71 @@
 
                                         <!-- Cart Buttons -->
                                         <div class="buttons">
-                                            <div class="add-to-cart-wrap">
-                                                <div class="quantity">
-                                                    <button type="button" class="plus">+</button>
-                                                    <input type="number" class="qty" value="1" min="1">
-                                                    <button type="button" class="minus">-</button>
+                                            @* <div class="add-to-cart-wrap"> *@
+                                            @*     <div class="quantity"> *@
+                                            @*         <button type="button" class="plus">+</button> *@
+                                            @*         <input type="number" class="qty" value="1" min="1"> *@
+                                            @*         <button type="button" class="minus">-</button> *@
+                                            @*     </div> *@
+                                            @*     <div class="btn-add-to-cart"> *@
+                                            @*         <a href="#" class="button">Add to cart</a> *@
+                                            @*     </div> *@
+                                            @* </div> *@
+                                            <!-- Cart Buttons (daxilində form şəklində olacaq) -->
+                                            <form asp-controller="Basket" asp-action="AddToBasket" method="post">
+                                                <input type="hidden" name="productId" value="@Model.ProductId" />
+
+                                                <div class="variations">
+                                                    <table cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="label">Color</td>
+                                                                <td class="attributes">
+                                                                    <ul class="colors">
+                                                                        @foreach (var color in Model.ColorList)
+                                                                        {
+                                                                            <li>
+                                                                                <input type="radio" id="color-@color.Id" name="colorId" value="@color.Id" required />
+                                                                                <label for="color-@color.Id">@color.Name</label>
+                                                                            </li>
+                                                                        }
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="btn-add-to-cart">
-                                                    <a href="#" class="button">Add to cart</a>
+
+                                                <div class="buttons">
+                                                    <div class="add-to-cart-wrap">
+                                                        <div class="quantity">
+                                                            <button type="button" class="plus">+</button>
+                                                            <input type="number" class="qty" name="quantity" value="1" min="1">
+                                                            <button type="button" class="minus">-</button>
+                                                        </div>
+                                                        <div class="btn-add-to-cart">
+                                                            <button type="submit" class="button">Add to cart</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </form>
+
+
+
                                             <div class="btn-quick-buy"><button class="product-btn">Buy It Now</button></div>
                                             <div class="btn-wishlist"><button class="product-btn">Add to wishlist</button></div>
                                             <div class="btn-compare"><button class="product-btn">Compare</button></div>
                                         </div>
 
+
+
+
                                         <div class="product-meta">
                                             <span class="posted-in">Category: @Model.Category</span>
                                             <span class="tagged-as">Tags: @Model.Tags.FirstOrDefault()</span>
                                         </div>
+
+
 
                                         <div class="social-share">
                                             <a href="#" class="share-facebook"><i class="fa fa-facebook"></i>Facebook</a>

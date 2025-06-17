@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using MVC_FinalProject.Models.Color;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Review;
+using MVC_FinalProject.Services;
 using MVC_FinalProject.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -12,13 +14,16 @@ namespace MVC_FinalProject.Controllers
     public class ProductDetailController : Controller
 	{
 		private readonly IProductService _productService;
+        private readonly IColorService _colorService;
         private readonly IReviewService _reviewService;
 
         public ProductDetailController(IProductService productService,
-                                       IReviewService reviewService)
+                                       IReviewService reviewService, 
+                                       IColorService colorService)
         {
             _productService = productService;
             _reviewService = reviewService;
+            _colorService = colorService;
         }
 
         [HttpGet]
@@ -51,12 +56,23 @@ namespace MVC_FinalProject.Controllers
             //    };
             //}).ToList();
 
+
+            var allColors = await _colorService.GetAllAsync();
+
             var viewModel = new ProductReviewPage
             {
                 ProductId = product.Id,
                 ProductName = product.Name,
-             
+                Images = product.Images
+                                .Select(name => new ProductImage
+                                {
+                                    Name = name,
+                                    IsMain = name == product.MainImage
+                                }).ToList(),
                 Colors = product.Colors.ToList(),
+                ColorList = allColors
+                  .Where(c => product.Colors.Contains(c.Name))
+                  .ToList(),
                 Category = product.Category,
                 Tags = product.Tags.ToList(),
                 Price = product.Price,

@@ -1,4 +1,6 @@
-﻿using MVC_FinalProject.Models.Product;
+﻿using MVC_FinalProject.Models.Color;
+using MVC_FinalProject.Models.Product;
+using MVC_FinalProject.Models.Color;
 
 namespace MVC_FinalProject.Models.Review
 {
@@ -6,8 +8,9 @@ namespace MVC_FinalProject.Models.Review
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        //public List<ProductColorImage> ProductColorImages { get; set; } = new();
+        public List<ProductImage> Images { get; set; }
         public List<string> Colors { get; set; } = new();
+        public List<MVC_FinalProject.Models.Color.Color> ColorList { get; set; }
         public string? Category { get; set; }
         public string? Description { get; set; }
         public List<string> Tags { get; set; } = new();
