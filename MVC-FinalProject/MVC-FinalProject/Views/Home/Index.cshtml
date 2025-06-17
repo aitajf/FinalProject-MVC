@@ -122,34 +122,6 @@
 																				</button>
 																			</div>
 
-																			<script>
-																				$(document).ready(function () {
-																					$('.add-to-cart-btn').click(function (e) {
-																						e.preventDefault();
-																						var productId = $(this).data('product-id');
-																						var colorId = $(this).data('color-id') || 0;
-
-																						$.ajax({
-																							type: 'POST',
-																							url: '/Basket/AddToBasket',
-																							data: {
-																								productId: productId,
-																								colorId: colorId
-																							},
-																							success: function (res) {
-																								toastr.success("Product added to basket!");
-																								// Əgər istəsən burada sepet sayını da yeniləyə bilərik
-																								$('#basket-count').text(res.totalCount);
-																							},
-																							error: function () {
-																								toastr.error("Something went wrong");
-																							}
-																						});
-																					});
-																				});
-																			</script>
-
-
 																			<div class="btn-wishlist" data-title="Wishlist">
 																				<button class="product-btn">Add to wishlist</button>
 																			</div>

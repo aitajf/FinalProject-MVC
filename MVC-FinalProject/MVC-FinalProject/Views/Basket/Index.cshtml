@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @model Basket
 
 <div id="site-main" class="site-main">
@@ -58,7 +58,7 @@
                                                             <tr class="cart-item">
                                                                 <td class="product-thumbnail">
                                                                     <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">
-                                                                        <img width="600" height="600" src="@item.ProductImage" class="product-image"/>
+                                                                        <img width="600" height="600" src="@item.ProductImage" class="product-image" />
                                                                     </a>
                                                                     <div class="product-name">
                                                                         <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.ProductName</a>

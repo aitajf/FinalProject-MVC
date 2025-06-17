@@ -2,17 +2,18 @@
 
 .form-group {
   margin-bottom: 1rem;
+  color:white !important;
 }
 .input-group-append,
 .input-group-prepend {
-  color: $input-placeholder-color;
+  color: white !important;
   width: auto;
   border: none;
 
   .input-group-text {
     border-color: $border-color;
     padding: $input-padding-y .75rem;
-    color: $input-placeholder-color;
+   color:white;
     background: none;
   }
 }
@@ -24,7 +25,7 @@
   padding: 0.625rem 0.6875rem;
   background-color: $input-bg;
   border-radius: 2px;
-  color: #ffffff;
+  color: white !important;
   &:focus {
     border: 1px solid rgba(71, 164, 71, 0.5);
     background-color: $input-bg;
@@ -39,7 +40,7 @@
     height: calc(1.8125rem + 2px);
   }
   &::placeholder {
-    color: $text-muted;
+    color: white;
     font-size: $input-placeholder-font-size;
   }
 }
@@ -49,6 +50,7 @@
     border-radius: 6px;
     &:focus {
       border: none;
+      color:white !important;
     }
   }
 }
@@ -57,15 +59,17 @@ select {
   &.form-control {
     padding: .4375rem .75rem;
     border: 0;
-    color: $input-placeholder-color;
+    color: white !important;
     &:focus {
       outline: 1px solid $border-color;
+      color:white !important;
     }
     @each $color, $value in $theme-colors {
       &.border-#{$color} {
         outline: 1px solid $value;
         &:focus {
           outline: 1px solid $value;
+          color:white !important;
         }
       }
     }
@@ -76,6 +80,7 @@ select {
     font-size: $default-font-size;
     line-height: 1;
     vertical-align: top;
+    color:white !important;
   }
   &.has-danger {
     .form-control {

@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using MVC_FinalProject.Helpers.Constants;
@@ -40,6 +41,33 @@ namespace MVC_FinalProject.Services
             }
         }
 
+        //public async Task<Basket> GetBasketByUserIdAsync(string userId)
+        //{
+        //    if (string.IsNullOrEmpty(userId))
+        //        throw new ArgumentNullException(nameof(userId));
+
+        //    var requestUrl = $"{BasketUrl}GetBasketByUserId/{userId}";
+
+        //    var token = _contextAccessor.HttpContext.Session.GetString("AuthToken");
+        //    if (!string.IsNullOrEmpty(token))
+        //    {
+        //        _httpClient.DefaultRequestHeaders.Authorization =
+        //            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        //    }
+
+        //    var response = await _httpClient.GetAsync(requestUrl);
+
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+
+        //        throw new Exception($"Failed: {response.StatusCode}");
+        //    }
+
+        //    var basket = await response.Content.ReadFromJsonAsync<Basket>();
+
+        //    return basket;
+        //}
+
         public async Task<Basket> GetBasketByUserIdAsync(string userId)
         {
             if (string.IsNullOrEmpty(userId))
@@ -56,17 +84,31 @@ namespace MVC_FinalProject.Services
 
             var response = await _httpClient.GetAsync(requestUrl);
 
+            if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.NoContent)
+            {
+                return new Basket
+                {
+                    AppUserId = userId,
+                    BasketProducts = new List<BasketProduct>(),
+                    TotalProductCount = 0,
+                    TotalPrice = 0
+                };
+            }
+
             if (!response.IsSuccessStatusCode)
             {
-
-                throw new Exception($"Failed: {response.StatusCode}");
+                throw new Exception($"Failed to retrieve basket. StatusCode: {response.StatusCode}");
             }
 
             var basket = await response.Content.ReadFromJsonAsync<Basket>();
-
-            return basket;
+            return basket ?? new Basket
+            {
+                AppUserId = userId,
+                BasketProducts = new List<BasketProduct>(),
+                TotalProductCount = 0,
+                TotalPrice = 0
+            };
         }
-
 
         public async Task IncreaseQuantityAsync(BasketCreate basketCreate)
         {

@@ -17,7 +17,8 @@ namespace MVC_FinalProject.Controllers
             _basketService = basketService;
             _httpContextAccessor = httpContextAccessor; 
         }
-        public async Task< IActionResult> Index()
+
+        public async Task<IActionResult> Index()
         {
             var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId))
@@ -27,30 +28,18 @@ namespace MVC_FinalProject.Controllers
 
             var basket = await _basketService.GetBasketByUserIdAsync(userId);
 
-            if (basket == null)
-            {
-                // boş səbət vəziyyəti
-                basket = new Basket
-                {
-                    AppUserId = userId,
-                    BasketProducts = new List<BasketProduct>(),
-                    TotalProductCount = 0,
-                    TotalPrice = 0
-                };
-            }
-
             return View(basket);
-        
+
         }
 
         [Authorize(Roles = "Admin,SuperAdmin,Member")]
         [HttpPost]
-        public async Task<IActionResult> AddToBasket(int productId, int? colorId = null)
+        public async Task<IActionResult> AddToBasket(int productId, int colorId)
         {
             var token = HttpContext.Session.GetString("AuthToken");
             if (string.IsNullOrEmpty(token))
             {
-                return Unauthorized(new { message = "User not authorized" });
+                return Unauthorized();
             }
 
             var handler = new JwtSecurityTokenHandler();
@@ -59,40 +48,29 @@ namespace MVC_FinalProject.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return Unauthorized(new { message = "User not authorized" });
+                return Unauthorized();
             }
 
             var basketDto = new BasketCreate
             {
                 UserId = userId,
                 ProductId = productId,
-                ColorId = (int)colorId
+                ColorId = colorId
             };
 
             try
             {
                 await _basketService.AddBasketAsync(basketDto);
-                var basket = await _basketService.GetBasketByUserIdAsync(userId);
-
-                return Json(new
-                {
-                    success = true,
-                    totalCount = basket.TotalProductCount,
-                    totalPrice = basket.TotalPrice
-                });
+                return RedirectToAction("Index", "Home"); // və ya məhsul səhifəsinə geri
             }
             catch (Exception ex)
             {
-                return BadRequest(new
-                {
-                    success = false,
-                    message = ex.Message
-                });
+                TempData["BasketError"] = ex.Message;
+                return RedirectToAction("Detail", "Product", new { id = productId });
             }
         }
 
-
-        [HttpPost]
+            [HttpPost]
         public async Task<IActionResult> IncreaseQuantity([FromBody] BasketCreate basketCreate)
         {
             try
