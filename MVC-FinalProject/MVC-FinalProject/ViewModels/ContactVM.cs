@@ -7,5 +7,7 @@ namespace MVC_FinalProject.ViewModels
     {
         public IEnumerable<HelpSection> HelpSections { get; set; }
         public AskUsFromCreate AskUsFrom { get; set; }
+        public IEnumerable<SettingVM> Setting { get; set; }
+
     }
 }

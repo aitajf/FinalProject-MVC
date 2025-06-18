@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace MVC_FinalProject.Services
 {
@@ -20,7 +21,11 @@ namespace MVC_FinalProject.Services
 
         public async Task<HttpResponseMessage> Register(Register model)
         {
-            return await _httpClient.PostAsJsonAsync($"{Urls.AccountClientUrl}Register", model);
+            //return await _httpClient.PostAsync($"{Urls.AccountClientUrl}Register", model);
+
+            var jsonData = JsonConvert.SerializeObject(model);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            return await _httpClient.PostAsync($"{Urls.AccountClientUrl}Register", stringContent);
         }
         public async Task<HttpResponseMessage> Login(Login model)
         {

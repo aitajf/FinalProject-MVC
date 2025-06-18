@@ -12,5 +12,6 @@ namespace MVC_FinalProject.ViewModels
         public IEnumerable<Brand> Brands { get; set; }
         public IEnumerable<Tag> Tags { get; set; }
         public int TotalProductCount { get; set; }
+       public IEnumerable<SettingVM> Setting {get; set; }
     }
 }

@@ -8,13 +8,15 @@ using MVC_FinalProject.Models.Account;
 using MVC_FinalProject.Services.Interfaces;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using Register = MVC_FinalProject.Models.Account.Register;
 
 namespace MVC_FinalProject.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly ISettingService _settingService;
+        public AccountController(IAccountService accountService, ISettingService settingService)
         {
             _accountService = accountService;
         }
@@ -24,143 +26,6 @@ namespace MVC_FinalProject.Controllers
         {
             return View(new Login());
         }
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Login(Login model)
-        //{
-        //    if (!ModelState.IsValid) return View(model);
-
-        //    var response = await _accountService.Login(model);
-        //    var content = await response.Content.ReadAsStringAsync();
-
-        //    //if (!response.IsSuccessStatusCode)
-        //    //{
-        //    //    ModelState.AddModelError(string.Empty, "Login failed. Please check your credentials.");
-        //    //    return View(model);
-        //    //}
-
-
-
-
-        //    var loginResponse = JsonSerializer.Deserialize<LoginResponse>(content, new JsonSerializerOptions
-        //    {
-        //        PropertyNameCaseInsensitive = true
-        //    });
-
-        //    if (loginResponse != null && loginResponse.Success)
-        //    {
-        //        HttpContext.Session.SetString("AuthToken", loginResponse.Token);
-        //        HttpContext.Session.SetString("UserName", loginResponse.UserName ?? "");
-
-        //         var claims = new List<Claim>
-        //         {
-        //            new Claim(ClaimTypes.Name, loginResponse.UserName ?? ""),
-        //            new Claim(ClaimTypes.NameIdentifier, loginResponse.UserId),
-        //            new Claim("access_token", loginResponse.Token ?? "")
-        //          };
-
-
-        //        if (loginResponse.Roles != null && loginResponse.Roles.Any())
-        //        {
-        //            foreach (var role in loginResponse.Roles)
-        //            {
-        //                claims.Add(new Claim(ClaimTypes.Role, role));
-        //            }
-        //        }
-
-        //        var identity = new ClaimsIdentity(claims, "MyCookieAuth");
-        //        var principal = new ClaimsPrincipal(identity);
-
-        //        await HttpContext.SignInAsync("MyCookieAuth", principal, new AuthenticationProperties
-        //        {
-        //            IsPersistent = true,
-        //            ExpiresUtc = DateTime.UtcNow.AddHours(2)
-        //        });
-
-        //        return RedirectToAction("Index", "Home");
-        //    }
-
-        //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        //    return View(model);
-        //}
-
-
-
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Login(Login model)
-        //{
-        //    // 1. Model validation
-        //    if (!ModelState.IsValid)
-        //        return View(model);
-
-        //    // 2. API çağırışı
-        //    var response = await _accountService.Login(model);
-        //    var content = await response.Content.ReadAsStringAsync();
-
-        //    // 3. Login cavabını deserialize et
-        //    var loginResponse = JsonSerializer.Deserialize<LoginResponse>(content, new JsonSerializerOptions
-        //    {
-        //        PropertyNameCaseInsensitive = true
-        //    });
-
-        //    // 4. API uğursuz cavab qaytardısa
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        if (loginResponse != null && !string.IsNullOrWhiteSpace(loginResponse.Error))
-        //        {
-        //            ModelState.AddModelError(string.Empty, loginResponse.Error);
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError(string.Empty, "Login failed. Please try again.");
-        //        }
-
-        //        return View(model);
-        //    }
-
-        //    // 5. Login uğurludursa
-        //    if (loginResponse != null && loginResponse.Success)
-        //    {
-        //        HttpContext.Session.SetString("AuthToken", loginResponse.Token);
-        //        HttpContext.Session.SetString("UserName", loginResponse.UserName ?? "");
-
-        //        var claims = new List<Claim>
-        //{
-        //    new Claim(ClaimTypes.Name, loginResponse.UserName ?? ""),
-        //    new Claim(ClaimTypes.NameIdentifier, loginResponse.UserId),
-        //    new Claim("access_token", loginResponse.Token ?? "")
-        //};
-
-        //        if (loginResponse.Roles != null && loginResponse.Roles.Any())
-        //        {
-        //            foreach (var role in loginResponse.Roles)
-        //            {
-        //                claims.Add(new Claim(ClaimTypes.Role, role));
-        //            }
-        //        }
-
-        //        var identity = new ClaimsIdentity(claims, "MyCookieAuth");
-        //        var principal = new ClaimsPrincipal(identity);
-
-        //        await HttpContext.SignInAsync("MyCookieAuth", principal, new AuthenticationProperties
-        //        {
-        //            IsPersistent = true,
-        //            ExpiresUtc = DateTime.UtcNow.AddHours(2)
-        //        });
-
-        //        return RedirectToAction("Index", "Home");
-        //    }
-
-        //    // 6. Nəticə uğursuzdursa və loginResponse null-dursa
-        //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        //    return View(model);
-        //}
-
 
 
         [HttpPost]
@@ -225,37 +90,45 @@ namespace MVC_FinalProject.Controllers
             return View();
         }
 
-
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> Register(Register request)
         //{
         //    if (!ModelState.IsValid)
         //    {
-        //        var errors = ModelState.Where(x => x.Value.Errors.Count > 0)
-        //                               .ToDictionary(
-        //                                   kvp => kvp.Key,
-        //                                   kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-        //                               );
-
-        //        return BadRequest(new { errors });
+        //        return View(request);
         //    }
 
         //    var responseMessage = await _accountService.Register(request);
 
-        //    if (responseMessage.IsSuccessStatusCode)
+        //    // Burada wrapper modelini deserialize edirik
+        //    var wrapper = await responseMessage.Content.ReadFromJsonAsync<RegisterResponseWrapper>();
+        //    var content = wrapper?.Value;
+
+        //    if (content != null && !content.Success)
         //    {
-        //        return Ok(new { success = true, redirectUrl = Url.Action("RegisterConfirmation", "Account") });
+        //        foreach (var msg in content.Message)
+        //        {
+        //            if (msg.Contains("email", StringComparison.OrdinalIgnoreCase))
+        //                ModelState.AddModelError("Email", msg);
+        //            else if (msg.Contains("username", StringComparison.OrdinalIgnoreCase))
+        //                ModelState.AddModelError("UserName", msg);
+        //            else
+        //                ModelState.AddModelError(string.Empty, msg);
+        //        }
+
+        //        return View(request);
         //    }
-        //    else if (responseMessage.StatusCode == System.Net.HttpStatusCode.Conflict)
+
+        //    if (responseMessage.IsSuccessStatusCode && content?.Success == true)
         //    {
-        //        return Conflict(new { errors = new { UserName = new[] { "Username already exists. Please choose a different username." } } });
+        //        return RedirectToAction("RegisterConfirmation");
         //    }
-        //    else
-        //    {
-        //        return BadRequest(new { errors = new { General = new[] { "An error occurred while registering the account." } } });
-        //    }
+
+        //    ModelState.AddModelError(string.Empty, "An unexpected error occurred.");
+        //    return View(request);
         //}
+
 
 
         [HttpPost]
@@ -264,47 +137,26 @@ namespace MVC_FinalProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState
-                    .Where(x => x.Value.Errors.Count > 0)
-                    .ToDictionary(
-                        kvp => kvp.Key,
-                        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                    );
-
-                return BadRequest(new { errors });
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return Json(new { success = false, message = errors });
             }
 
             var responseMessage = await _accountService.Register(request);
-            var content = await responseMessage.Content.ReadFromJsonAsync<RegisterResponse>();
+
+            var wrapper = await responseMessage.Content.ReadFromJsonAsync<RegisterResponseWrapper>();
+            var content = wrapper?.Value;
+
+            if (content != null && !content.Success)
+            {
+                return Json(new { success = false, message = content.Message });
+            }
 
             if (responseMessage.IsSuccessStatusCode && content?.Success == true)
             {
-                return Ok(new
-                {
-                    success = true,
-                    redirectUrl = Url.Action("RegisterConfirmation", "Account")
-                });
+                return Json(new { success = true });
             }
 
-            if (content != null && content.Message != null)
-            {
-                // Convert general messages into key-value pair for frontend validation span
-                var errorDict = new Dictionary<string, string[]>();
-
-                foreach (var msg in content.Message)
-                {
-                    if (msg.Contains("email", StringComparison.OrdinalIgnoreCase))
-                        errorDict["Email"] = new[] { msg };
-                    else if (msg.Contains("username", StringComparison.OrdinalIgnoreCase))
-                        errorDict["UserName"] = new[] { msg };
-                    else
-                        errorDict["General"] = new[] { msg };
-                }
-
-                return BadRequest(new { errors = errorDict });
-            }
-
-            return BadRequest(new { errors = new { General = new[] { "Unknown error occurred during registration." } } });
+            return Json(new { success = false, message = new[] { "An unexpected error occurred." } });
         }
 
 

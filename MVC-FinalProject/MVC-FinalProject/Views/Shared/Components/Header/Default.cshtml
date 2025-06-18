@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SearchProduct>
+﻿
+@model HeaderVMVC
 
 
 <header id="site-header" class="site-header header-v3">
@@ -16,7 +17,7 @@
                         <div class="site-logo">
                             <a asp-controller="Home" asp-action="Index">
                                 <img width="400"
-                                     height="79" src="~/assets/img/logo.png" alt="Ruper – Furniture HTML Theme" />
+                                     height="79" src="~/assets/img/@Model.Setting.FirstOrDefault(x => x.Key == "Logo")?.Value" alt="Ruper – Furniture HTML Theme" />
                             </a>
                         </div>
                     </div>
@@ -118,7 +119,7 @@
                             <div class="site-logo" style="margin-bottom: -6pc;">
                                 <a href="index7.html">
                                     <img width="400"
-                                         height="79" style="margin-top: -2pc;" src="~/assets/img/logo.png" alt="" />
+                                         height="79" style="margin-top: -2pc;" src="~/assets/img/@Model.Setting.FirstOrDefault(x => x.Key == "Logo")?.Value" alt="" />
                                 </a>
                             </div>
                             <div class="site-navigation">
@@ -482,11 +483,11 @@
                 </div>
 
                 <div class="content-menu_search">
-                    @if (Model != null && Model.Any())
+                    @if (Model.SearchProducts != null && Model.SearchProducts.Any())
                     {
                         <label>Search Results</label>
                         <ul class="menu">
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.SearchProducts)
                             {
                                 <li>
                                     <a href="/product/detail/@item.Id">

@@ -1,4 +1,6 @@
-﻿<footer id="site-footer" class="site-footer three-columns">
+﻿@model IEnumerable<SettingVM>
+
+<footer id="site-footer" class="site-footer three-columns">
 	<div class="footer">
 		<div class="section-padding">
 			<div class="section-container">
@@ -21,9 +23,9 @@
 													<li>
 														<a href="page-contact.html">HR Fax: 810.222.5439</a>
 													</li>
-													<li>
-														<a href="page-contact.html">sales@ruperfurniture.com</a>
-													</li>
+													<a href="page-contact.html">
+														@Model.FirstOrDefault(x => x.Key == "Email")?.Value
+													</a>
 												</ul>
 											</div>
 										</div>

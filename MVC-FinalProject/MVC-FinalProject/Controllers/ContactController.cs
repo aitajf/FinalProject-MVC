@@ -11,18 +11,24 @@ namespace MVC_FinalProject.Controllers
     {
         private readonly IHelpSectionService _helpSectionService;
         private readonly IAskUsFromService _askUsFromService;
-        public ContactController(IHelpSectionService helpSectionService, IAskUsFromService askUsFromService)
+        private readonly ISettingService _settingService;
+        public ContactController(IHelpSectionService helpSectionService, IAskUsFromService askUsFromService, ISettingService settingService)
         {
             _helpSectionService = helpSectionService;
             _askUsFromService = askUsFromService;
+            _settingService = settingService;
         }
         public async Task<IActionResult> Index()
         {
             var helpSections = await _helpSectionService.GetAllAsync();
+            var setting = await _settingService.GetAllAsync();
+
 
             ContactVM model = new()
             {
-                HelpSections = helpSections
+                HelpSections = helpSections,
+                Setting = setting
+                
             };
             return View(model);
         }

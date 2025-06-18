@@ -17,44 +17,47 @@
                     <div class="form-register">
                         <form id="registerForm" method="post" asp-controller="Account" asp-action="Register">
                             @Html.AntiForgeryToken()
-                         
 
                             <div class="fullname">
                                 <label>FullName <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-user input-text" id="exampleFirstName" asp-for="FullName">
+                                <input type="text" class="form-control form-control-user input-text" asp-for="FullName" />
                                 <span class="text-danger" asp-validation-for="FullName"></span>
                             </div>
 
                             <div class="username">
                                 <label>Username <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-user input-text" id="exampleLastName" asp-for="UserName">
+                                <input type="text" class="form-control form-control-user input-text" asp-for="UserName" />
                                 <span class="text-danger" asp-validation-for="UserName"></span>
                             </div>
 
                             <div class="email">
                                 <label>Email address <span class="required">*</span></label>
-                                <input type="email" class="form-control input-text form-control-user" id="exampleInputEmail" asp-for="Email">
+                                <input type="email" class="form-control input-text form-control-user" asp-for="Email" />
                                 <span class="text-danger" asp-validation-for="Email"></span>
                             </div>
 
                             <div class="password">
                                 <label>Password <span class="required">*</span></label>
-                                <input type="password" class="form-control input-text form-control-user" id="password" asp-for="Password">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" onclick="togglePasswordVisibility('password', 'togglePasswordIcon')">
-                                        <i class="fa fa-eye" id="togglePasswordIcon"></i>
-                                    </span>
+                                <div class="input-group">
+                                    <input type="password" class="form-control input-text form-control-user" id="password" asp-for="Password" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" onclick="togglePasswordVisibility('password', 'togglePasswordIcon')">
+                                            <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                                        </span>
+                                    </div>
                                 </div>
                                 <span class="text-danger" asp-validation-for="Password"></span>
                             </div>
 
                             <div class="password">
                                 <label>Confirm Password <span class="required">*</span></label>
-                                <input type="password" class="form-control input-text form-control-user" id="confirmPassword" asp-for="ConfirmPassword">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPasswordIcon')">
-                                        <i class="fa fa-eye" id="toggleConfirmPasswordIcon"></i>
-                                    </span>
+                                <div class="input-group">
+                                    <input type="password" class="form-control input-text form-control-user" id="confirmPassword" asp-for="ConfirmPassword" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPasswordIcon')">
+                                            <i class="fa fa-eye" id="toggleConfirmPasswordIcon"></i>
+                                        </span>
+                                    </div>
                                 </div>
                                 <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                             </div>
@@ -62,21 +65,13 @@
                             <div>
                                 <a asp-controller="Account" asp-action="Login">Do you have an account?</a>
                             </div>
+                            <div id="validationSummary" class="text-danger"></div>
 
                             <div class="button-register">
-                                <input type="submit" class="button" name="register" value="Register">
+                                <input type="submit" class="button" name="register" value="Register" />
                             </div>
                         </form>
-
-                        <div id="registerResult" class="text-danger" data-valmsg-for="General"></div>
-
-
-                        <span class="text-danger" data-valmsg-for="FullName"></span>
-                        <span class="text-danger" data-valmsg-for="UserName"></span>
-                        <span class="text-danger" data-valmsg-for="Email"></span>
-                        <span class="text-danger" data-valmsg-for="Password"></span>
-                        <span class="text-danger" data-valmsg-for="ConfirmPassword"></span>
-
+                      
                     </div>
                 </div>
             </div>
@@ -84,79 +79,55 @@
     </div>
 </div>
 
-
 <br />
 <br />
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("registerForm");
-        const resultDiv = document.getElementById("registerResult");
-
-        form.addEventListener("submit", function (e) {
+    $(document).ready(function () {
+        $('#registerForm').submit(function (e) {
             e.preventDefault();
 
-            const formData = new FormData(form);
+            var form = $(this);
+            var url = form.attr('action') || window.location.href;
+            var token = form.find('input[name="__RequestVerificationToken"]').val();
 
-            // Clear previous messages
-            document.querySelectorAll('[data-valmsg-for]').forEach(span => span.innerText = '');
-            resultDiv.innerText = '';
-
-            fetch("/Account/Register", {
-                method: "POST",
-                body: formData
-            })
-            .then(res => {
-                if (res.ok) return res.json();
-                return res.json().then(data => { throw data });
-            })
-            .then(data => {
-                if (data.success) {
-                    window.location.href = data.redirectUrl || "/";
-                } else if (data.errors) {
-                    for (const key in data.errors) {
-                        const span = document.querySelector(`[data-valmsg-for="${key}"]`);
-                        if (span) {
-                           span.innerText = data.errors[key].join(" ");
-                        }
+            $.ajax({
+                type: "POST",
+                url: url,
+                headers: {
+                    "RequestVerificationToken": token
+                },
+                data: form.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        window.location.href = '/Account/RegisterConfirmation';
+                    } else {
+                        showErrors(response.message);
                     }
-                } else {
-                    resultDiv.innerText = "Something went wrong. Please try again.";
-                }
-            })
-            .catch(data => {
-                if (data.errors) {
-                    for (const key in data.errors) {
-                        const span = document.querySelector(`[data-valmsg-for="${key}"]`);
-                        if (span) {
-                            span.innerText = data.errors[key][0];
-                        }
-                    }
-                } else {
-                    resultDiv.innerText = "Unexpected error occurred.";
+                },
+                error: function () {
+                    $('#validationSummary').text('An unexpected error occurred.');
                 }
             });
         });
+        function showErrors(errors) {
+            $('#validationSummary').empty();
+
+            if (Array.isArray(errors)) {
+                errors.forEach(function (err) {
+                    $('#validationSummary').append('<div>' + err + '</div>');
+                });
+            } else {
+                $('#validationSummary').text(errors);
+            }
+        }
     });
-
-		function togglePasswordVisibility() {
-			var passwordField = document.getElementById("exampleRepeatPassword");
-			var passwordIcon = document.getElementById("togglePasswordIcon");
-			if (passwordField.type === "password") {
-				passwordField.type = "text";
-				passwordIcon.classList.remove("fa-eye");
-				passwordIcon.classList.add("fa-eye-slash");
-			} else {
-				passwordField.type = "password";
-				passwordIcon.classList.remove("fa-eye-slash");
-				passwordIcon.classList.add("fa-eye");
-			}
-		}
-
-
-
-          function togglePasswordVisibility(inputId, iconId) {
+</script>
+@section Scripts {
+    <script>
+        function togglePasswordVisibility(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
             if (input.type === "password") {
@@ -169,4 +140,5 @@
                 icon.classList.add("fa-eye");
             }
         }
-</script>
+    </script>
+}

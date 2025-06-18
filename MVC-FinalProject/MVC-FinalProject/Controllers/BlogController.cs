@@ -8,11 +8,15 @@ namespace MVC_FinalProject.Controllers
     {
         private readonly IBlogCategoryService _categoryService;
         private readonly IBlogPostService _postService;
+        private readonly ISettingService _settingService;
+
         public BlogController(IBlogCategoryService categoryService, 
-                              IBlogPostService postService)
+                              IBlogPostService postService,
+                              ISettingService settingService)
         {
             _categoryService = categoryService;
             _postService = postService;
+            _settingService = settingService;
         }
 
         public async Task<IActionResult> Index(string categoryName, int page = 1, int pageSize = 3)
@@ -20,10 +24,12 @@ namespace MVC_FinalProject.Controllers
             var categories = await _categoryService.GetAllAsync();
             var categoryPostCounts = await _categoryService.GetCategoryPostCountsAsync();
             ViewBag.CategoryPostCounts = categoryPostCounts;
+            var setting = await _settingService.GetAllAsync();
 
             BlogVM model = new()
             {
-                BlogCategories = categories
+                BlogCategories = categories,
+                Setting = setting,
             };
 
             if (string.IsNullOrEmpty(categoryName))

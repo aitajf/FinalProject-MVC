@@ -10,15 +10,15 @@ namespace MVC_FinalProject.Controllers
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly ITagService _tagService;
-        private  IBrandService _brandService;
-        public ShopController(IProductService productService, 
-
-            ICategoryService categoryService, IBrandService brandService, ITagService tagService)
+        private readonly IBrandService _brandService;
+        private readonly ISettingService _settingService;
+        public ShopController(IProductService productService, ICategoryService categoryService, IBrandService brandService, ITagService tagService, ISettingService settingService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
             _tagService = tagService;
+            _settingService = settingService;
         }
 
         public async Task<IActionResult> Index(string categoryName, string colorName, string tagName, string brandName, string sortType)
@@ -29,6 +29,7 @@ namespace MVC_FinalProject.Controllers
             var productCount = await _productService.GetProductsCountAsync();
             var categoryProductCounts = await _categoryService.GetCategoryProductCountsAsync();
             var brandProductCounts = await _brandService.GetBrandProductCountsAsync();
+            var setting =await _settingService.GetAllAsync();
 
             var products = string.IsNullOrEmpty(categoryName) && string.IsNullOrEmpty(colorName) &&
                            string.IsNullOrEmpty(tagName) && string.IsNullOrEmpty(brandName)
@@ -50,7 +51,9 @@ namespace MVC_FinalProject.Controllers
                 Products = products,
                 Brands = brands,
                 Tags = tags,
-                TotalProductCount = productCount
+                TotalProductCount = productCount,
+                Setting = setting,
+
             };
 
             return View(model);

@@ -12,5 +12,7 @@ namespace MVC_FinalProject.ViewModels
         public PaginationResponse<BlogPost> Paginate { get; set; }
         public IEnumerable<BlogPost> SearchResults { get; set; }
         public string SearchText { get; set; }
+        public IEnumerable<SettingVM> Setting { get; set; }
+
     }
 }
