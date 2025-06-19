@@ -38,79 +38,7 @@
                                         </div>
                                     }
                                     else
-                                    {
-
-                                        @* <form class="cart-form" method="post" asp-action="UpdateCart" asp-controller="Basket"> *@
-                                        @*     <div class="table-responsive"> *@
-                                        @*         <table class="cart-items table" cellspacing="0"> *@
-                                        @*             <thead> *@
-                                        @*                 <tr> *@
-                                        @*                     <th class="product-thumbnail">Product</th> *@
-                                        @*                     <th class="product-price">Price</th> *@
-                                        @*                     <th class="product-quantity">Quantity</th> *@
-                                        @*                     <th class="product-subtotal">Subtotal</th> *@
-                                        @*                     <th class="product-remove">&nbsp;</th> *@
-                                        @*                 </tr> *@
-                                        @*             </thead> *@
-                                        @*             <tbody> *@
-                                        @*                 @for (int i = 0; i < Model.Basket.BasketProducts.Count; i++) *@
-                                        @*                 { *@
-                                        @*                     var item = Model.Basket.BasketProducts[i]; *@
-                                        @*                     <tr class="cart-item"> *@
-                                        @*                         <td class="product-thumbnail"> *@
-                                        @*                             <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId"> *@
-                                        @*                                 <img width="600" height="600" src="@item.ProductImage" class="product-image" /> *@
-                                        @*                             </a> *@
-                                        @*                             <div class="product-name"> *@
-                                        @*                                 <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.ProductName</a> *@
-                                        @*                                 <br /> *@
-                                        @*                                 <small>Color: @item.ColorName</small> *@
-                                        @*                             </div> *@
-                                        @*                         </td> *@
-                                        @*                         <td class="product-price"> *@
-                                        @*                             <span class="price">@item.Price</span> *@
-                                        @*                         </td> *@
-                                        @*                         <td class="product-quantity"> *@
-                                        @*                             <div class="quantity"> *@
-
-                                        @*                                 <input type="hidden" name="items[@i].ProductId" value="@item.ProductId" /> *@
-                                        @*                                 <input type="hidden" name="items[@i].ColorId" value="@item.ColorId" /> *@
-                                        @*                                 <input type="hidden" name="items[@i].OldQuantity" value="@item.Quantity" /> *@
-                                        @*                                 <button type="button" class="minus">-</button> *@
-                                        @*                                 <input type="number" class="qty" name="items[@i].NewQuantity" value="@item.Quantity" min="1" /> *@
-
-                                                                        
-                                        @*                                 <button type="button" class="plus">+</button                                                                                                                                                                                              *@
-                                        @*                            </div> *@
-                                        @*                         </td> *@
-                                        @*                         <td class="product-subtotal"> *@
-                                        @*                             <span>@(item.Price * item.Quantity)</span> *@
-                                        @*                         </td> *@
-                                        @*                         <td class="product-remove"> *@
-                                        @*                             <button type="submit" name="removeIndex" value="@i" class="remove btn btn-link" title="Remove item">×</button> *@
-                                        @*                         </td> *@
-                                        @*                     </tr> *@
-                                        @*                 } *@
-                                        @*                 <tr> *@
-                                        @*                     <td colspan="6" class="actions"> *@
-                                        @*                         <div class="bottom-cart"> *@
-                                        @*                             <div class="coupon"> *@
-                                        @*                                 <input type="text" name="coupon_code" class="input-text" id="coupon-code" value="" placeholder="Coupon code" /> *@
-                                        @*                                 <button type="submit" name="apply_coupon" class="button" value="Apply coupon">Apply coupon</button> *@
-                                        @*                             </div> *@
-                                        @*                             <h2><a asp-controller="Shop" asp-action="Index">Continue Shopping</a></h2> *@
-                                        @*                              <button type="submit" name="update_cart" class="button" value="Update cart">Update cart</button>   *@
-                                        @*                         </div> *@
-                                        @*                     </td> *@
-                                        @*                 </tr> *@
-                                        @*             </tbody> *@
-                                        @*         </table> *@
-                                        @*     </div> *@
-                                        @* </form> *@
-                              
-                                    
-                                    
-                                    
+                                    {                                    
                                         <form id="cart-form" class="cart-form" method="post" asp-action="UpdateCart" asp-controller="Basket">
                                             <div class="table-responsive">
                                                 <table class="cart-items table" cellspacing="0">
@@ -156,9 +84,13 @@
                                                                 <td class="product-subtotal">
                                                                     <span>@(item.Price * item.Quantity)</span>
                                                                 </td>
-                                                                <td class="product-remove">
-                                                                    <button type="button" class="remove btn btn-link" data-remove-index="@i" title="Remove item">×</button>
+
+                                                                <td>
+                                                                    <button type="button" class="remove btn btn-link" data-productid="@item.ProductId" title="Remove item">
+                                                                        <i class="fa-solid fa-trash" style="color: #db1414;"></i>
+                                                                    </button>
                                                                 </td>
+                                                       
                                                             </tr>
                                                         }
                                                     </tbody>
@@ -235,7 +167,51 @@
     </div><!-- #main-content -->
 </div>
 
-<script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function updateCartTotals() {
+            let subtotal = 0;
+
+            $(".cart-item").each(function () {
+                let price = parseFloat($(this).data("price"));
+                let quantity = parseInt($(this).find(".qty").val());
+
+                if (!isNaN(price) && !isNaN(quantity)) {
+                    subtotal += price * quantity;
+                }
+            });
+
+            $("#cart-subtotal").text(subtotal.toFixed(2));
+            $("#cart-total").text(subtotal.toFixed(2));
+
+            if ($(".cart-item").length === 0) {
+                $(".cart-totals").remove();
+                $(".proceed-to-checkout").remove(); 
+            }
+        }
+
+        $(document).on("click", ".remove", function () {
+            var button = $(this);
+            var productId = button.data("productid");
+
+            console.log("Sil düyməsi klikləndi. ID:", productId);
+
+            $.ajax({
+                url: '@Url.Action("DeleteProduct", "Basket")',
+                type: 'POST',
+                data: { productId: productId },
+                success: function () {
+                    button.closest("tr.cart-item").remove();
+
+                    updateCartTotals();
+                },
+                error: function (xhr) {
+                    alert("Xəta baş verdi. Kod: " + xhr.status);
+                }
+            });
+        });
+</script>
+   <script>
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.plus').forEach(btn => {
         btn.addEventListener('click', e => {

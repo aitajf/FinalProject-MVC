@@ -83,9 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-////Delete without refresh
-
-
 //BlogPost Edit üçün Deletİmg metodu
 function deleteImage(imageId) {
     const blogPostId = document.getElementById("blog-container")?.dataset.routeId;
@@ -115,3 +112,69 @@ function deleteImage(imageId) {
 }
 
 
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.plus').forEach(btn => {
+            btn.addEventListener('click', e => {
+                const input = e.target.previousElementSibling;
+                input.value = parseInt(input.value) + 1;
+            });
+        });
+
+      document.querySelectorAll('.minus').forEach(btn => {
+        btn.addEventListener('click', e => {
+            const input = e.target.nextElementSibling;
+            let val = parseInt(input.value);
+            if (val > 1) input.value = val - 1;
+        });
+      });
+
+      document.getElementById('update-cart').addEventListener('click', async () => {
+        const formData = new FormData();
+
+        document.querySelectorAll('tr.cart-item').forEach((tr, i) => {
+          const productId = tr.querySelector('input[name^="items"][name$=".ProductId"]').value;
+    const colorId = tr.querySelector('input[name^="items"][name$=".ColorId"]').value;
+    const oldQuantity = tr.querySelector('input[name^="items"][name$=".OldQuantity"]').value;
+    const newQuantity = tr.querySelector('input[name^="items"][name$=".NewQuantity"]').value;
+
+    formData.append(`items[${i}].ProductId`, productId);
+    formData.append(`items[${i}].ColorId`, colorId);
+    formData.append(`items[${i}].OldQuantity`, oldQuantity);
+    formData.append(`items[${i}].NewQuantity`, newQuantity);
+        });
+
+    try {
+          const response = await fetch('@Url.Action("UpdateCart", "Basket")', {
+        method: 'POST',
+    body: formData,
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+            }
+          });
+
+    if (!response.ok) throw new Error('Server error');
+
+    const data = await response.json();
+          data.updatedItems.forEach(item => {
+            const tr = document.querySelector(`tr.cart-item[data-productid="${item.productId}"][data-colorid="${item.colorId}"]`);
+    if (tr) {
+        tr.querySelector('input[name$=".NewQuantity"]').value = item.quantity;
+    tr.querySelector('input[name$=".OldQuantity"]').value = item.quantity;
+    tr.querySelector('.product-subtotal span').textContent = (item.price * item.quantity).toFixed(2);
+            }
+          });
+
+    const subtotalEl = document.getElementById('cart-subtotal');
+    if (subtotalEl) subtotalEl.textContent = data.cartTotal.toFixed(2);
+
+    const totalEl = document.getElementById('cart-total');
+    if (totalEl) totalEl.textContent = data.cartTotal.toFixed(2);
+        } catch (error) {
+        alert('Cart update failed: ' + error.message);
+        }
+      });
+    });

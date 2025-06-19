@@ -210,8 +210,6 @@ namespace MVC_FinalProject.Controllers
                     }
                 }
             }
-
-            // Yenilənmiş səbəti servisdən çəkmək lazımdır (məsələn _basketService.GetByUserId(userId))
             var basket = await _basketService.GetBasketByUserIdAsync(userId);
 
             var updatedItems = basket.BasketProducts.Select(bp => new
@@ -228,5 +226,24 @@ namespace MVC_FinalProject.Controllers
             return Json(new { updatedItems, cartTotal });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(int productId)
+        {
+            var token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized();
+            }
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+            await _basketService.DeleteProductFromBasketAsync(productId, userId);
+            return Ok();
+        }
     }
 }

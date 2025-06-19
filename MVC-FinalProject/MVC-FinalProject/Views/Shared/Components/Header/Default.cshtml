@@ -237,33 +237,24 @@
                                                     </li>
                                                 </ul>
                                             </div>
+
                                             <div class="cart-list-wrap">
                                                 <ul class="cart-list ">
-                                                    <li class="mini-cart-item">
-                                                        <a href="#" class="remove"
-                                                           title="Remove this item"><i class="icon_close"></i></a> <a href="shop-details.html" class="product-image">
-                                                            <img width="600" height="600" src="media/product/3.jpg"
-                                                                 alt="">
-                                                        </a> <a href="shop-details.html"
-                                                                class="product-name">Chair Oak Matt Lacquered</a>
-                                                        <div class="quantity">Qty: 1</div>
-                                                        <div class="price">$150.00</div>
-                                                    </li>
-                                                    <li class="mini-cart-item">
-                                                        <a href="#" class="remove"
-                                                           title="Remove this item"><i class="icon_close"></i></a> <a href="shop-details.html" class="product-image">
-                                                            <img width="600" height="600" src="media/product/1.jpg"
-                                                                 alt="">
-                                                        </a> <a href="shop-details.html"
-                                                                class="product-name">Zunkel Schwarz</a>
-                                                        <div class="quantity">Qty: 1</div>
-                                                        <div class="price">$100.00</div>
-                                                    </li>
+                                                    @foreach (var item in Model.LastTwoBasketItems)
+                                                    {
+                                                        <li class="mini-cart-item">
+                                                            <a href="#" class="remove"
+                                                               title="Remove this item"><i class="icon_close"></i></a> <a href="shop-details.html" class="product-image">
+                                                                <img width="600" height="600" src="@item.ImageUrl"
+                                                                     alt="">
+                                                            </a> <a href="shop-details.html"
+                                                                    class="product-name">@item.ProductName</a>
+                                                            <div class="quantity">Qty: 1</div>
+                                                            <div class="price">$@item.Price</div>
+                                                        </li>
+                                                    }                                               
                                                 </ul>
-                                                <div class="total-cart">
-                                                    <div class="title-total">Total: </div>
-                                                    <div class="total-price"><span>$100.00</span></div>
-                                                </div>
+                                               
                                                 <div class="free-ship">
                                                     <div class="title-ship">
                                                         Buy <strong>$400</strong> more to enjoy
@@ -279,6 +270,7 @@
                                                                                                                  class="button btn checkout btn-default">Check out</a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -460,7 +452,6 @@
 
     }
 </style>
-
 
 
 

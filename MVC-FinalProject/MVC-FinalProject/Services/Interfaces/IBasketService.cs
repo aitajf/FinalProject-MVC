@@ -8,5 +8,7 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<Basket> GetBasketByUserIdAsync(string userId);
         Task IncreaseQuantityAsync(BasketCreate basketCreate);
         Task DecreaseQuantityAsync(BasketCreate basketCreate);
+        Task DeleteProductFromBasketAsync(int productId, string userId);
+        Task<List<BasketItem>> GetLastTwoAsync(string userId);
     }
 }
