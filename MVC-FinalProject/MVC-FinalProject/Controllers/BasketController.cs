@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC_FinalProject.Models.Basket;
 using MVC_FinalProject.Services.Interfaces;
+using MVC_FinalProject.ViewModels;
 
 namespace MVC_FinalProject.Controllers
 {
@@ -11,11 +12,13 @@ namespace MVC_FinalProject.Controllers
     {
         private readonly IBasketService _basketService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISettingService _settingService;
 
-        public BasketController(IBasketService basketService, IHttpContextAccessor httpContextAccessor)
+        public BasketController(IBasketService basketService, IHttpContextAccessor httpContextAccessor, ISettingService settingService)
         {
             _basketService = basketService;
-            _httpContextAccessor = httpContextAccessor; 
+            _httpContextAccessor = httpContextAccessor;
+            _settingService = settingService;
         }
 
         public async Task<IActionResult> Index()
@@ -27,8 +30,15 @@ namespace MVC_FinalProject.Controllers
             }
 
             var basket = await _basketService.GetBasketByUserIdAsync(userId);
+            var setting = await _settingService.GetAllAsync();
 
-            return View(basket);
+            BasketVM model = new BasketVM()
+            {
+                Basket= basket,
+                Setting= setting
+            };
+
+            return View(model);
 
         }
 
@@ -70,7 +80,8 @@ namespace MVC_FinalProject.Controllers
             }
         }
 
-            [HttpPost]
+
+        [HttpPost]
         public async Task<IActionResult> IncreaseQuantity([FromBody] BasketCreate basketCreate)
         {
             try
@@ -96,6 +107,125 @@ namespace MVC_FinalProject.Controllers
             {
                 return BadRequest(new { success = false, message = ex.Message });
             }
+        }
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> UpdateCart(List<BasketUpdate> items)
+        //{
+        //    var token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
+        //    if (string.IsNullOrEmpty(token))
+        //    {
+        //        return Unauthorized();
+        //    }
+
+        //    var handler = new JwtSecurityTokenHandler();
+        //    var jwtToken = handler.ReadJwtToken(token);
+        //    var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        //    if (string.IsNullOrEmpty(userId))
+        //    {
+        //        return Unauthorized();
+        //    }
+
+        //    foreach (var item in items)
+        //    {
+        //        if (item.NewQuantity > item.OldQuantity)
+        //        {
+        //            int diff = item.NewQuantity - item.OldQuantity;
+        //            for (int i = 0; i < diff; i++)
+        //            {
+        //                var dto = new BasketCreate
+        //                {
+        //                    ProductId = item.ProductId,
+        //                    UserId = userId,
+        //                    ColorId = item.ColorId
+        //                };
+        //                await _basketService.IncreaseQuantityAsync(dto);
+        //            }
+        //        }
+        //        else if (item.NewQuantity < item.OldQuantity)
+        //        {
+        //            int diff = item.OldQuantity - item.NewQuantity;
+        //            for (int i = 0; i < diff; i++)
+        //            {
+        //                var dto = new BasketCreate
+        //                {
+        //                    ProductId = item.ProductId,
+        //                    UserId = userId,
+        //                    ColorId = item.ColorId
+        //                };
+        //                await _basketService.DecreaseQuantityAsync(dto);
+        //            }
+        //        }
+        //    }
+        //    return RedirectToAction("Index", "Basket");
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCart(List<BasketUpdate> items)
+        {
+            var token = _httpContextAccessor.HttpContext.Session.GetString("AuthToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized();
+            }
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            foreach (var item in items)
+            {
+                if (item.NewQuantity > item.OldQuantity)
+                {
+                    int diff = item.NewQuantity - item.OldQuantity;
+                    for (int i = 0; i < diff; i++)
+                    {
+                        var dto = new BasketCreate
+                        {
+                            ProductId = item.ProductId,
+                            UserId = userId,
+                            ColorId = item.ColorId
+                        };
+                        await _basketService.IncreaseQuantityAsync(dto);
+                    }
+                }
+                else if (item.NewQuantity < item.OldQuantity)
+                {
+                    int diff = item.OldQuantity - item.NewQuantity;
+                    for (int i = 0; i < diff; i++)
+                    {
+                        var dto = new BasketCreate
+                        {
+                            ProductId = item.ProductId,
+                            UserId = userId,
+                            ColorId = item.ColorId
+                        };
+                        await _basketService.DecreaseQuantityAsync(dto);
+                    }
+                }
+            }
+
+            // Yenilənmiş səbəti servisdən çəkmək lazımdır (məsələn _basketService.GetByUserId(userId))
+            var basket = await _basketService.GetBasketByUserIdAsync(userId);
+
+            var updatedItems = basket.BasketProducts.Select(bp => new
+            {
+                productId = bp.ProductId,
+                colorId = bp.ColorId,
+                price = bp.Price,
+                quantity = bp.Quantity,
+                subtotal = bp.Price * bp.Quantity
+            }).ToList();
+
+            var cartTotal = updatedItems.Sum(x => x.subtotal);
+
+            return Json(new { updatedItems, cartTotal });
         }
 
     }

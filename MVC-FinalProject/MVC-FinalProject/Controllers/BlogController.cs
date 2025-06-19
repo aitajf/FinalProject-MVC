@@ -26,7 +26,7 @@ namespace MVC_FinalProject.Controllers
             ViewBag.CategoryPostCounts = categoryPostCounts;
             var setting = await _settingService.GetAllAsync();
 
-            BlogVM model = new()
+            BlogVM model = new BlogVM()
             {
                 BlogCategories = categories,
                 Setting = setting,
