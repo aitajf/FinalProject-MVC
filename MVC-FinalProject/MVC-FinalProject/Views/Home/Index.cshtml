@@ -50,15 +50,10 @@
 											{
 												<div class="col-md-3 sm-m-b-30">
 													<div class="cat-item">
-														<div class="cat-image">
-															@* <a href="shop-grid-left.html"> *@
-															@* 	<img width="303" height="366" src="@item.Image" alt="Product Category"> *@
-															@* </a> *@
+														<div class="cat-image">															
 															<a href="/Shop/Index?categoryName=@Uri.EscapeDataString(item.Name)">
 																<img width="303" height="366" src="@item.Image" alt="Product Category">
 															</a>
-
-
 														</div>
 														<div class="cat-title">
 															<a href="shop-grid-left.html">
@@ -141,7 +136,7 @@
 																	</div>
 																	<div class="products-content">
 																		<div class="contents text-center">
-																			<h3 class="product-title"><a href="shop-details.html">@item.Name</a></h3>
+																			<h3 class="product-title"><a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></h3>
 																			<span class="price">$@item.Price</span>
 																		</div>
 																	</div>
@@ -212,7 +207,7 @@
 																<div class="products-entry clearfix product-wapper">
 																	<div class="products-thumb">
 																		<div class="product-thumb-hover">
-																			<a href="shop-details.html">
+																			<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id">
 																				<img width="600" height="600" src="@item.MainImage" class="post-image" alt="">
 																				<img width="600" height="600" src="@item.Images.Where(img => img != item.MainImage).FirstOrDefault()" class="hover-image back" alt="">
 																			</a>
@@ -235,7 +230,7 @@
 																	</div>
 																	<div class="products-content">
 																		<div class="contents text-center">
-																			<h3 class="product-title"><a href="shop-details.html">@item.Name</a></h3>
+																			<h3 class="product-title"><a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></h3>
 																			<span class="price">
 																				<ins><span>$@item.Price</span></ins>
 																			</span>

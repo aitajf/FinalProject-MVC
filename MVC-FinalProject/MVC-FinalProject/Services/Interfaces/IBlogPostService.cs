@@ -17,5 +17,7 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<PaginationResponse<BlogPost>> GetPaginatedAsync(int page, int pageSize);
         Task<IEnumerable<BlogPost>> SearchByCategoryAndName(string name);
         Task<IEnumerable<BlogPost>> FilterAsync(string categoryName);
+        Task<BlogPost> GetPreviousAsync(int id);
+        Task<BlogPost> GetNextAsync(int id);
     }
 }

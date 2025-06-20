@@ -1,7 +1,4 @@
-﻿@using MVC_FinalProject.Models.BlogReview
-@* @using MVC_FinalProject.Models.BlogPost *@
-@* @model BlogPost *@
-
+﻿
 @model PostReviewPage
 
 <div id="site-main" class="site-main">
@@ -147,68 +144,28 @@
 											</div>
 										</div>
 									</div>
+
 									<div class="prev-next-post">
-										<div class="previous-post">
-											<a href="blog-details-right.html" rel="prev">
-												<div class="hover-extend active"><span>Previous</span></div>
-												<h2 class="title">How to Make your Home a Showplace</h2>
-											</a>
-										</div>
-										<div class="next-post">
-											<a href="blog-details-right.html" rel="next">
-												<div class="hover-extend active"><span>Next</span></div>
-												<h2 class="title">Stunning Furniture with Aesthetic Appeal</h2>
-											</a>
-										</div>
+										@if ((bool)(ViewData["HasPrevious"] ?? false))
+										{
+											<div class="previous-post">
+												<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@Model.PreviousBlog.Id">
+													<div class="hover-extend active"><span>Previous</span></div>
+													<h2 class="title">@Model.PreviousBlog.Title</h2>
+												</a>
+											</div>
+										}
+
+										@if ((bool)(ViewData["HasNext"] ?? false))
+										{
+											<div class="next-post">
+												<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@Model.NextBlog.Id">
+													<div class="hover-extend active"><span>Next</span></div>
+													<h2 class="title">@Model.NextBlog.Title</h2>
+												</a>
+											</div>
+										}
 									</div>
-
-
-									@* <div id="comments" class="comments-area"> *@
-									@* 	<h3 class="comments-title">1 Comment</h3> *@
-									@* 	<div class="comments-list"> *@
-									@* 		<div class="comment-item"> *@
-									@* 			<div class="comment-avatar"> *@
-									@* 				<img alt="" src="media/user.jpg" class="avatar" height="70" width="70"> *@
-									@* 			</div> *@
-									@* 			<div class="comment-content-wrap"> *@
-									@* 				<div class="comment-author"> *@
-									@* 					Peter Capidal *@
-									@* 				</div> *@
-									@* 				<div class="comment-time"> *@
-									@* 					June 15, 2022 *@
-									@* 				</div> *@
-									@* 				<div class="comment-content"> *@
-									@* 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p> *@
-									@* 				</div> *@
-									@* 				<a class="comment-reply-link" href="#">Reply</a> *@
-									@* 			</div> *@
-									@* 		</div> *@
-									@* 	</div> *@
-									@* 	<div class="comment-form"> *@
-									@* 		<div class="form-header"> *@
-									@* 			<h3>Leave a Reply</h3> *@
-									@* 		</div> *@
-									@* 		<form action="" method="post" class="row" novalidate=""> *@
-									@* 			<div class="comment-notes col-md-12 col-sm-12">Your email address will not be published.</div> *@
-									@* 			<div class="form-group col-md-12 col-sm-12"> *@
-									@* 				<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment" class="form-control"></textarea> *@
-									@* 			</div> *@
-									@* 			<div class="form-group col-md-6 col-sm-6"> *@
-									@* 				<input id="author" placeholder="Your Name *" name="author" type="text" value="" size="30" class="form-control"> *@
-									@* 			</div> *@
-									@* 			<div class="form-group col-md-6 col-sm-6"> *@
-									@* 				<input id="email" placeholder="Your Email *" name="email" type="text" value="" size="30" class="form-control"> *@
-									@* 			</div> *@
-									@* 			<div class="form-group col-md-12 col-sm-12"> *@
-									@* 				<input id="url" name="url" placeholder="Website" type="text" value="" size="30" class="form-control"> *@
-									@* 			</div> *@
-									@* 			<div class="form-group col-md-12"> *@
-									@* 				<input name="submit" type="submit" id="submit" class="btn button-outline" value="Post Comment"> *@
-									@* 			</div> *@
-									@* 		</form> *@
-									@* 	</div> *@
-									@* </div> *@
-
 
 
 									<!-- Reviews Tab -->

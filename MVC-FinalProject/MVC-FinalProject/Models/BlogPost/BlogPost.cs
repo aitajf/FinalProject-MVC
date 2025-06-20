@@ -1,4 +1,6 @@
-﻿namespace MVC_FinalProject.Models.BlogPost
+﻿using System.Text.Json.Serialization;
+
+namespace MVC_FinalProject.Models.BlogPost
 {
     public class BlogPost
     {
@@ -9,6 +11,7 @@
         public int BlogCategoryId { get; set; }
         public string BlogCategory { get; set; }
         public List<BlogPostImg> Images { get; set; }
+        [JsonIgnore]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

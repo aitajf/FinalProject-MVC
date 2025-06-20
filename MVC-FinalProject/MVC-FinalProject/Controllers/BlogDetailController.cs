@@ -37,6 +37,10 @@ namespace MVC_FinalProject.Controllers
             }
             var reviews = await _blogReviewService.GetAllByPostIdAsync(id);
 
+            var previous = await _blogPostService.GetPreviousAsync(id);
+            var next = await _blogPostService.GetNextAsync(id);
+            ViewData["HasPrevious"] = previous != null;
+            ViewData["HasNext"] = next != null;
 
             var viewModel = new PostReviewPage
             {
@@ -47,7 +51,10 @@ namespace MVC_FinalProject.Controllers
                 BlogReviews = reviews.ToList(),
                 Description = post.Description,
                 HighlightText = post.HighlightText,
-                NewReview = new BlogReviewCreate { PostId = id }
+                NewReview = new BlogReviewCreate { PostId = id },
+
+                PreviousBlog = previous,
+                NextBlog = next
             };
 
             ViewData["EditingReviewId"] = editingReviewId;
@@ -125,9 +132,6 @@ namespace MVC_FinalProject.Controllers
 
             return View(model);
         }
-
-
-
 
         [HttpPost]
         public async Task<IActionResult> EditReview(int id, BlogReviewEdit model)

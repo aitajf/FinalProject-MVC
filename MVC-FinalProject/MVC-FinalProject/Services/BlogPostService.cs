@@ -134,5 +134,26 @@ namespace MVC_FinalProject.Services
             var responseText = await response.Content.ReadAsStringAsync();
             return await _httpClient.GetFromJsonAsync<IEnumerable<BlogPost>>(url);
         }
+
+        public async Task<BlogPost> GetPreviousAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.BlogPostClientUrl}GetPrevious/get-previous/{id}");
+
+            if (!response.IsSuccessStatusCode) return null;
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<BlogPost>(content);
+        }
+   
+        public async Task<BlogPost> GetNextAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"{Urls.BlogPostClientUrl}GetNext/get-next/{id}");
+
+            if (!response.IsSuccessStatusCode) return null;
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<BlogPost>(content);
+        }
+
     }
 }

@@ -16,5 +16,8 @@ namespace MVC_FinalProject.Models.BlogReview
         public BlogReviewCreate NewReview { get; set; } = new();
         public List<BlogPostImg> BlogPostImgs { get; set; } = new();
 
+
+        public MVC_FinalProject.Models.BlogPost.BlogPost PreviousBlog { get; set; }
+        public MVC_FinalProject.Models.BlogPost.BlogPost NextBlog { get; set; }
     }
 }
