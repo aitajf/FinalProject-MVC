@@ -15,17 +15,15 @@
 											<div class="block-content">
 												<ul>
 													<li>
-														<a href="page-contact.html">616.774.0561</a>
+															@Model.FirstOrDefault(x => x.Key == "Phone")?.Value
 													</li>
 													<li>
-														<a href="page-contact.html">866.453.4748</a>
+															@Model.FirstOrDefault(x => x.Key == "Email")?.Value
 													</li>
-													<li>
-														<a href="page-contact.html">HR Fax: 810.222.5439</a>
+													<li>												
+												        	@Model.FirstOrDefault(x => x.Key == "Address")?.Value														
 													</li>
-													<a href="page-contact.html">
-														@Model.FirstOrDefault(x => x.Key == "Email")?.Value
-													</a>
+													
 												</ul>
 											</div>
 										</div>
@@ -63,7 +61,7 @@
 						<div class="col-lg-4 column-center">
 							<div class="column-wrap">
 								<div class="block block-image m-b-20">
-									<img width="100" src="~/assets/img/logo.png" alt="">
+									<img width="100" src="~/assets/img/@Model.FirstOrDefault(x => x.Key == "Logo")?.Value" alt="">
 								</div>
 								<div class="block block-social">
 									<ul class="social-link">

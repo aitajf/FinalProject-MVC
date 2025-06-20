@@ -15,6 +15,7 @@ namespace MVC_FinalProject.Controllers
         private readonly IInstagramService _instagramService;
         private readonly ISubscribeImgService _subscribeImgService;
         private readonly ISubscriptionService _subscriptionService;
+        private readonly ISettingService _settingService;
 
         public HomeController(ISliderService sliderService,
                               ICategoryService categoryService,
@@ -22,7 +23,8 @@ namespace MVC_FinalProject.Controllers
                               ILandingBannerService landingBannerService,
                               IInstagramService instagramService,
                               ISubscribeImgService subscribeImgService,
-                              ISubscriptionService subscriptionService)
+                              ISubscriptionService subscriptionService,
+                              ISettingService settingService)
         {
             _sliderService = sliderService;
             _categoryService = categoryService;
@@ -31,6 +33,7 @@ namespace MVC_FinalProject.Controllers
             _landingBannerService = landingBannerService;
             _subscribeImgService = subscribeImgService;
             _subscriptionService = subscriptionService;
+            _settingService = settingService;
         }
 
         public async Task<IActionResult> Index(string? searchQuery)
@@ -41,6 +44,7 @@ namespace MVC_FinalProject.Controllers
             var landingBanners = await _landingBannerService.GetAllAsync();
             var instagrams = await _instagramService.GetAllAsync();
             var subscribeImgs = await _subscribeImgService.GetAllAsync();
+            var settings = await _settingService.GetAllAsync();
 
             var searchResults = string.IsNullOrEmpty(searchQuery) ? new List<Product>()
                                : await _productService.SearchByNameAsync(searchQuery);
@@ -55,7 +59,8 @@ namespace MVC_FinalProject.Controllers
                 LandingBanners = landingBanners,
                 Instagrams = instagrams,
                 SubscribeImgs = subscribeImgs,
-                SearchResults = searchResults
+                SearchResults = searchResults,
+                Settings = settings
             };
 
             return View(model);

@@ -36,9 +36,23 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             if (!ModelState.IsValid) return View(request);
 
             var result = await _colorService.CreateAsync(request);
-            if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
-            ModelState.AddModelError(string.Empty, "Error creating");
-            return View(request);
+
+
+            if (!result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+
+                if (content.Contains("This color has already exist"))
+                {
+                    ModelState.AddModelError("Name", "This color has already exists.");
+                    return View(request);
+                }
+
+                ModelState.AddModelError("", "Something went wrong while creating the color.");
+                return View(request);
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -76,9 +90,22 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(request);
             var result = await _colorService.EditAsync(request, id);
-            if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
-            ModelState.AddModelError("", "Error editing.");
-            return View(request);
+
+            if (!result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+
+                if (content.Contains("This color name already exists"))
+                {
+                    ModelState.AddModelError("Name", "This color name already exists.");
+                    return View(request);
+                }
+
+                ModelState.AddModelError("", "Error editing color.");
+                return View(request);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

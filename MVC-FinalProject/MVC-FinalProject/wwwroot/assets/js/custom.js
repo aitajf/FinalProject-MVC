@@ -24,36 +24,36 @@ updateDateTime();
 setInterval(updateDateTime, 1000);
 
 
-//Show more button
-document.addEventListener("DOMContentLoaded", function () {
-    let button = document.querySelector(".show-more");
-    let productsArea = document.querySelector(".products-area");
-    let productCountInput = document.querySelector(".products-count");
+////Show more button
+//document.addEventListener("DOMContentLoaded", function () {
+//    let button = document.querySelector(".show-more");
+//    let productsArea = document.querySelector(".products-area");
+//    let productCountInput = document.querySelector(".products-count");
 
-    button.addEventListener("click", function () {
-        let skipProducts = productsArea.children.length;
-        let productCount = parseInt(productCountInput?.value ?? "0");
-        console.log("Product Count:", productCount);
-        getData(skipProducts, productsArea, productCount, this);
-    });
+//    button.addEventListener("click", function () {
+//        let skipProducts = productsArea.children.length;
+//        let productCount = parseInt(productCountInput?.value ?? "0");
+//        console.log("Product Count:", productCount);
+//        getData(skipProducts, productsArea, productCount, this);
+//    });
 
-    async function getData(skip, elem, count, clickedElem) {
-        const url = `shop/showmore?skip=${skip}`;
-        try {
-            const response = await fetch(url);
-            const json = await response.text();
-            elem.innerHTML += json;
+//    async function getData(skip, elem, count, clickedElem) {
+//        const url = `shop/showmore?skip=${skip}`;
+//        try {
+//            const response = await fetch(url);
+//            const json = await response.text();
+//            elem.innerHTML += json;
 
-            let updateSkip = document.querySelector(".products-area").children.length;
-            if (updateSkip >= count) {
-                clickedElem.classList.add("d-none");
-            }
+//            let updateSkip = document.querySelector(".products-area").children.length;
+//            if (updateSkip >= count) {
+//                clickedElem.classList.add("d-none");
+//            }
 
-        } catch (error) {
-            console.error("Error fetching data:", error.message);
-        }
-    }
-});
+//        } catch (error) {
+//            console.error("Error fetching data:", error.message);
+//        }
+//    }
+//});
 
 
 //Blog page UI pagination

@@ -51,9 +51,14 @@
 												<div class="col-md-3 sm-m-b-30">
 													<div class="cat-item">
 														<div class="cat-image">
-															<a href="shop-grid-left.html">
+															@* <a href="shop-grid-left.html"> *@
+															@* 	<img width="303" height="366" src="@item.Image" alt="Product Category"> *@
+															@* </a> *@
+															<a href="/Shop/Index?categoryName=@Uri.EscapeDataString(item.Name)">
 																<img width="303" height="366" src="@item.Image" alt="Product Category">
 															</a>
+
+
 														</div>
 														<div class="cat-title">
 															<a href="shop-grid-left.html">
@@ -64,7 +69,7 @@
 												</div>
 											}
 											<div class="btn-all">
-												<a class="button-outline" href="shop-grid-left.html" style="margin-left: 34pc;margin-top:2pc;">VIEW ALL</a>
+												<a class="button-outline" asp-controller="Shop" asp-action="Index" style="margin-left: 34pc;margin-top:2pc;">VIEW ALL</a>
 											</div>			
 										</div>
 									</div>
@@ -331,7 +336,7 @@
 								{
 									<div class="block block-image text-center position-relative">
 										<img width="671" height="503" src="@Model.SubscribeImgs.OrderByDescending(x => x.CreatedDate).FirstOrDefault()?.Img" alt="">
-										<img class="animation-round position-v-top position-h-center" width="106" height="105" src="~/assets/img/logocircle.png" alt="">
+										<img class="animation-round position-v-top position-h-center" width="106" height="105" src="~/assets/img/@Model.Settings.FirstOrDefault(x => x.Key == "LogoCircle")?.Value" alt="">
 									</div>
 								}
 							</div>
@@ -476,15 +481,6 @@
 
 </script>
 
-
-
-
-
-
-
-
-
-
 <script>
 	$(document).ready(function () {
 		$('#subscribeForm').submit(function (e) {
@@ -521,7 +517,6 @@
 		});
 	});
 </script>
-
 
 <style>
 	.subscribe-button {

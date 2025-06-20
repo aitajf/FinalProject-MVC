@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\views\\shared\\components\\header\\default.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\views\\shared\\components\\header\\default.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\viewcomponents\\headerviewcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\viewcomponents\\headerviewcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\controllers\\basketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\controllers\\basketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\views\\basket\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\views\\basket\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\views\\shop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\views\\shop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\wwwroot\\assets\\js\\custom.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\wwwroot\\assets\\js\\custom.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|c:\\users\\acer\\onedrive\\\u0130\u015F masas\u0131\\final project mvc\\mvc-finalproject\\mvc-finalproject\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CFF71DF-9BB0-4B0B-A4F0-9FEF3F0E160A}|MVC-FinalProject\\MVC-FinalProject.csproj|solutionrelative:mvc-finalproject\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,76 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "HeaderViewComponent.cs",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\ViewComponents\\HeaderViewComponent.cs",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\ViewComponents\\HeaderViewComponent.cs",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\ViewComponents\\HeaderViewComponent.cs",
-              "RelativeToolTip": "MVC-FinalProject\\ViewComponents\\HeaderViewComponent.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAAAEAAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T13:44:58.123Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Default.cshtml",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Shared\\Components\\Header\\Default.cshtml",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\Shared\\Components\\Header\\Default.cshtml",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Shared\\Components\\Header\\Default.cshtml",
-              "RelativeToolTip": "MVC-FinalProject\\Views\\Shared\\Components\\Header\\Default.cshtml",
-              "ViewState": "AgIAAO0AAAAAAAAAAAAAAPMAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-19T13:32:41.949Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "custom.js",
               "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
               "RelativeDocumentMoniker": "MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
               "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
               "RelativeToolTip": "MVC-FinalProject\\wwwroot\\assets\\js\\custom.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-06-19T13:13:53.079Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Basket\\Index.cshtml",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\Basket\\Index.cshtml",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Basket\\Index.cshtml",
-              "RelativeToolTip": "MVC-FinalProject\\Views\\Basket\\Index.cshtml",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAADsAAABxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-19T12:34:45.606Z",
+              "WhenOpened": "2025-06-20T10:57:30.036Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "BasketController.cs",
-              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\BasketController.cs",
-              "RelativeDocumentMoniker": "MVC-FinalProject\\Controllers\\BasketController.cs",
-              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\BasketController.cs",
-              "RelativeToolTip": "MVC-FinalProject\\Controllers\\BasketController.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAA7wOsAAAANAAAAAAAAAA==",
+              "Title": "ShopController.cs",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\ShopController.cs",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Controllers\\ShopController.cs",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Controllers\\ShopController.cs",
+              "RelativeToolTip": "MVC-FinalProject\\Controllers\\ShopController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAqwFAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T12:31:20.201Z",
+              "WhenOpened": "2025-06-20T09:33:51.836Z",
               "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Shop\\Index.cshtml",
+              "RelativeDocumentMoniker": "MVC-FinalProject\\Views\\Shop\\Index.cshtml",
+              "ToolTip": "C:\\Users\\acer\\OneDrive\\\u0130\u015F masas\u0131\\Final Project MVC\\MVC-FinalProject\\MVC-FinalProject\\Views\\Shop\\Index.cshtml",
+              "RelativeToolTip": "MVC-FinalProject\\Views\\Shop\\Index.cshtml",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAMwKcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-20T09:33:54.192Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -28,17 +28,42 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CategoryCreate request)
-        {
-            if(!ModelState.IsValid) return View(request);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(CategoryCreate request)
+        //{
+        //    if(!ModelState.IsValid) return View(request);
 
-            var result = await _categoryService.CreateAsync(request);
-            if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
-            ModelState.AddModelError(string.Empty, "Error creating");
-            return View(request);
+        //    var result = await _categoryService.CreateAsync(request);
+        //    if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
+        //    ModelState.AddModelError(string.Empty, "Error creating");
+        //    return View(request);
+        //}
+        [HttpPost]
+        public async Task<IActionResult> Create(CategoryCreate model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var response = await _categoryService.CreateAsync(model);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (content.Contains("This category has already exist"))
+                {
+                    ModelState.AddModelError("Name", "This category already exists.");
+                    return View(model);
+                }
+
+                ModelState.AddModelError("", "Something went wrong while creating the category.");
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
@@ -71,15 +96,32 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return View(categoryEdit);
         }
 
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CategoryEdit request)
         {
-            if (!ModelState.IsValid) return View(request);
+            if (!ModelState.IsValid)
+                return View(request);
+
             var result = await _categoryService.EditAsync(request, id);
-            if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
-            ModelState.AddModelError("", "Error editing.");
-            return View(request);
+
+            if (!result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+
+                if (content.Contains("This category name already exists"))
+                {
+                    ModelState.AddModelError("Name", "This category name already exists.");
+                    return View(request);
+                }
+
+                ModelState.AddModelError("", "Error editing category.");
+                return View(request);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
+
     }
 }

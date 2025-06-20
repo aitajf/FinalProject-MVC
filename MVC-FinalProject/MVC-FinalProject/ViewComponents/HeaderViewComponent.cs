@@ -55,7 +55,6 @@ namespace MVC_FinalProject.ViewComponents
                 var handler = new JwtSecurityTokenHandler();
                 var jwtToken = handler.ReadJwtToken(authToken);
 
-                // Əgər userId `nameid` və ya `sub` ilə gəlirsə, onu oxu:
                 var userId = jwtToken.Claims.FirstOrDefault(c =>
                     c.Type == ClaimTypes.NameIdentifier || c.Type == "userId" || c.Type == "nameid")?.Value;
 

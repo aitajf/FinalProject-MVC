@@ -59,11 +59,28 @@ namespace MVC_FinalProject.Controllers
             return View(model);
         }
 
+        //public async Task<IActionResult> ShowMore(int skip)
+        //{
+        //    var products = await _productService.GetAllAsync();
+        //    var filteredProducts = await _productService.GetAllTakenAsync(8, skip);
+        //    return PartialView("_ProductPartial", filteredProducts);
+        //}
+
+
+        [HttpGet]
         public async Task<IActionResult> ShowMore(int skip)
         {
-            var products = await _productService.GetAllAsync();
-            var filteredProducts = await _productService.GetAllTakenAsync(8, skip);
-            return PartialView("_ProductPartial", filteredProducts);
+            var products = await _productService.GetAllTakenAsync(6, skip);
+
+            if (products == null || !products.Any())
+            {
+                return Json(new { success = false });
+            }
+
+            return PartialView("_ProductPartial", products);
         }
+
+
+
     }
 }

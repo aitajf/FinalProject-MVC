@@ -18,5 +18,6 @@ namespace MVC_FinalProject.ViewModels
         public IEnumerable<SubscribeImg> SubscribeImgs { get; set; }
         public SubscriptionCreate Subscribe { get; set; } = new();
         public IEnumerable<Product> SearchResults { get; set; }
+        public IEnumerable<SettingVM> Settings { get; set; }
     }
 }
