@@ -1,14 +1,15 @@
 ﻿
 @model PostReviewPage
 
+
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
 		<div id="primary" class="content-area">
-			<div id="title" class="page-title">
+			<div id="title" class="page-title" style="background-image: url(/assets/img/@Model.Settings.FirstOrDefault(x => x.Key == "BlogBanner")?.Value);">
 				<div class="section-container">
 					<div class="content-title-heading">
 						<h1 class="text-title-heading">
-							@Model.Title
+							@Model.PostName
 						</h1>
 					</div>
 					<div class="breadcrumbs">
@@ -20,261 +21,145 @@
 			<div id="content" class="site-content" role="main">
 				<div class="section-padding">
 					<div class="section-container p-l-r">
-						<div class="row">
-							<div class="col-xl-3 col-lg-3 col-md-12 col-12 sidebar left-sidebar blog-details-sidebar">
-								<!-- Block Post Search -->
-								<div class="block block-post-search">
-									<div class="block-title"><h2>Search</h2></div>
-									<div class="block-content">
-										<form method="get" class="search-from" action="">
-											<input type="text" value="" name="s" class="s" placeholder="Search...">
-											<button class="btn" type="submit">
-												<i class="icon-search"></i>
-											</button>
-										</form>
+						<div class="post-details no-sidebar">
+							<div class="post-image">
+								<img src="@Model.BlogPostImgs.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
+							</div>
+							<h2 class="post-title text-center">
+								@Model.PostName
+							</h2>
+							<div class="post-meta">
+								<span class="post-categories"><i class="icon_folder-alt"></i> <a href="blog-grid-right.html">@Model.BlogCategory</a></span>
+								<span class="post-time"><i class="icon_clock_alt"></i> @Model.CreatedDate</span>
+							</div>
+							<div class="post-content clearfix">
+								<p>@Model.Description</p>
+								<blockquote><p><i class="icon-quote"></i>"@Model.HighlightText”</p></blockquote>
+								<div class="content-img">
+	                           	<img width="1410" height="460"
+	                             src="@(
+                                   Model.BlogPostImgs.FirstOrDefault(x => !x.IsMain)?.Image
+                                   ?? Model.BlogPostImgs.FirstOrDefault(x => x.IsMain)?.Image
+                                    )"									 alt="">
+								</div>
+							</div>
+							<div class="post-content-entry">			
+								<div class="entry-social-share">
+									<label>Share :</label>
+									<div class="social-share">
+										<a href="#" title="Facebook" class="share-facebook" target="_blank"><i class="fa fa-facebook"></i>Facebook</a>
+										<a href="#" title="Twitter" class="share-twitter"><i class="fa fa-twitter"></i>Twitter</a>
+										<a href="#" title="Pinterest" class="share-pinterest"><i class="fa fa-pinterest"></i>Pinterest</a>
 									</div>
 								</div>
-
-								<!-- Block Posts -->
-								<div class="block block-posts">
-									<div class="block-title"><h2>Recent Posts</h2></div>
-									<div class="block-content">
-										<ul class="posts-list">
-											<li class="post-item">
-												<a href="blog-details-right.html" class="post-image">
-													<img src="media/blog/1.jpg">
-												</a>
-												<div class="post-content">
-													<h2 class="post-title">
-														<a href="blog-details-right.html">
-															Easy Fixes for Home Decor
-														</a>
-													</h2>
-													<div class="post-time">
-														<span class="post-date">May 30, 2022</span>
-													</div>
-												</div>
-											</li>
-											<li class="post-item">
-												<a href="blog-details-right.html" class="post-image">
-													<img src="media/blog/2.jpg">
-												</a>
-												<div class="post-content">
-													<h2 class="post-title">
-														<a href="blog-details-right.html">
-															How to Make your Home a Showplace
-														</a>
-													</h2>
-													<div class="post-time">
-														<span class="post-date">Aug 24, 2022</span>
-													</div>
-												</div>
-											</li>
-											<li class="post-item">
-												<a href="blog-details-right.html" class="post-image">
-													<img src="media/blog/3.jpg">
-												</a>
-												<div class="post-content">
-													<h2 class="post-title">
-														<a href="blog-details-right.html">
-															Stunning Furniture with Aesthetic Appeal
-														</a>
-													</h2>
-													<div class="post-time">
-														<span class="post-date">Dec 06, 2022</span>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-
-								<!-- Block Post Archives -->
-								<div class="block block-post-archives">
-									<div class="block-title"><h2>Archives</h2></div>
-									<div class="block-content">
-										<div class="post-archives-list">
-											<ul>
-												<li>
-													<a href="blog-grid-left.html">May 2021</a>
-												</li>
-												<li>
-													<a href="blog-grid-left.html">April 2021</a>
-												</li>
-												<li>
-													<a href="blog-grid-left.html">August 2020</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-
-
 							</div>
 
-							<div class="col-xl-9 col-lg-9 col-md-12 col-12 md-b-30 blog-details-content">
-								<div class="post-details">
-									<div class="post-image">
-										<img src="@Model.BlogPostImgs.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
+							<div class="prev-next-post">
+								@if ((bool)(ViewData["HasPrevious"] ?? false))
+								{
+									<div class="previous-post">
+										<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@Model.PreviousBlog.Id">
+											<div class="hover-extend active"><span>Previous</span></div>
+											<h2 class="title">@Model.PreviousBlog.Title</h2>
+										</a>
 									</div>
-									<h2 class="post-title">
-										@Model.Title
-									</h2>
-									<div class="post-meta">
-										<span class="post-categories"><i class="icon_folder-alt"></i> <a href="blog-grid-right.html">Furniture</a></span>
-										<span class="post-time"><i class="icon_clock_alt"></i> July 24, 2021</span>
-										<span class="post-comment"><i class="icon_comment_alt"></i> 1 Comment</span>
+								}
+
+								@if ((bool)(ViewData["HasNext"] ?? false))
+								{
+									<div class="next-post">
+										<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@Model.NextBlog.Id">
+											<div class="hover-extend active"><span>Next</span></div>
+											<h2 class="title">@Model.NextBlog.Title</h2>
+										</a>
 									</div>
-									<div class="post-content clearfix">
-										<p>Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Aenean commodo ligula eget dolor. Nulla facilisi. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. non, velit. Etiam rhoncus. Nunc interdum lacus sit amet orci. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisiVivamus aliquet elit ac nisl. Ut a nisl id ante tempus hendrerit.Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Aenean commodo ligula eget dolor. Nulla facilisi. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum.</p>
-										<p>Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit. Etiam rhoncus. Nunc interdum lacus sit amet orci. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>
-										<blockquote><p><i class="icon-quote"></i>@Model.HighlightText</blockquote>
-										<div class="content-img">
-											<img width="1410" height="460" src="@Model.BlogPostImgs.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
-										</div>
-									</div>
-									<div class="post-content-entry">
+								}
+							</div>
 
-										<div class="entry-social-share">
-											<label>Share :</label>
-											<div class="social-share">
-												<a href="#" title="Facebook" class="share-facebook" target="_blank"><i class="fa fa-facebook"></i>Facebook</a>
-												<a href="#" title="Twitter" class="share-twitter"><i class="fa fa-twitter"></i>Twitter</a>
-												<a href="#" title="Pinterest" class="share-pinterest"><i class="fa fa-pinterest"></i>Pinterest</a>
-											</div>
-										</div>
-									</div>
+							<div id="comments" class="comments-area">
+								<h2 class="reviews-title" style="margin-left: 14pc; margin-top: 3pc;">
+									@Model.BlogReviews.Count review(s) for <span>@Model.PostName</span>
+								</h2>
+								<div class="comments-list">
+									<div class="comment-item">								
+										<div id="comments">
+											<ol class="comment-list">
+												@foreach (var review in Model.BlogReviews)
+												{
+													var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+													<li class="review" data-review-id="@review.Id">
+														<div class="content-comment-container">
+															<div class="comment-container">
+																<div class="comment-text">
+																	<div class="review-author">@review.UserName</div>
+																	<div class="review-time">@review.CreatedAt.ToString("MMMM dd, yyyy")</div>
 
-									<div class="prev-next-post">
-										@if ((bool)(ViewData["HasPrevious"] ?? false))
-										{
-											<div class="previous-post">
-												<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@Model.PreviousBlog.Id">
-													<div class="hover-extend active"><span>Previous</span></div>
-													<h2 class="title">@Model.PreviousBlog.Title</h2>
-												</a>
-											</div>
-										}
-
-										@if ((bool)(ViewData["HasNext"] ?? false))
-										{
-											<div class="next-post">
-												<a asp-controller="BlogDetail" asp-action="Detail" asp-route-id="@Model.NextBlog.Id">
-													<div class="hover-extend active"><span>Next</span></div>
-													<h2 class="title">@Model.NextBlog.Title</h2>
-												</a>
-											</div>
-										}
-									</div>
-
-
-									<!-- Reviews Tab -->
-									<div class="product-tabs">
-										<div class="section-padding">
-											<div class="section-container p-l-r">
-												<div class="product-tabs-wrap">
-													<ul class="nav nav-tabs" role="tablist">
-														<li class="nav-item">
-															<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (@Model.BlogReviews.Count)</a>
-														</li>
-													</ul>
-
-													<div class="tab-content">
-														<div class="tab-pane fade" id="reviews" role="tabpanel">
-															<div id="reviews" class="product-reviews">
-																<div id="comments">
-																	<h2 class="reviews-title">@Model.BlogReviews.Count review(s) for <span>@Model.PostName</span></h2>
-
-																	<ol class="comment-list">
-																		@foreach (var review in Model.BlogReviews)
-																		{
-																			var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-																			<li class="review" data-review-id="@review.Id">
-																				<div class="content-comment-container">
-																					<div class="comment-container">
-																						<div class="comment-text">
-																							<div class="review-author">@review.UserName</div>
-																							<div class="review-time">@review.CreatedAt.ToString("MMMM dd, yyyy")</div>
-
-																							@if (User.Identity.IsAuthenticated && userId == review.AppUserId)
-																							{
-																								<button type="button" class="btn btn-link btn-sm edit-review-btn" onclick="toggleEditForm(@review.Id)">
-																									<i class="fas fa-edit"></i>
-																								</button>
-																							}
-																						</div>
-																					</div>
-
-																					<div class="description">
-																						<p class="review-comment-text">@review.Comment</p>
-																					</div>
-
-																					@if (User.Identity.IsAuthenticated && userId == review.AppUserId)
-																					{
-																						<form asp-action="EditReview" method="post" id="edit-form-@review.Id" style="display:none;">
-																							<input type="hidden" name="Id" value="@review.Id" />
-																							<input type="hidden" name="AppUserId" value="@review.AppUserId" />
-																							<input type="hidden" name="PostId" value="@Model.PostId" />
-																							<div class="form-group">
-																								<label>Comment</label>
-																								<textarea name="Comment" class="form-control">@review.Comment</textarea>
-																							</div>
-																							<div class="edit-form-buttons">
-																								<button type="submit" class="btn btn-primary btn-sm">Save</button>
-																								<button type="button" class="btn btn-secondary btn-sm" onclick="toggleEditForm(@review.Id)">Cancel</button>
-																							</div>
-																						</form>
-
-
-																						<form method="post" class="delete-review-form" data-review-id="@review.Id" data-product-id="@Model.PostId">
-																							<input type="hidden" name="id" value="@review.Id" />
-																							<input type="hidden" name="postId" value="@Model.PostId" />
-																							<button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-																						</form>
-																					}
-																				</div>
-																			</li>
-																		}
-																	</ol>
-
+																	@if (User.Identity.IsAuthenticated && userId == review.AppUserId)
+																	{
+																		<button type="button" class="btn btn-link btn-sm edit-review-btn" onclick="toggleEditForm(@review.Id)">
+																			<i class="fas fa-edit"></i>
+																		</button>
+																	}
 																</div>
-
-																<!-- Review Form -->
-																<div id="review-form">
-																	<div id="respond" class="comment-respond">
-																		<span id="reply-title" class="comment-reply-title">Add a review</span>
-																		<form asp-controller="BlogDetail" asp-action="AddReview" method="post">
-																			<input type="hidden" name="PostId" value="@Model.PostId" />
-																			<div class="form-group">
-																				<label>Name *</label>
-																				<input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required />
-																			</div>
-																			<div class="form-group">
-																				<label>Email *</label>
-																				<input name="UserEmail" type="email" class="form-control" required />
-																			</div>
-																			<div class="form-group">
-																				<label>Your Review *</label>
-																				<textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea>
-																			</div>
-																			<button type="submit" class="btn btn-primary">Submit Review</button>
-																		</form>
-
-																	</div>
-																</div>
-
 															</div>
+
+															<div class="description">
+																<p class="review-comment-text">@review.Comment</p>
+															</div>
+
+															@if (User.Identity.IsAuthenticated && userId == review.AppUserId)
+															{
+																<form asp-action="EditReview" method="post" id="edit-form-@review.Id" style="display:none;">
+																	<input type="hidden" name="Id" value="@review.Id" />
+																	<input type="hidden" name="AppUserId" value="@review.AppUserId" />
+																	<input type="hidden" name="PostId" value="@Model.PostId" />
+																	<div class="form-group">
+																		<label>Comment</label>
+																		<textarea name="Comment" class="form-control">@review.Comment</textarea>
+																	</div>
+																	<div class="edit-form-buttons">
+																		<button type="submit" class="btn btn-primary btn-sm">Save</button>
+																		<button type="button" class="btn btn-secondary btn-sm" onclick="toggleEditForm(@review.Id)">Cancel</button>
+																	</div>
+																</form>
+
+
+																<form method="post" class="delete-review-form" data-review-id="@review.Id" data-product-id="@Model.PostId">
+																	<input type="hidden" name="id" value="@review.Id" />
+																	<input type="hidden" name="postId" value="@Model.PostId" />
+																	<button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+																</form>
+															}
 														</div>
-													</div>
-												</div>
-											</div>
+													</li>
+												}
+											</ol>
+
 										</div>
 									</div>
+								</div>
+								<div class="comment-form">
+									<span id="reply-title" class="comment-reply-title">Add a review</span>
+									<form asp-controller="BlogDetail" asp-action="AddReview" method="post">
+										<input type="hidden" name="PostId" value="@Model.PostId" />
 
+										<div class="comment-notes col-md-12 col-sm-12">Your email address will not be published.</div>
+										<div class="form-group col-md-6 col-sm-6">
+                                                <label>Name *</label> 
+												<input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required /> </div>
+										<div class="form-group col-md-6 col-sm-6">
+                                                <label>Email *</label> 
+												<input name="UserEmail" type="email" class="form-control" required /> 				
+										</div>
 
-
-
-
+										<div class="form-group col-md-12 col-sm-12">
+                                                  <label>Your Review *</label> 
+								 					<textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea> 										</div>
+									
+										<div class="form-group col-md-12">
+											<input name="submit" type="submit" id="submit" class="btn button-outline" value="Post Comment">
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -284,7 +169,6 @@
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
 </div>
-
 
 
 @section Scripts {
@@ -356,7 +240,6 @@
 		}
 	}
 </script>
-
 
 <style>
 	.review {

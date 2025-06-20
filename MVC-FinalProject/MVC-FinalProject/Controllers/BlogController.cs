@@ -19,7 +19,7 @@ namespace MVC_FinalProject.Controllers
             _settingService = settingService;
         }
 
-        public async Task<IActionResult> Index(string categoryName, int page = 1, int pageSize = 3)
+        public async Task<IActionResult> Index(string categoryName, int page = 1, int pageSize = 6)
         {
             var categories = await _categoryService.GetAllAsync();
             var categoryPostCounts = await _categoryService.GetCategoryPostCountsAsync();

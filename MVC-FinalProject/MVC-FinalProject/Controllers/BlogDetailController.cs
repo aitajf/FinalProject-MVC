@@ -14,11 +14,14 @@ namespace MVC_FinalProject.Controllers
     {
         private readonly IBlogPostService _blogPostService;
         private readonly IBlogReviewService _blogReviewService;
+        private readonly ISettingService _settingService;
         public BlogDetailController(IBlogPostService blogPostService,
-                                    IBlogReviewService blogReviewService)
+                                    IBlogReviewService blogReviewService,
+                                    ISettingService settingService)
         {
             _blogPostService = blogPostService;
             _blogReviewService = blogReviewService;
+            _settingService = settingService;
         }
 
         [HttpGet]
@@ -36,7 +39,7 @@ namespace MVC_FinalProject.Controllers
                 return View("Index");
             }
             var reviews = await _blogReviewService.GetAllByPostIdAsync(id);
-
+            var settings = await _settingService.GetAllAsync();
             var previous = await _blogPostService.GetPreviousAsync(id);
             var next = await _blogPostService.GetNextAsync(id);
             ViewData["HasPrevious"] = previous != null;
@@ -52,6 +55,7 @@ namespace MVC_FinalProject.Controllers
                 Description = post.Description,
                 HighlightText = post.HighlightText,
                 NewReview = new BlogReviewCreate { PostId = id },
+                Settings = settings,
 
                 PreviousBlog = previous,
                 NextBlog = next
