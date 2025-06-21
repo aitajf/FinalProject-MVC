@@ -112,16 +112,7 @@
 																				<img width="600" height="600" src="@item.Images.Where(img => img != item.MainImage).FirstOrDefault()" class="hover-image back" alt="">																		
 																			</a>
 																		</div>
-																		<div class="product-button">
-
-																			<div class="btn-add-to-cart" data-title="Add to cart">
-																				<button class="product-btn button add-to-cart-btn"
-																						data-product-id="@item.Id">
-																					<!-- əgər rəng varsa -->
-																					Add to cart
-																				</button>
-																			</div>
-
+																		<div class="product-button">			
 																			<div class="btn-wishlist" data-title="Wishlist">
 																				<button class="product-btn">Add to wishlist</button>
 																			</div>
@@ -130,7 +121,7 @@
 																			</div>
 
 																			<span class="product-quickview" data-title="Quick View">
-																				<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
+																				<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id" >Quick View <i class="icon-search"></i></a>
 																			</span>
 																		</div>
 																	</div>
@@ -166,9 +157,7 @@
 																			</a>
 																		</div>
 																		<div class="product-button">
-																			<div class="btn-add-to-cart" data-title="Add to cart">
-																				<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-																			</div>
+																			
 																			<div class="btn-wishlist" data-title="Wishlist">
 																				<button class="product-btn">Add to wishlist</button>
 																			</div>
@@ -177,7 +166,7 @@
 																			</div>
 
 																			<span class="product-quickview" data-title="Quick View">
-																				<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
+																				<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id">Quick View <i class="icon-search"></i></a>
 																			</span>
 																		</div>
 																	</div>
@@ -212,10 +201,7 @@
 																				<img width="600" height="600" src="@item.Images.Where(img => img != item.MainImage).FirstOrDefault()" class="hover-image back" alt="">
 																			</a>
 																		</div>
-																		<div class="product-button">
-																			<div class="btn-add-to-cart" data-title="Add to cart">
-																				<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-																			</div>
+																		<div class="product-button">																		
 																			<div class="btn-wishlist" data-title="Wishlist">
 																				<button class="product-btn">Add to wishlist</button>
 																			</div>
@@ -224,7 +210,7 @@
 																			</div>
 
 																			<span class="product-quickview" data-title="Quick View">
-																				<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
+																				<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id">Quick View <i class="icon-search"></i></a>
 																			</span>
 																		</div>
 																	</div>
@@ -298,11 +284,7 @@
 							</div>
 						</div>
 					</section>
-				}
-
-
-			
-
+				}			
 
 				<section class="section section-padding top-border p-t-50 p-b-50 m-b-0">
 					<div class="section-container">

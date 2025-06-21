@@ -69,33 +69,7 @@
                                             <p>@Model.Description</p>
                                         </div>
 
-                                        <!-- Variations -->
-                                        <div class="variations">
-                                            <table cellspacing="0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="label">Color</td>
-                                                        <td class="attributes">
-                                                            <ul class="colors">
-                                                                @* @foreach (var item in Model.Colors) *@
-                                                                @* { *@
-                                                                @*     @* var matchedImage = Model.ProductColorImages.FirstOrDefault(p => *@ 
-                                                                @*     @* p.Color?.ToLower() == item.ToLower())?.Url; *@
-                                                                @*     <li> *@
-                                                                @*         <span class="color-swatch" *@
-                                                                @*               style="cursor:pointer;" *@
-                                                                @*               data-color="@item" *@
-                                                                @*               data-img="@matchedImage">@item</span> *@
-                                                                @*     </li> *@
-                                                                @* } *@
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                  
+                                                                    
                                             <script>
                                                 document.querySelectorAll('.color-swatch').forEach(function (el) {
                                                     el.addEventListener('click', function () {
@@ -111,17 +85,6 @@
 
                                         <!-- Cart Buttons -->
                                         <div class="buttons">
-                                            @* <div class="add-to-cart-wrap"> *@
-                                            @*     <div class="quantity"> *@
-                                            @*         <button type="button" class="plus">+</button> *@
-                                            @*         <input type="number" class="qty" value="1" min="1"> *@
-                                            @*         <button type="button" class="minus">-</button> *@
-                                            @*     </div> *@
-                                            @*     <div class="btn-add-to-cart"> *@
-                                            @*         <a href="#" class="button">Add to cart</a> *@
-                                            @*     </div> *@
-                                            @* </div> *@
-                                            <!-- Cart Buttons (daxilində form şəklində olacaq) -->
                                             <form asp-controller="Basket" asp-action="AddToBasket" method="post">
                                                 <input type="hidden" name="productId" value="@Model.ProductId" />
 
@@ -131,43 +94,49 @@
                                                             <tr>
                                                                 <td class="label">Color</td>
                                                                 <td class="attributes">
-                                                                    <ul class="colors">
+                                                                    <ul class="color-swatches">
                                                                         @foreach (var color in Model.ColorList)
                                                                         {
                                                                             <li>
                                                                                 <input type="radio" id="color-@color.Id" name="colorId" value="@color.Id" required />
-                                                                                <label for="color-@color.Id">@color.Name</label>
+                                                                                <label for="color-@color.Id" style="background-color:@color.Name;" title="@color.Name"></label>
                                                                             </li>
                                                                         }
                                                                     </ul>
+
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                @* <div class="buttons"> *@
+                                                @*     <div class="add-to-cart-wrap">                                                        *@
+                                                @*         <div class="btn-add-to-cart"> *@
+                                                @*                 <button type="submit" class="button product-btn" id="addToCartBtn" disabled>Add to cart</button> *@
+                                                @*         </div> *@
+                                                @*     </div> *@
+                                                @* </div> *@
 
                                                 <div class="buttons">
                                                     <div class="add-to-cart-wrap">
-                                                        <div class="quantity">
-                                                            <button type="button" class="plus">+</button>
-                                                            <input type="number" class="qty" name="quantity" value="1" min="1">
-                                                            <button type="button" class="minus">-</button>
-                                                        </div>
-                                                        <div class="btn-add-to-cart">
-                                                            <button type="submit" class="button">Add to cart</button>
+                                                        <div class="btn-add-cart">
+                                                      
+
+                                                            <button type="submit"
+                                                                    class="button product-btn"
+                                                                    id="addToCartBtn"
+                                                                    disabled>
+                                                                Add to cart
+                                                            </button>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </form>
 
-
-
                                             <div class="btn-quick-buy"><button class="product-btn">Buy It Now</button></div>
-                                            <div class="btn-wishlist"><button class="product-btn">Add to wishlist</button></div>
-                                            <div class="btn-compare"><button class="product-btn">Compare</button></div>
+                                            <div class="btn-wishlist"><button class="product-btn">Add to wishlist</button></div>                                         
                                         </div>
-
-
 
 
                                         <div class="product-meta">
@@ -266,23 +235,7 @@
                                                 <div id="review-form">
                                                     <div id="respond" class="comment-respond">
                                                         <span id="reply-title" class="comment-reply-title">Add a review</span>
-                                                         @* <form asp-controller="ProductDetail" asp-action="AddReview" method="post">  *@
-                                                         @*     <input type="hidden" name="ProductId" value="@Model.ProductId" />  *@
-                                                         @*     <div class="form-group">  *@
-                                                         @*         <label>Name *</label> *@
-                                                         @*         <input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required />  *@
-                                                         @*     </div>  *@
-                                                         @*     <div class="form-group">  *@
-                                                         @*         <label>Email *</label> *@
-                                                         @*         <input name="UserEmail" type="email" class="form-control" required />  *@
-                                                         @*     </div>  *@
-                                                         @*     <div class="form-group">  *@
-                                                         @*         <label>Your Review *</label>  *@
-                                                         @*         <textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea>  *@
-                                                         @*     </div>  *@
-                                                         @*     <button type="submit" class="btn btn-primary">Submit Review</button>  *@
-                                                         @* </form>  *@
-
+                                                      
                                                         <form id="add-review-form" asp-controller="ProductDetail" asp-action="AddReview" method="post">
                                                             <input type="hidden" name="ProductId" value="@Model.ProductId" />
 
@@ -384,6 +337,20 @@
     </script>
 }
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const colorRadios = document.querySelectorAll('input[name="colorId"]');
+        const addToCartBtn = document.getElementById("addToCartBtn");
+
+        colorRadios.forEach(function (radio) {
+            radio.addEventListener("change", function () {
+                if (document.querySelector('input[name="colorId"]:checked')) {
+                    addToCartBtn.disabled = false;
+                }
+            });
+        });
+    });
+</script>
 
 <script>
     function toggleEditForm(id) {
@@ -393,6 +360,7 @@
         }
     }
 </script>
+
 <style>
     .review {
         margin-bottom: 20px;
@@ -446,4 +414,76 @@
     textarea.form-control {
         resize: vertical;
     }
+
+
+
+
+
+    /* add to cart butonu */
+
+    #addToCartBtn {
+        width: 355%;
+        padding: 13px 23px;
+        background-color: transparent;
+        border: 1px solid rgb(0, 0, 0);
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        #addToCartBtn:not(:disabled):hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        #addToCartBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+
+
+
+
+        /* color ui ucun */
+
+    .color-swatches {
+        display: flex;
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+    }
+
+        .color-swatches li {
+            position: relative;
+        }
+
+        .color-swatches input[type="radio"] {
+            display: none;
+        }
+
+        .color-swatches label {
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            transition: border 0.3s ease;
+        }
+
+        .color-swatches input[type="radio"]:checked + label {
+            border: 3px solid black;
+        }
+
+        .color-swatches label:hover {
+            opacity: 0.8;
+        }
+
 </style>
+

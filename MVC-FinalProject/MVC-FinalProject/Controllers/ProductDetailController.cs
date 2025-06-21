@@ -45,18 +45,6 @@ namespace MVC_FinalProject.Controllers
 
             var reviews = await _reviewService.GetAllByProductIdAsync(id);
 
-            //var productColorImages = product.Images.Select(img =>
-            //{
-            //    var matchedColor = product.Colors.FirstOrDefault(color =>
-            //        img.ToLower().Contains(color.ToLower()));
-            //    return new ProductColorImage
-            //    {
-            //        Url = img,
-            //        Color = matchedColor
-            //    };
-            //}).ToList();
-
-
             var allColors = await _colorService.GetAllAsync();
 
             var viewModel = new ProductReviewPage
@@ -94,21 +82,11 @@ namespace MVC_FinalProject.Controllers
                 var product = await _productService.GetByIdAsync(model.ProductId);
                 var reviews = await _reviewService.GetAllByProductIdAsync(model.ProductId);
 
-                //var productImages = product.Images.Select(img =>
-                //{
-                //    var matchedColor = product.Colors.FirstOrDefault(color => img.ToLower().Contains(color.ToLower()));
-                //    //return new ProductColorImage
-                //    //{
-                //    //    Url = img,
-                //    //    Color = matchedColor
-                //    //};
-                //}).ToList();
 
                 var vm = new ProductReviewPage
                 {
                     ProductId = product.Id,
                     ProductName = product.Name,
-                    //ProductColorImages = productImages,
                     Colors = product.Colors.ToList(),
                     Category = product.Category,
                     Tags = product.Tags.ToList(),
@@ -150,8 +128,6 @@ namespace MVC_FinalProject.Controllers
             return RedirectToAction("Detail", new { id = model.ProductId });
         }
 
-
-
         [HttpGet]
         public async Task<IActionResult> EditReview(int id)
         {
@@ -168,7 +144,6 @@ namespace MVC_FinalProject.Controllers
 
             return View(model);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> EditReview(int id, ReviewEdit model)
@@ -193,7 +168,6 @@ namespace MVC_FinalProject.Controllers
 
             return Json(new { success = true, comment = model.Comment });
         }
-
 
         [HttpPost]
         public async Task<IActionResult> DeleteReview(int id)
