@@ -6,7 +6,7 @@
 <div id="site-main" class="site-main">
     <div id="main-content" class="main-content">
         <div id="primary" class="content-area">
-            <div id="title" class="page-title">
+            <div id="title" class="page-title" style="background-image: url(/assets/img/@Model.Settings.FirstOrDefault(x => x.Key == "ShopBanner")?.Value);">
                 <div class="section-container">
                     <div class="content-title-heading">
                         <h1 class="text-title-heading">@Model.ProductName</h1>
@@ -32,10 +32,10 @@
                                                 <div class="content-thumbnail-scroll">
                                                     <div class="image-thumbnail slick-carousel slick-vertical" id="thumbnail-list">
                                                         @foreach (var item in Model.Images) 
-                                                        { 
-                                                            <div class="img-item slick-slide"> 
+                                                        {
+                                                            <div class="img-item slick-slide" id="img-@item.Id">
                                                                 <span class="img-thumbnail-scroll">
-                                                                    <img width="600" height="600" src="@item.Name" alt=""> 
+                                                                    <img width="600" height="600" src="@item.Img" alt=""> 
                                                                 </span> 
                                                             </div> 
                                                         } 
@@ -48,7 +48,7 @@
                                                 <div class="scroll-image main-image">
                                                     <div class="image-additional slick-carousel">
                                                         <img id="main-product-image" width="900" height="900"
-                                                             src="@Model.Images.FirstOrDefault(i => i.IsMain)?.Name"
+                                                             src="@Model.Images.FirstOrDefault(i => i.IsMain)?.Img"
                                                              alt="" title="">
 
                                                     </div>
@@ -56,6 +56,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                
+
 
                                     <!-- Product Info -->
                                     <div class="product-info col-lg-5 col-md-12 col-12">
@@ -275,6 +278,25 @@
 </div>
 
 <!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#thumbnail-list').slick({
+            vertical: true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            focusOnSelect: true
+        });
+
+        // Main image change on thumbnail click
+        $('#thumbnail-list .img-item img').on('click', function () {
+            var src = $(this).attr('src');
+            $('#main-product-image').attr('src', src);
+        });
+    });
+</script>
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

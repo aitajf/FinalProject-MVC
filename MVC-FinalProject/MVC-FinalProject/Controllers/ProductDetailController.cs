@@ -16,14 +16,17 @@ namespace MVC_FinalProject.Controllers
 		private readonly IProductService _productService;
         private readonly IColorService _colorService;
         private readonly IReviewService _reviewService;
+        private readonly ISettingService _settingService;
 
         public ProductDetailController(IProductService productService,
                                        IReviewService reviewService, 
-                                       IColorService colorService)
+                                       IColorService colorService,
+                                       ISettingService settingService)
         {
             _productService = productService;
             _reviewService = reviewService;
             _colorService = colorService;
+            _settingService = settingService;
         }
 
         [HttpGet]
@@ -44,17 +47,29 @@ namespace MVC_FinalProject.Controllers
 
 
             var reviews = await _reviewService.GetAllByProductIdAsync(id);
-
+            var settings = await _settingService.GetAllAsync();
             var allColors = await _colorService.GetAllAsync();
 
             var viewModel = new ProductReviewPage
             {
                 ProductId = product.Id,
                 ProductName = product.Name,
+
+
+    //            Images = product.Images
+    //.Select((img, index) => new ProductImage
+    //{
+    //    Id = index, // fake Id
+    //    Img = img,
+    //    IsMain = img == product.MainImage
+    //}).ToList(),
+
+
                 Images = product.Images
                                 .Select(name => new ProductImage
                                 {
-                                    Name = name,
+                                   
+                                    Img = name,
                                     IsMain = name == product.MainImage
                                 }).ToList(),
                 Colors = product.Colors.ToList(),
@@ -66,7 +81,8 @@ namespace MVC_FinalProject.Controllers
                 Price = product.Price,
                 Reviews = reviews.ToList(),
                 Description = product.Description,
-                NewReview = new ReviewCreate { ProductId = id }
+                NewReview = new ReviewCreate { ProductId = id },
+                Settings = settings
             };
 
             ViewData["EditingReviewId"] = editingReviewId;

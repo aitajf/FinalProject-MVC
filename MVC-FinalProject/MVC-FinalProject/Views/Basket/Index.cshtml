@@ -57,11 +57,11 @@
                                                             var item = Model.Basket.BasketProducts[i];
                                                             <tr class="cart-item" data-index="@i" data-productid="@item.ProductId" data-colorid="@item.ColorId" data-price="@item.Price">
                                                                 <td class="product-thumbnail">
-                                                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">
+                                                                    <a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.ProductId">
                                                                         <img width="600" height="600" src="@item.ProductImage" class="product-image" />
                                                                     </a>
                                                                     <div class="product-name">
-                                                                        <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.ProductName</a>
+                                                                        <a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.ProductId">@item.ProductName</a>
                                                                         <br />
                                                                         <small>Color: @item.ColorName</small>
                                                                     </div>

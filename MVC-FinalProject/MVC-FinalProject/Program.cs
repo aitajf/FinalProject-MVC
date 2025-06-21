@@ -111,17 +111,17 @@ app.UseStatusCodePages(async context =>
 app.UseAuthorization();
 
 
-//app.UseStatusCodePages(async context =>
-//{
-//    var response = context.HttpContext.Response;
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
 
-//    if (response.StatusCode == 404)
-//    {
-//        response.Redirect("/NotFound/Index");
-//    }
+    if (response.StatusCode == 404)
+    {
+        response.Redirect("/NotFound/Index");
+    }
 
-//    await Task.CompletedTask; // await use
-//});
+    await Task.CompletedTask; // await use
+});
 
 app.MapControllerRoute(
     name: "areas",

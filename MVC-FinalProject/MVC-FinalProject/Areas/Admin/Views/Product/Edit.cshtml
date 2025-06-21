@@ -65,16 +65,21 @@
             </div>
 
             <div id="product-container" data-route-id="@Model.Id">
+
+                @{
+                    var images = ViewBag.ExistingImages as List<ProductImage>;
+                }
+
                 @if (ViewBag.ExistingImages != null)
                 {
                     <div class="form-group">
                         <label>Current Images</label>
                         <div class="row">
-                            @foreach (var image in ViewBag.ExistingImages)
+                            @foreach (var image in images)
                             {
                                 <div class="col-md-3 mb-3 text-center" id="image-@image.Id">
                                     <div class="card">
-                                        <img src="@image.Name" class="card-img-top" style="height: 150px; object-fit: contain;" />
+                                        <img src="@image.Img" class="card-img-top" style="height: 150px; object-fit: contain;" />
                                         <div class="card-body p-2">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="MainImageId" value="@image.Id"

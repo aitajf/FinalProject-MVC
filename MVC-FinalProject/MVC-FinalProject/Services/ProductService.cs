@@ -75,64 +75,6 @@ namespace MVC_FinalProject.Services
         }
 
 
-
-        //public async Task<HttpResponseMessage> EditAsync(int id, ProductEdit model)
-        //{
-        //    using var content = new MultipartFormDataContent();
-
-        //    content.Add(new StringContent(model.Name), "Name");
-        //    content.Add(new StringContent(model.Description), "Description");
-        //    content.Add(new StringContent(model.Price.ToString()), "Price");
-        //    content.Add(new StringContent(model.Stock.ToString()), "Stock");
-        //    content.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
-        //    content.Add(new StringContent(model.BrandId.ToString()), "BrandId");
-
-        //    if (model.TagIds != null)
-        //    {
-        //        foreach (var tagId in model.TagIds)
-        //            content.Add(new StringContent(tagId.ToString()), "TagIds");
-        //    }
-
-        //    if (model.ColorIds != null)
-        //    {
-        //        foreach (var colorId in model.ColorIds)
-        //            content.Add(new StringContent(colorId.ToString()), "ColorIds");
-        //    }
-
-        //    // Yeni şəkillər
-        //    if (model.UploadImages != null)
-        //    {
-        //        foreach (var image in model.UploadImages)
-        //        {
-        //            using var ms = new MemoryStream();
-        //            await image.CopyToAsync(ms);
-        //            var fileBytes = ms.ToArray();
-
-        //            var byteContent = new ByteArrayContent(fileBytes);
-        //            byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-        //            content.Add(byteContent, "UploadImages", image.FileName);
-        //        }
-        //    }
-
-        //    // Silinəcək şəkillərin Id-ləri
-        //    if (model.DeleteImageIds != null)
-        //    {
-        //        foreach (var imgId in model.DeleteImageIds)
-        //            content.Add(new StringContent(imgId.ToString()), "DeleteImageIds");
-        //    }
-
-        //    // Əsas şəkil Id-si
-        //    if (model.MainImageId.HasValue)
-        //    {
-        //        content.Add(new StringContent(model.MainImageId.Value.ToString()), "MainImageId");
-        //    }
-
-        //    return await _httpClient.PutAsync($"{Urls.ProductUrl}Edit/{id}", content);
-        //}
-
-
-
-
         public async Task<HttpResponseMessage> EditAsync(int id, ProductEdit model)
         {
             using var content = new MultipartFormDataContent();
@@ -183,14 +125,6 @@ namespace MVC_FinalProject.Services
 
             return await _httpClient.PutAsync($"{Urls.ProductUrl}Edit/{id}", content);
         }
-
-
-
-
-
-
-
-
 
 
         public async Task<HttpResponseMessage> DeleteImageAsync(int productId, int productImageId)

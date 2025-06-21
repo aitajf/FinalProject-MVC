@@ -57,6 +57,7 @@
                 @if (User.IsInRole("SuperAdmin"))
                 {
                     <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Review" asp-action="Index">Review</a></li>
+                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="BlogReview" asp-action="Index">Blog Review</a></li>
                     <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Subscription" asp-action="Index">Subscribe</a></li>
                     <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="AskUsFrom" asp-action="Index">Message</a></li>
                     <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="Index">Users</a></li>

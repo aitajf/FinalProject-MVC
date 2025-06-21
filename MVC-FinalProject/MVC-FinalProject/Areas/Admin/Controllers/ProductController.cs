@@ -71,7 +71,7 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 .Select(img => new ProductImage
                 {
                     Id = img.Id,
-                    Name = img.Name,
+                    Img = img.Img,
                     IsMain = img.IsMain
                 })
                 .ToList();
@@ -134,6 +134,12 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _productService.GetByIdWithImagesAsync(id);
+
+            foreach (var img in product.ProductImages)
+            {
+                System.Diagnostics.Debug.WriteLine($"Id={img.Id}, Img='{img.Img}', IsMain={img.IsMain}");
+            }
+
             if (product == null) return NotFound();
 
             var allTags = await _tagService.GetAllAsync();
@@ -161,11 +167,12 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             };
 
             await PopulateDropdownsAsync();
+
             ViewBag.ExistingImages = product.ProductImages
                 .Select(img => new ProductImage
                 {
                     Id = img.Id,
-                    Name = img.Name,
+                    Img = img.Img,
                     IsMain = img.IsMain
                 })
                 .ToList();
@@ -174,32 +181,6 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return View(editModel);
         }
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(int id, ProductEdit model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        await PopulateDropdownsAsync();
-        //        return View(model);
-        //    }
-
-        //    var response = await _productService.EditAsync(id, model);
-
-        //    if (response.IsSuccessStatusCode)
-        //        return RedirectToAction(nameof(Index));
-
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        var error = await response.Content.ReadAsStringAsync();
-        //        ModelState.AddModelError("", $"Update failed. API response: {error}");
-        //        await PopulateDropdownsAsync();
-        //        return View(model);
-        //    }
-
-        //    await PopulateDropdownsAsync();
-        //    return View(model);
-        //}
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ProductEdit model)

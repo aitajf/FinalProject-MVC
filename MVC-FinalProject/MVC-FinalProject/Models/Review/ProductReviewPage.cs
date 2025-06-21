@@ -1,6 +1,7 @@
 ﻿using MVC_FinalProject.Models.Color;
 using MVC_FinalProject.Models.Product;
 using MVC_FinalProject.Models.Color;
+using MVC_FinalProject.ViewModels;
 
 namespace MVC_FinalProject.Models.Review
 {
@@ -17,5 +18,7 @@ namespace MVC_FinalProject.Models.Review
         public decimal Price { get; set; }
         public List<Review> Reviews { get; set; } = new();
         public ReviewCreate NewReview { get; set; } = new();
+        public IEnumerable<SettingVM> Settings { get; set; }
+
     }
 }
