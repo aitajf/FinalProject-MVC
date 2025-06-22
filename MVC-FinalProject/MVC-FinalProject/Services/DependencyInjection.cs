@@ -28,6 +28,7 @@ namespace Service
             services.AddScoped<IBlogReviewService, BlogReviewService>();         
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<ISettingService, SettingService>();
+            services.AddScoped<IWishlistService, WishlistService>();
             return services;
         }
     }

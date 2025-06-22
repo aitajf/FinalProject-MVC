@@ -112,10 +112,13 @@
 																				<img width="600" height="600" src="@item.Images.Where(img => img != item.MainImage).FirstOrDefault()" class="hover-image back" alt="">																		
 																			</a>
 																		</div>
-																		<div class="product-button">			
-																			<div class="btn-wishlist" data-title="Wishlist">
-																				<button class="product-btn">Add to wishlist</button>
-																			</div>
+																		<div class="product-button">
+																			<form asp-controller="Wishlist" asp-action="AddToWishlist" method="post">
+																				<input type="hidden" name="productId" value="@item.Id" />
+																				<button type="submit" class="product-btn">Add to wishlist</button>
+																			</form>
+																		
+
 																			<div class="btn-compare" data-title="Compare" data-category-id="@item.CategoryId">
 																				<button class="product-btn" data-product-id="@item.Id">Compare</button>
 																			</div>
@@ -134,6 +137,14 @@
 																</div>
 															</div>
 														</div>
+														@if (TempData["Success"] != null)
+														{
+															<div class="alert alert-success">@TempData["Success"]</div>
+														}
+														@if (TempData["Error"] != null)
+														{
+															<div class="alert alert-danger">@TempData["Error"]</div>
+														}
 													}
 
 
@@ -449,7 +460,6 @@
 		console.log("Category ID:", categoryId);
 
 		if (!categoryId || categoryId === "undefined" || categoryId === "0") {
-			alert("Category ID not found");
 			return;
 		}
 

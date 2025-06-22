@@ -23,61 +23,51 @@
 						<div class="shop-wishlist">
 							<table class="wishlist-items">
 								<tbody>
-									<tr class="wishlist-item">
-										<td class="wishlist-item-remove"><span></span></td>
-										<td class="wishlist-item-image">
-											<a href="shop-details.html">
-												<img width="600" height="600" src="media/product/3.jpg" alt="">
-											</a>
-										</td>
-										<td class="wishlist-item-info">
-											<div class="wishlist-item-name">
-												<a href="shop-details.html">Chair Oak Matt Lacquered</a>
-											</div>
-											<div class="wishlist-item-price">
-												<span>$150.00</span>
-											</div>
-											<div class="wishlist-item-time">June 6, 2022</div>
-										</td>
-										<td class="wishlist-item-actions">
-											<div class="wishlist-item-stock">
-												In stock
-											</div>
-											<div class="wishlist-item-add">
-												<div class="btn-add-to-cart" data-title="Add to cart">
-													<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr class="wishlist-item">
-										<td class="wishlist-item-remove"><span></span></td>
-										<td class="wishlist-item-image">
-											<a href="shop-details.html">
-												<img width="600" height="600" src="media/product/4.jpg" alt="">
-											</a>
-										</td>
-										<td class="wishlist-item-info">
-											<div class="wishlist-item-name">
-												<a href="shop-details.html">Pillar Dining Table Round</a>
-											</div>
-											<div class="wishlist-item-price">
-												<del aria-hidden="true"><span>$150.00</span></del>
-												<ins><span>$100.00</span></ins>
-											</div>
-											<div class="wishlist-item-time">June 6, 2022</div>
-										</td>
-										<td class="wishlist-item-actions">
-											<div class="wishlist-item-stock">
-												In stock
-											</div>
-											<div class="wishlist-item-add">
-												<div class="btn-add-to-cart" data-title="Add to cart">
-													<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-												</div>
-											</div>
-										</td>
-									</tr>
+                                    @if (Model.Wishlist?.Products != null && Model.Wishlist.Products.Any())
+                                    {
+                                        foreach (var item in Model.Wishlist.Products)
+                                        {
+                                            <tr class="wishlist-item">
+                                                <td class="wishlist-item-remove"><span></span></td>
+                                                <td class="wishlist-item-image">
+                                                    <a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.ProductId">
+                                                        <img width="600" height="600" src="@item.ProductImage" alt="">
+                                                    </a>
+                                                </td>
+                                                <td class="wishlist-item-info">
+                                                    <div class="wishlist-item-name">
+                                                        <a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.ProductId">
+                                                            @item.ProductName
+                                                        </a>
+                                                    </div>
+                                                    <div class="wishlist-item-price">
+                                                        <span>$@item.ProductPrice</span>
+                                                    </div>
+                                                    <div class="wishlist-item-time">June 6, 2022</div>
+                                                </td>
+                                                <td class="wishlist-item-actions">
+                                                    <div class="wishlist-item-stock">
+                                                        @item.Stock
+                                                    </div>
+                                                    <div class="wishlist-item-add">
+                                                        <div class="btn-add-to-cart" data-title="Add to cart">
+                                                            <a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="4" style="text-align: center; padding: 40px;">
+                                                <strong>Your wishlist is empty.</strong>
+                                            </td>
+                                        </tr>
+                                    }
+
+								
 								</tbody>
 							</table>
 						</div>
