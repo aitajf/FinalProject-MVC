@@ -28,7 +28,13 @@
                                         foreach (var item in Model.Wishlist.Products)
                                         {
                                             <tr class="wishlist-item">
-                                                <td class="wishlist-item-remove"><span></span></td>
+                                                @* <td class="wishlist-item-remove"><span></span></td> *@
+
+                                                <td class="wishlist-item-remove">
+                                                    <span class="remove-from-wishlist" data-user-id="@Model.Wishlist.AppUserId" data-product-id="@item.ProductId" ></span>
+                                                </td>
+
+
                                                 <td class="wishlist-item-image">
                                                     <a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.ProductId">
                                                         <img width="600" height="600" src="@item.ProductImage" alt="">
@@ -77,3 +83,44 @@
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
 </div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+             $(document).on("click", ".remove-from-wishlist", function (e) {
+            e.preventDefault();
+
+            const span = $(this);
+            const userId = span.data("user-id");
+            const productId = span.data("product-id");
+
+            $.ajax({
+                url: '/Wishlist/RemoveProductFromWishlist',
+                type: 'POST',
+                data: {
+                    userId: userId,
+                    productId: productId
+                },
+                success: function () {
+                    span.closest("tr").remove();
+
+                    if ($(".wishlist-item").length === 0) {
+                        $("table tbody").html(`
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 40px;">
+                                    <strong>Your wishlist is empty.</strong>
+                                </td>
+                            </tr>
+                        `);
+                    }
+                },
+                error: function () {
+                    alert("Silinərkən xəta baş verdi.");
+                }
+            });
+        });
+
+    </script>
+}

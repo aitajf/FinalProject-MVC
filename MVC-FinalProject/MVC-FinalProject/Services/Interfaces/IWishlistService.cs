@@ -6,5 +6,6 @@ namespace MVC_FinalProject.Services.Interfaces
     {
         Task<WishlistResult> AddWishlistAsync(Wishlist model);
         Task<WishlistItem> GetByUserIdAsync(string userId);
+        Task<bool> DeleteProductFromWishlistAsync(string userId, int productId);
     }
 }

@@ -76,5 +76,22 @@ namespace MVC_FinalProject.Services
             var wishlist = await response.Content.ReadFromJsonAsync<WishlistItem>();
             return wishlist;
         }
+        public async Task<bool> DeleteProductFromWishlistAsync(string userId, int productId)
+        {
+            var token = _contextAccessor.HttpContext.Session.GetString("AuthToken");
+
+            if (string.IsNullOrEmpty(token))
+                return false;
+
+            var requestUrl = $"{_baseUrl}/DeleteProductFromWishlist/{userId}?productId={productId}";
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.SendAsync(request);
+
+            return response.IsSuccessStatusCode;
+        }
+
     }
 }

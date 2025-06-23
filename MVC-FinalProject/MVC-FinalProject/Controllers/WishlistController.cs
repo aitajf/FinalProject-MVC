@@ -78,5 +78,16 @@ namespace MVC_FinalProject.Controllers
 
             return RedirectToAction("Index", "Home", new { id = productId });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveProductFromWishlist(string userId, int productId)
+        {
+            var result = await _wishlistService.DeleteProductFromWishlistAsync(userId, productId);
+
+            if (!result)
+                return BadRequest("Something wrong.");
+
+            return Ok();
+        }
     }
 }
