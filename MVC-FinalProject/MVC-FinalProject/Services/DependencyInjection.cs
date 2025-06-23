@@ -29,6 +29,7 @@ namespace Service
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<IWishlistService, WishlistService>();
+            services.AddScoped<IPromoCodeService, PromoCodeService>();
             return services;
         }
     }

@@ -94,20 +94,40 @@
                                                             </tr>
                                                         }
                                                     </tbody>
+                                                    @* <tfoot> *@
+                                                    @*     <tr> *@
+                                                    @*         <td colspan="6" class="actions"> *@
+                                                    @*             <div class="bottom-cart"> *@
+                                                    @*                 <div class="coupon"> *@
+                                                    @*                     <input type="text" name="coupon_code" class="input-text" id="coupon-code" value="" placeholder="Coupon code" /> *@
+                                                    @*                     <button type="button" id="apply-coupon" class="button" value="Apply coupon">Apply coupon</button> *@
+                                                    @*                 </div> *@
+                                                    @*                 <h2><a asp-controller="Shop" asp-action="Index">Continue Shopping</a></h2> *@
+                                                    @*                 <button type="button" id="update-cart" class="button">Update cart</button> *@
+                                                    @*             </div> *@
+                                                    @*         </td> *@
+                                                    @*     </tr> *@
+                                                    @* </tfoot> *@
+
+
+
+
                                                     <tfoot>
                                                         <tr>
                                                             <td colspan="6" class="actions">
                                                                 <div class="bottom-cart">
                                                                     <div class="coupon">
-                                                                        <input type="text" name="coupon_code" class="input-text" id="coupon-code" value="" placeholder="Coupon code" />
-                                                                        <button type="button" id="apply-coupon" class="button" value="Apply coupon">Apply coupon</button>
+                                                                        <input type="text" name="coupon_code" class="input-text" id="coupon-code" placeholder="Coupon code" />
+                                                                        <button type="button" id="apply-coupon" class="button">Apply coupon</button>
                                                                     </div>
                                                                     <h2><a asp-controller="Shop" asp-action="Index">Continue Shopping</a></h2>
                                                                     <button type="button" id="update-cart" class="button">Update cart</button>
                                                                 </div>
+                                                                <div id="coupon-message" style="color:red;"></div>
                                                             </td>
                                                         </tr>
                                                     </tfoot>
+
                                                 </table>
                                             </div>
                                         </form>
@@ -123,32 +143,23 @@
                                         <div class="cart-totals">
                                             <h2>Cart totals</h2>
                                             <div>
-                                                <div class="cart-subtotal">
-                                                    <div class="title">Subtotal</div>
-                                                    <div><span id="cart-subtotal">@Model.Basket.TotalPrice</span></div>
-                                                </div>
-                                                <div class="shipping-totals">
-                                                    <div class="title">Shipping</div>
-                                                    <div>
-                                                        <ul class="shipping-methods custom-radio">
-                                                            <li>
-                                                                <input type="radio" name="shipping_method" data-index="0" value="free_shipping" class="shipping_method" checked="checked" />
-                                                                <label>Free shipping</label>
-                                                            </li>
-                                                            <li>
-                                                                <input type="radio" name="shipping_method" data-index="0" value="flat_rate" class="shipping_method" />
-                                                                <label>Flat rate</label>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="shipping-desc">
-                                                            Shipping options will be updated during checkout.
-                                                        </p>
-                                                    </div>
-                                                </div>
                                                 <div class="order-total">
                                                     <div class="title">Total</div>
                                                     <div><span id="cart-total">@Model.Basket.TotalPrice</span></div>
                                                 </div>
+
+                                                <div class="order-total">
+                                                    <div class="title">Discount</div>
+                                                    <div><span id="discount-amount">0%</span></div>
+                                                </div>
+
+                                                <div class="order-total">
+                                                    <div class="title">Final</div>
+                                                    <div><span id="final-total">@Model.Basket.TotalPrice</span></div>
+                                                </div>
+
+                                                <span id="coupon-message" style="color: red; display:block; margin-top: 10px;"></span>
+
                                             </div>
                                             <div class="proceed-to-checkout">
                                                 <a asp-controller="Checkout" asp-action="Index" class="checkout-button button">
@@ -275,3 +286,56 @@
       });
     });
 </script>
+
+@section Scripts {
+    <script>
+               document.getElementById("apply-coupon").addEventListener("click", async function () {
+            const code = document.getElementById("coupon-code").value.trim();
+            const message = document.getElementById("coupon-message");
+
+            if (!code) {
+                message.innerText = "Required.";
+                return;
+            }
+
+            try {
+                const res = await fetch(`/PromoCode/Get?code=${code}`);
+                if (!res.ok) {
+                    message.innerText = "Promo code not found or cannot be used.";
+                    return;
+                }
+
+                const promo = await res.json();
+
+                if (!promo.isActive || (promo.usageLimit > 0 && promo.usageCount >= promo.usageLimit)) {
+                    message.innerText = "This promo code is no longer valid.";
+                    return;
+                }
+
+                const useResponse = await fetch(`/PromoCode/UsePromoCode?code=${code}`, {
+                    method: "POST"
+                });
+
+                if (!useResponse.ok) {
+                    message.innerText = "The promo code could not be used.";
+                    return;
+                }
+
+                let discountPercent = promo.discountPercent;
+                let totalText = document.getElementById("cart-total").innerText.replace('$', '');
+                let total = parseFloat(totalText);
+                let discountAmount = (total * discountPercent) / 100;
+                let finalTotal = total - discountAmount;
+
+                document.getElementById("discount-amount").innerText = `${discountPercent}%`;
+                document.getElementById("final-total").innerText = `$${finalTotal.toFixed(2)}`;
+                message.style.color = "green";
+                message.innerText = "Discount applied !";
+            } catch (err) {
+                message.innerText = "Something wrong";
+                console.error(err);
+            }
+        });
+
+    </script>
+}
