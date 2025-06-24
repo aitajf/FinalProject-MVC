@@ -9,7 +9,7 @@ namespace MVC_FinalProject.Services
         private const string PromoCodeCreateUrl = "https://localhost:7004/api/admin/PromoCode/Create";
         private const string PromoCodeGetAllUrl = "https://localhost:7004/api/admin/PromoCode/GetAll";
         private const string PromoCodeGetByCodeUrl = "https://localhost:7004/api/admin/PromoCode/GetByCode/";
-
+        private const string PromoCodeDeleteUrl = "https://localhost:7004/api/admin/PromoCode/Delete?id=";
 
         public PromoCodeService(HttpClient httpClient)
         {
@@ -45,6 +45,12 @@ namespace MVC_FinalProject.Services
                 return null;
 
             return await response.Content.ReadFromJsonAsync<PromoCodeResult>();
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var response = await _httpClient.DeleteAsync(PromoCodeDeleteUrl + id);
+            return response.IsSuccessStatusCode;
         }
     }
 

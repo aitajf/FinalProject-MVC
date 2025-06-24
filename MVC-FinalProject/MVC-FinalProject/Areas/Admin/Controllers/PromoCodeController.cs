@@ -31,6 +31,20 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
 
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> Create(PromoCodeCreate request)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(request);
+        //    }
+
+        //    await _promoCodeService.CreateAsync(request);
+
+        //    TempData["SuccessMessage"] = "Promokod yaradıldı və istifadəçilərə göndərildi.";
+        //    return RedirectToAction("Index");
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Create(PromoCodeCreate request)
         {
@@ -39,13 +53,27 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
                 return View(request);
             }
 
-            await _promoCodeService.CreateAsync(request);
-
-            TempData["SuccessMessage"] = "Promokod yaradıldı və istifadəçilərə göndərildi.";
-            return RedirectToAction("Index");
+            try
+            {
+                await _promoCodeService.CreateAsync(request);
+                return RedirectToAction("Index");
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError("", "Promocode is already exist.");
+                return View(request);
+            }
         }
 
-      
 
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var success = await _promoCodeService.DeleteAsync(id);
+            if (!success)
+                return BadRequest();
+
+            return Ok();
+        }
     }
 }

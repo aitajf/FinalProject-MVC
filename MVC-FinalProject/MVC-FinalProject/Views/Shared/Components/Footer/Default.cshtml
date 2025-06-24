@@ -6,7 +6,7 @@
 			<div class="section-container">
 				<div class="block-widget-wrap">
 					<div class="row">
-						<div class="col-lg-4 column-left">
+						<div class="col-lg-4 column-left" style=" margin-left: 10pc;">
 							<div class="column-wrap">
 								<div class="row">
 									<div class="col-lg-6 md-b-20">
@@ -30,26 +30,26 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="block block-menu">
-											<h2 class="block-title">Services</h2>
+											<h2 class="block-title">Pages</h2>
 											<div class="block-content">
 												<ul>
 													<li>
-														<a href="page-about.html">Sale</a>
+														<a asp-controller="Home" asp-action="Index">Home</a>
 													</li>
 													<li>
-														<a href="page-about.html">Quick Ship</a>
-													</li>
-													<li>
-														<a href="page-about.html">New Designs</a>
-													</li>
-													<li>
-														<a href="page-about.html">Accidental Fabric Protection</a>
-													</li>
-													<li>
-														<a href="page-about.html">Furniture Care</a>
-													</li>
-													<li>
-														<a href="page-about.html">Gift Cards</a>
+														<a asp-controller="Shop" asp-action="Index">Shop</a>
+													</li>  
+													<li>   
+														<a asp-controller="Blog" asp-action="Index">Blog</a>
+													</li>  
+													<li>   
+														<a asp-controller="About" asp-action="Index">About</a>
+													</li>  
+													<li>   
+														<a asp-controller="Contact" asp-action="Index">Contact</a>
+													</li>  
+													<li>   
+														<a asp-controller="FAQ" asp-action="Index">FAQ</a>
 													</li>
 												</ul>
 											</div>
@@ -58,7 +58,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 column-center">
+						<div class="col-lg-4 column-right">
 							<div class="column-wrap">
 								<div class="block block-image m-b-20">
 									<img width="100" src="~/assets/img/@Model.FirstOrDefault(x => x.Key == "Logo")?.Value" alt="">
@@ -73,25 +73,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 column-right">
-							<div class="column-wrap">
-								<div class="block block-newsletter">
-									<h2 class="block-title">Newsletter</h2>
-									<div class="block-content">
-										<div class="newsletter-text">Enter your email below to be the first to know about new collections and product launches.</div>
-										<form action="" method="post" class="newsletter-form">
-											<input type="email" name="your-email" value="" size="40" placeholder="Email address">
-											<span class="btn-submit">
-												<input type="submit" value="Subscribe">
-											</span>
-										</form>
-									</div>
-								</div>
-								<div class="block block-image">
-									<img width="309" height="32" src="~/assets/img/payments.png" alt="">
-								</div>
-							</div>
-						</div>
+					
 					</div>
 				</div>
 			</div>

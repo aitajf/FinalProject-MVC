@@ -21,6 +21,7 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<IEnumerable<Product>> GetSortedProductsAsync(string sortType);
 
         Task<IEnumerable<Product>> SearchByNameAsync(string search);
+        Task<IEnumerable<Product>> FilterByPriceAsync(decimal? minPrice, decimal? maxPrice);
         Task<IEnumerable<Product>> GetComparisonProductsAsync(int categoryId, int selectedProduct);
     }
 }

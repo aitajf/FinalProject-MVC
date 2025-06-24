@@ -1,5 +1,109 @@
 ﻿@model ShopVM
 
+<style>
+	.price-filter {
+		width: 280px;
+		padding: 15px;
+		font-family: Arial, sans-serif;
+		background: white;
+	}
+
+	.price-label {
+		font-size: 14px;
+		font-weight: bold;
+		color: #333;
+		margin-bottom: 15px;
+		letter-spacing: 1px;
+	}
+
+	.price-values {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 12px;
+		font-size: 13px;
+		color: #999;
+	}
+
+	.slider-container {
+		position: relative;
+		height: 20px;
+		margin-bottom: 12px;
+	}
+
+	.slider-track {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: #ddd;
+		transform: translateY(-50%);
+		border-radius: 2px;
+	}
+
+	.slider-range {
+		position: absolute;
+		top: 50%;
+		height: 4px;
+		background: #333;
+		transform: translateY(-50%);
+		border-radius: 2px;
+	}
+
+	.slider {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 20px;
+		background: transparent;
+		pointer-events: none;
+		-webkit-appearance: none;
+		appearance: none;
+	}
+
+		.slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 20px;
+			height: 20px;
+			background: #333;
+			border-radius: 50%;
+			cursor: pointer;
+			pointer-events: all;
+			border: 2px solid white;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+		}
+
+		.slider::-moz-range-thumb {
+			width: 20px;
+			height: 20px;
+			background: #333;
+			border-radius: 50%;
+			cursor: pointer;
+			pointer-events: all;
+			border: 2px solid white;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+		}
+
+	.current-values {
+		display: flex;
+		justify-content: space-between;
+		font-size: 14px;
+		font-weight: bold;
+		color: #333;
+		margin-top: 10px;
+	}
+
+	.current-min {
+		margin-left: 10px;
+	}
+
+	.current-max {
+		margin-right: 10px;
+	}
+</style>
+
+
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
 		<div id="primary" class="content-area">
@@ -21,6 +125,16 @@
 					<div class="section-container p-l-r">
 						<div class="row">
 							<div class="col-xl-3 col-lg-3 col-md-12 col-12 sidebar left-sidebar md-b-50">
+								
+								
+						
+								
+
+
+
+
+
+
 								<!-- Block Product Categories -->
 								<div class="block block-product-cats">
 									<div class="block-title"><h2>Categories</h2></div>
@@ -46,20 +160,34 @@
 									</div>
 								</div>
 
-								<!-- Block Product Filter -->
-								<div class="block block-product-filter">
-									<div class="block-title"><h2>Price</h2></div>
-									<div class="block-content">
-										<div id="slider-range" class="price-filter-wrap">
-											<div class="filter-item price-filter">
-												<div class="layout-slider">
-													<input id="price-filter" name="price" value="0;100" />
-												</div>
-												<div class="layout-slider-settings"></div>
+								<form id="priceFilterForm">
+									<input type="hidden" name="categoryName" value="@Context.Request.Query["categoryName"]" />
+									<input type="hidden" name="brandName" value="@Context.Request.Query["brandName"]" />
+									<input type="hidden" name="colorName" value="@Context.Request.Query["colorName"]" />
+									<input type="hidden" name="tagName" value="@Context.Request.Query["tagName"]" />
+									<input type="hidden" name="sortType" value="@Context.Request.Query["sortType"]" />
+
+									<div class="price-filter">
+										<div class="price-label">PRICE</div>
+										<div class="price-range-container">
+											<div class="slider-container">
+												<div class="slider-track"></div>
+												<div class="slider-range"></div>
+
+												<input type="range" name="minPrice" class="slider slider-min" min="0" max="400" value="@Context.Request.Query["minPrice"] ??"  step="10" />
+												<input type="range" name="maxPrice" class="slider slider-max" min="0" max="400" value="@Context.Request.Query["maxPrice"] ??"  step="10" />
+											</div>
+											<div class="current-values">
+												<span class="current-min">0 $</span>
+												<span class="current-max">400 $</span>
 											</div>
 										</div>
 									</div>
-								</div>
+								</form>
+
+
+							
+
 
 
 								<!-- Block Product Filter -->
@@ -101,8 +229,6 @@
 										</div>
 									</div>
 								</div>
-
-
 								<!-- Block Products -->
 								<div class="block block-products">
 									<div class="block-title"><h2>New Product:</h2></div>
@@ -161,10 +287,10 @@
 									<div class="tab-pane fade show active" id="layout-grid" role="tabpanel">
 										<div class="products-list grid">
 											<input type="hidden" class="products-count" value="@ViewBag.ProductsCount" />
-											<div class="row products-area" id="productsContainer">
-												@await Html.PartialAsync("_ProductPartial", Model.Products.Take(6))
-											</div>
 
+											<div class="row products-area" id="productsContainer">
+												@await Html.PartialAsync("_ProductPartial", Model.Products)
+											</div>
 											<div class="btn-all">
 												<button id="show-more-btn" class="button-outline" style="margin-left: 21pc; 
                                                                                                          margin-top:2pc;
@@ -182,9 +308,234 @@
 	</div><!-- #main-content -->
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+@* <script> *@
+@* 	$(document).ready(function() { *@
+@* 		$('.slider').on('input change', function() { *@
+@* 			let formData = $('#priceFilterForm').serialize(); *@
+
+@* 			const urlParams = new URLSearchParams(window.location.search); *@
+@* 			['categoryName','brandName','colorName','tagName','sortType'].forEach(param => { *@
+@* 				const val = urlParams.get(param) || ''; *@
+@* 				$(`#priceFilterForm input[name="${param}"]`).val(val); *@
+@* 			}); *@
+
+@* 			$.ajax({ *@
+@* 				url: '@Url.Action("Index", "Shop")', *@
+@* 				type: 'GET', *@
+@* 				data: formData, *@
+@* 				success: function(data) { *@
+@* 					let parsed = new DOMParser().parseFromString(data, 'text/html'); *@
+@* 					let newProductsHtml = parsed.getElementById('productsContainer').innerHTML; *@
+@* 					$('#productsContainer').html(newProductsHtml); *@
+
+@* 					const minPrice = $('#priceFilterForm input[name="minPrice"]').val(); *@
+@* 					const maxPrice = $('#priceFilterForm input[name="maxPrice"]').val(); *@
+
+@* 					urlParams.set('minPrice', minPrice); *@
+@* 					urlParams.set('maxPrice', maxPrice); *@
+
+@* 					history.replaceState(null, '', window.location.pathname + '?' + urlParams.toString()); *@
+@* 				}, *@
+@* 				error: function() { *@
+@* 				} *@
+@* 			}); *@
+@* 		}); *@
+@* 	}); *@
+@* </script> *@
+
+<script>
+
+	// $(document).ready(function() {
+	// 	$('.slider').on('input change', function() {
+	// 		minPrice və maxPrice dəyərlərini oxu
+	// 		let minPrice = parseInt($('input.slider-min').val());
+	// 		let maxPrice = parseInt($('input.slider-max').val());
+
+	// 		Əgər minPrice maxPrice-dən böyükdürsə, onu maxPrice-ə bərabər et
+	// 		if (minPrice > maxPrice) {
+	// 			if ($(this).hasClass('slider-min')) {
+	// 				Əgər min slider sürüşdürülürsə, maxPrice-ni minPrice-yə bərabər et
+	// 				maxPrice = minPrice;
+	// 				$('input.slider-max').val(maxPrice);
+	// 			} else {
+	// 				Əgər max slider sürüşdürülürsə, minPrice-ni maxPrice-yə bərabər et
+	// 				minPrice = maxPrice;
+	// 				$('input.slider-min').val(minPrice);
+	// 			}
+	// 		}
+
+	// 		formData yenilə
+	// 		let formData = $('#priceFilterForm').serialize();
+
+	// 		const urlParams = new URLSearchParams(window.location.search);
+	// 		['categoryName','brandName','colorName','tagName','sortType'].forEach(param => {
+	// 			const val = urlParams.get(param) || '';
+	// 			$(`#priceFilterForm input[name="${param}"]`).val(val);
+	// 		});
+
+	// 		$.ajax({
+	// 			url: '@Url.Action("Index", "Shop")',
+	// 			type: 'GET',
+	// 			data: formData,
+	// 			success: function(data) {
+	// 				let parsed = new DOMParser().parseFromString(data, 'text/html');
+	// 				let newProductsHtml = parsed.getElementById('productsContainer').innerHTML;
+	// 				$('#productsContainer').html(newProductsHtml);
+
+	// 				urlParams.set('minPrice', minPrice);
+	// 				urlParams.set('maxPrice', maxPrice);
+
+	// 				history.replaceState(null, '', window.location.pathname + '?' + urlParams.toString());
+
+	// 				Ekrandakı qiymətləri də yenilə (istəsən)
+	// 				$('.current-min').text(minPrice + ' $');
+	// 				$('.current-max').text(maxPrice + ' $');
+	// 			},
+	// 			error: function() {
+	// 				error handling
+	// 			}
+	// 		});
+	// 	});
+	// });
+
+
+
+	$(document).ready(function() {
+		const step = 10;
+		const minInput = $('input.slider-min');
+		const maxInput = $('input.slider-max');
+
+		function updateDisplay(minPrice, maxPrice) {
+			$('.current-min').text(minPrice + ' $');
+			$('.current-max').text(maxPrice + ' $');
+		}
+
+		function ajaxUpdate() {
+			let formData = $('#priceFilterForm').serialize();
+
+			const urlParams = new URLSearchParams(window.location.search);
+			['categoryName','brandName','colorName','tagName','sortType'].forEach(param => {
+				const val = urlParams.get(param) || '';
+				$(`#priceFilterForm input[name="${param}"]`).val(val);
+			});
+
+			$.ajax({
+				url: '@Url.Action("Index", "Shop")',
+				type: 'GET',
+				data: formData,
+				success: function(data) {
+					let parsed = new DOMParser().parseFromString(data, 'text/html');
+					let newProductsHtml = parsed.getElementById('productsContainer').innerHTML;
+					$('#productsContainer').html(newProductsHtml);
+
+					const minPrice = minInput.val();
+					const maxPrice = maxInput.val();
+
+					const urlParams = new URLSearchParams(window.location.search);
+					urlParams.set('minPrice', minPrice);
+					urlParams.set('maxPrice', maxPrice);
+
+					history.replaceState(null, '', window.location.pathname + '?' + urlParams.toString());
+				},
+				error: function() {
+					// error handling
+				}
+			});
+		}
+
+		// input event - ancaq dəyərləri yoxla, UI-ni yenilə, ajax çağırışı etmə
+		$('.slider').on('input', function() {
+			let minPrice = parseInt(minInput.val());
+			let maxPrice = parseInt(maxInput.val());
+
+			if ($(this).hasClass('slider-min')) {
+				// min slider maxPrice-dən böyük ola bilməz
+				if (minPrice >= maxPrice) {
+					minPrice = maxPrice - step;
+					if (minPrice < parseInt(minInput.attr('min'))) minPrice = parseInt(minInput.attr('min'));
+					minInput.val(minPrice);
+				}
+			} else if ($(this).hasClass('slider-max')) {
+				// max slider minPrice-dən kiçik ola bilməz
+				if (maxPrice <= minPrice) {
+					maxPrice = minPrice + step;
+					if (maxPrice > parseInt(maxInput.attr('max'))) maxPrice = parseInt(maxInput.attr('max'));
+					maxInput.val(maxPrice);
+				}
+			}
+
+			updateDisplay(minPrice, maxPrice);
+		});
+
+		// change event - ajax çağırışı üçün (sürüşdürmə bitəndə)
+		$('.slider').on('change', function() {
+			ajaxUpdate();
+		});
+
+		// İlk dəyərləri ekranda göstər
+		updateDisplay(parseInt(minInput.val()) || 0, parseInt(maxInput.val()) || 400);
+	});
+
+
+</script>
+
+
+<script>
+	$(document).ready(function () {
+		function updateCurrentPriceDisplay() {
+			let min = $('.slider-min').val();
+			let max = $('.slider-max').val();
+
+			$('.current-min').text(min + ' $');
+			$('.current-max').text(max + ' $');
+		}
+
+		// Sayt yüklənəndə ilkin qiymətləri göstər
+		updateCurrentPriceDisplay();
+
+		// Slider dəyişəndə yenilə
+		$('.slider').on('input change', function () {
+			updateCurrentPriceDisplay();
+		});
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 	let skipCount = 6; 
-	const totalProducts = @Model.TotalProductCount;
+	const totalProducts = @Model.TotalProductCount
 
 	document.getElementById("show-more-btn").addEventListener("click", function () {
 		fetch(`/Shop/ShowMore?skip=${skipCount}`)
@@ -236,8 +587,6 @@
 			.catch(error => console.error("Error fetching sorted products:", error));
 	}
 </script>
-
-
 <script>
 	function filterProducts(categoryName, brandName, tagName, colorName) {
 		let queryParams = [];
@@ -259,4 +608,3 @@
 		.catch(error => console.error("Error fetching products:", error));
 	}
 </script>
-

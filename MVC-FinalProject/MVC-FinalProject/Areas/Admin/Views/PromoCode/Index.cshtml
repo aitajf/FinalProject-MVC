@@ -23,11 +23,10 @@
                               <td>@item.Code</td>
                               <td>@item.DiscountPercent</td>
                               <td>@item.UsageLimit</td>
-                              <td> 
+                                <td>
+                                    <button class="btn btn-danger delete-tag" data-id="@item.Id">Delete</button>
+                                </td>
 
-                                 <button class="btn btn-danger delete-tag" data-id="@item.Id">Delete</button> 
-
-                              </td> 
                           </tr> 
                       } 
                     </tbody>
@@ -39,3 +38,26 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        document.querySelectorAll('.delete-tag').forEach(button => {
+          button.addEventListener('click', async function () {
+            const id = this.getAttribute('data-id');
+            try {
+              const response = await fetch(`/Admin/PromoCode/Delete?id=${id}`, {
+                method: 'DELETE'
+              });
+
+              if (!response.ok) {
+                alert("Silinmə zamanı xəta baş verdi.");
+                return;
+              }
+              this.closest('tr').remove();
+
+            } catch (error) {
+              console.error('Xəta:', error);
+            }
+          });
+        });
+    </script>
+}

@@ -6,6 +6,7 @@ using MVC_FinalProject.Helpers;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using System.Text;
 
 namespace MVC_FinalProject.Services
 {
@@ -246,6 +247,30 @@ namespace MVC_FinalProject.Services
 
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<ProductWithImage>(content);
-        }      
+        }
+
+        public async Task<IEnumerable<Product>> FilterByPriceAsync(decimal? minPrice, decimal? maxPrice)
+        {
+            var filterDto = new ProductFilter
+            {
+                MinPrice = minPrice,
+                MaxPrice = maxPrice
+            };
+
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(filterDto), Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync($"{Urls.ProductClientUrl}FilterByPrice", jsonContent);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return Enumerable.Empty<Product>();
+            }
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            return JsonSerializer.Deserialize<IEnumerable<Product>>(responseContent, options) ?? Enumerable.Empty<Product>();
+        }
+
     }
 }
