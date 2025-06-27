@@ -8,6 +8,7 @@ using System.Text.Json;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using System.Net.Http.Headers;
 
 namespace MVC_FinalProject.Services
 {
@@ -21,8 +22,6 @@ namespace MVC_FinalProject.Services
 
         public async Task<HttpResponseMessage> Register(Register model)
         {
-            //return await _httpClient.PostAsync($"{Urls.AccountClientUrl}Register", model);
-
             var jsonData = JsonConvert.SerializeObject(model);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             return await _httpClient.PostAsync($"{Urls.AccountClientUrl}Register", stringContent);
@@ -48,7 +47,6 @@ namespace MVC_FinalProject.Services
 
             return await response.Content.ReadAsStringAsync();
         }
-
         public async Task<string> AddRoleAsync(string username, string roleName)
         {
             var response = await _httpClient.PostAsync(
@@ -56,8 +54,6 @@ namespace MVC_FinalProject.Services
 
             return await response.Content.ReadAsStringAsync();
         }
-
-
         public async Task<string> RemoveRoleAsync(string username, string roleName)
         {
 
@@ -65,7 +61,6 @@ namespace MVC_FinalProject.Services
             var response = await _httpClient.PostAsync($"{Urls.AccountUrl}RemoveRole?username={username}&roleName={roleName}", null);
             return await response.Content.ReadAsStringAsync();
         }
-
         public async Task<List<UserRole>> GetAllUsersAsync()
         {
             var response = await _httpClient.GetAsync($"{Urls.AccountUrl}GetAllUsers");
@@ -100,8 +95,6 @@ namespace MVC_FinalProject.Services
             var json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<string>>(json);
         }
-
-
         public async Task<string> SendMessageToAdminAsync(AdminMessage model)
         {
             var response = await _httpClient.PostAsJsonAsync($"{Urls.AccountUrl}SendMessageToAdmin", model);
@@ -119,8 +112,6 @@ namespace MVC_FinalProject.Services
             var json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<string>>(json);
         }
-
-
 
         public async Task<string> BlockUserAsync(string username, int minutes)
         {
@@ -144,8 +135,6 @@ namespace MVC_FinalProject.Services
                 return "Failed to parse response.";
             }
         }
-
-
         public async Task<string> UnblockUserAsync(string userId)
         {
             var response = await _httpClient.PostAsync($"{Urls.AccountUrl}UnblockUser?userId={userId}", null);
@@ -168,7 +157,6 @@ namespace MVC_FinalProject.Services
                 return "Failed to parse response.";
             }
         }
-
         public async Task<UserRole> GetUserByUsernameAsync(string username)
         {
             var response = await _httpClient.GetAsync($"{Urls.AccountUrl}GetUserByUsername?username={username}");
@@ -176,7 +164,6 @@ namespace MVC_FinalProject.Services
 
             return await response.Content.ReadFromJsonAsync<UserRole>();
         }
-
         public async Task<List<UserRole>> GetAllBlockedUsersAsync()
         {
             var response = await _httpClient.GetAsync($"{Urls.AccountUrl}GetAllBlockedUsers");
@@ -185,5 +172,31 @@ namespace MVC_FinalProject.Services
 
             return await response.Content.ReadFromJsonAsync<List<UserRole>>();
         }
+        public async Task<string> UpdateEmailAsync(UpdateEmail model, string token)
+        {
+            var json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{Urls.AccountClientUrl}UpdateEmail");
+            request.Content = content;
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> UpdateUsernameAsync(UpdateUsername model, string token)
+        {
+            var json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{Urls.AccountClientUrl}UpdateUsername");
+            request.Content = content;
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+        }
+
     }
 }

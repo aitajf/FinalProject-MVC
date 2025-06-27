@@ -1,6 +1,107 @@
 ﻿
 @model PostReviewPage
 
+<style>
+	.review-form {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;
+		font-family: Arial, sans-serif;
+	}
+
+	.form-group {
+		margin-bottom: 20px;
+	}
+
+	.form-row {
+		display: flex;
+		gap: 15px;
+		flex-wrap: wrap;
+	}
+
+	.form-group.half-width {
+		flex: 1;
+		min-width: 250px;
+	}
+
+	.form-group.full-width {
+		width: 100%;
+	}
+
+	label {
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+		color: #333;
+	}
+
+	.form-control {
+		width: 100%;
+		padding: 10px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		font-size: 14px;
+		box-sizing: border-box;
+	}
+
+		.form-control:focus {
+			outline: none;
+			border-color: #333;
+			box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+		}
+
+	textarea.form-control {
+		resize: vertical;
+		min-height: 120px;
+	}
+
+	.comment-notes {
+		color: #666;
+		font-size: 14px;
+		margin-bottom: 20px;
+		font-style: italic;
+	}
+
+	.btn-post {
+		background-color: #000;
+		color: white;
+		padding: 12px 24px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		font-size: 16px;
+		transition: background-color 0.3s;
+	}
+
+		.btn-post:hover {
+			background-color: #333;
+		}
+
+	.button-outline {
+		background-color: transparent;
+		color: #000;
+		border: 2px solid #000;
+	}
+
+		.button-outline:hover {
+			background-color: #000;
+			color: white;
+		}
+
+	/* Responsive design */
+	media (max-width: 768px) {
+		.form-row
+
+	{
+		flex-direction: column;
+	}
+
+	.form-group.half-width {
+		min-width: 100%;
+	}
+
+	}
+</style>
 
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
@@ -140,26 +241,56 @@
 								</div>
 								<div class="comment-form">
 									<span id="reply-title" class="comment-reply-title">Add a review</span>
-									<form asp-controller="BlogDetail" asp-action="AddReview" method="post">
-										<input type="hidden" name="PostId" value="@Model.PostId" />
+									@* <form asp-controller="BlogDetail" asp-action="AddReview" method="post"> *@
+									@* 	<input type="hidden" name="PostId" value="@Model.PostId" /> *@
 
-										<div class="comment-notes col-md-12 col-sm-12">Your email address will not be published.</div>
-										<div class="form-group col-md-6 col-sm-6">
-                                                <label>Name *</label> 
-												<input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required /> </div>
-										<div class="form-group col-md-6 col-sm-6">
-                                                <label>Email *</label> 
-												<input name="UserEmail" type="email" class="form-control" required /> 				
-										</div>
+									@* 	<div class="comment-notes col-md-12 col-sm-12">Your email address will not be published.</div> *@
+									@* 	<div class="form-group col-md-6 col-sm-6"> *@
+         @*                                        <label>Name *</label>  *@
+									@* 			<input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required /> </div> *@
+									@* 	<div class="form-group col-md-6 col-sm-6"> *@
+         @*                                        <label>Email *</label>  *@
+									@* 			<input name="UserEmail" type="email" class="form-control" required /> 				 *@
+									@* 	</div> *@
 
-										<div class="form-group col-md-12 col-sm-12">
-                                                  <label>Your Review *</label> 
-								 					<textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea> 										</div>
+									@* 	<div class="form-group col-md-12 col-sm-12"> *@
+         @*                                          <label>Your Review *</label>  *@
+								 @* 					<textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea> 										</div> *@
 									
-										<div class="form-group col-md-12">
-											<input name="submit" type="submit" id="submit" class="btn button-outline" value="Post Comment">
-										</div>
-									</form>
+									@* 	<div class="form-group col-md-12"> *@
+									@* 		<input name="submit" type="submit" id="submit" class="btn button-outline" value="Post Comment"> *@
+									@* 	</div> *@
+									@* </form> *@
+
+
+									<div class="review-form">
+										<form asp-controller="BlogDetail" asp-action="AddReview" method="post">
+											<input type="hidden" name="PostId" value="@Model.PostId" />
+
+											<div class="comment-notes">Your email address will not be published.</div>
+
+											<div class="form-row">
+												<div class="form-group half-width">
+													<label for="userName">Name *</label>
+													<input name="UserName" id="userName" type="text" class="form-control" value="@User.Identity.Name" required />
+												</div>
+
+												<div class="form-group half-width">
+													<label for="userEmail">Email *</label>
+													<input name="UserEmail" id="userEmail" type="email" class="form-control" required />
+												</div>
+											</div>
+
+											<div class="form-group full-width">
+												<label for="comment">Your Review *</label>
+												<textarea name="Comment" id="comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea>
+											</div>
+
+											<div class="form-group full-width">
+												<input name="submit" type="submit" id="submit" class="btn-post button-outline" value="Post Comment">
+											</div>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>

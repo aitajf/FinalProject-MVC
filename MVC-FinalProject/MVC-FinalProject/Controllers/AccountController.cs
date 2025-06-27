@@ -162,25 +162,7 @@ namespace MVC_FinalProject.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> ResetPassword(UserPassword userPasswordVM)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(userPasswordVM);
-        //    }
-
-        //    var responseMessage = await _accountService.ResetPasswordAsync(userPasswordVM);
-
-        //    if (responseMessage == "Invalid request.")
-        //    {
-        //        ModelState.AddModelError("", responseMessage);
-        //        return View(userPasswordVM);
-        //    }
-
-        //    TempData["Message"] = responseMessage;
-        //    return RedirectToAction("ResetPasswordConfirmation");
-        //}
+     
 
 
 
@@ -214,12 +196,7 @@ namespace MVC_FinalProject.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult LogOut()
-        //{
-        //    HttpContext.Session.Remove("AuthToken");
-        //    return RedirectToAction("Index", "Home");
-        //}
+       
 
         [HttpPost]
         public async Task<IActionResult> LogOut()

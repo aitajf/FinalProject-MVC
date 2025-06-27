@@ -65,7 +65,7 @@
                          {
                              <td>
                                  <div data-title="Add to cart">
-                                     <a href="/cart/add?productId=@item.Id" class="button">Add to cart</a>
+                            	<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.Id" class="button">Add to cart</a>
                                  </div>
                              </td>
                          }

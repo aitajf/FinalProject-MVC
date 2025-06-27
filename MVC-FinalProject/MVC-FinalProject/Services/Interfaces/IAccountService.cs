@@ -25,5 +25,8 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<string> UnblockUserAsync(string userId);
         Task<UserRole> GetUserByUsernameAsync(string username);
         Task<List<UserRole>> GetAllBlockedUsersAsync();
+
+        Task<string> UpdateEmailAsync(UpdateEmail model, string token);
+        Task<string> UpdateUsernameAsync(UpdateUsername model, string token);
     }
 }

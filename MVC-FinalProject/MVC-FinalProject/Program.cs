@@ -3,7 +3,9 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Session;
+using MVC_FinalProject;
 using Service;
+using SessionMiddleware = MVC_FinalProject.SessionMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,13 +57,20 @@ builder.Services.AddServiceLayer();
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<GlobalExceptionHandler>();
+
 app.UseStaticFiles();
 
 app.UseSession();
@@ -170,6 +179,20 @@ app.UseStatusCodePages(async context =>
 
     await Task.CompletedTask; // await use
 });
+
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
+
+    if (response.StatusCode == 500)
+    {
+        response.Redirect("/ServerError/Index");
+    }
+
+    await Task.CompletedTask; // await use
+});
+
+
 
 app.MapControllerRoute(
     name: "areas",
