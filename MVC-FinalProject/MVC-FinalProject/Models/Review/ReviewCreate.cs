@@ -6,6 +6,7 @@ namespace MVC_FinalProject.Models.Review
     {
         public int ProductId { get; set; }
         public string Comment { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }
 
     public class ReviewCreateApi

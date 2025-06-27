@@ -35,16 +35,6 @@ namespace MVC_FinalProject.Areas.Admin.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(SliderCreate request)
-        //{        
-        //    if(!ModelState.IsValid) return View(request);
-        //    var result = await _sliderService.CreateAsync(request);
-        //    if (result.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
-        //    ModelState.AddModelError(string.Empty, "Error creating");           
-        //    return View(request);
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]

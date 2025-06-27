@@ -90,47 +90,6 @@ namespace MVC_FinalProject.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Register(Register request)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(request);
-        //    }
-
-        //    var responseMessage = await _accountService.Register(request);
-
-        //    // Burada wrapper modelini deserialize edirik
-        //    var wrapper = await responseMessage.Content.ReadFromJsonAsync<RegisterResponseWrapper>();
-        //    var content = wrapper?.Value;
-
-        //    if (content != null && !content.Success)
-        //    {
-        //        foreach (var msg in content.Message)
-        //        {
-        //            if (msg.Contains("email", StringComparison.OrdinalIgnoreCase))
-        //                ModelState.AddModelError("Email", msg);
-        //            else if (msg.Contains("username", StringComparison.OrdinalIgnoreCase))
-        //                ModelState.AddModelError("UserName", msg);
-        //            else
-        //                ModelState.AddModelError(string.Empty, msg);
-        //        }
-
-        //        return View(request);
-        //    }
-
-        //    if (responseMessage.IsSuccessStatusCode && content?.Success == true)
-        //    {
-        //        return RedirectToAction("RegisterConfirmation");
-        //    }
-
-        //    ModelState.AddModelError(string.Empty, "An unexpected error occurred.");
-        //    return View(request);
-        //}
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Register request)

@@ -28,16 +28,13 @@ namespace MVC_FinalProject.Controllers
         public async Task<IActionResult> Detail(int id, int? editingReviewId = null)
         {
             if (id == 0)
-            {
-                ModelState.AddModelError(string.Empty, "Invalid ID.");
-                return View("Index");
-            }
+                return RedirectToAction("Index", "NotFound");
+
+
             var post = await _blogPostService.GetByIdAsync(id);
             if (post == null)
-            {
-                ModelState.AddModelError(string.Empty, "Post not found.");
-                return View("Index");
-            }
+                return RedirectToAction("Index", "NotFound");
+
             var reviews = await _blogReviewService.GetAllByPostIdAsync(id);
             var settings = await _settingService.GetAllAsync();
             var previous = await _blogPostService.GetPreviousAsync(id);

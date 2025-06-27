@@ -7,7 +7,7 @@
 
             <div class="form-group mt-3">
                 <label asp-for="Images">Select New Images:</label>
-                <input asp-for="Images" type="file" class="form-control" multiple />
+                <input asp-for="Images" type="file" class="form-control" multiple accept="image/*"/>
                 <span class="text-danger" asp-validation-for="Images"></span>
             </div>
 

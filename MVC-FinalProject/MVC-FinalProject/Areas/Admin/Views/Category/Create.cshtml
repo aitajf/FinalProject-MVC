@@ -6,7 +6,7 @@
 			<form class="forms-sample" asp-action="Create" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="category"> Image</label>
-					<input asp-for="Image" class="form-control" id="inputText" maxlength="1000">
+					<input asp-for="Image" class="form-control" id="inputText" maxlength="1000" accept="image/*">
 					<span class="text-danger" asp-validation-for="Image"></span> <br />
 
 					<label for="category">Name</label>

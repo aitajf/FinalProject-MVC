@@ -12,8 +12,6 @@
                         <tr>
                             <th> Image </th>
                             <th> Title </th>
-                            <th> Description </th>
-                            <th> Highlight Text </th>
                             <th> Category </th>
                             <th> Operations </th>
                         </tr>
@@ -35,8 +33,12 @@
                                     }
                                 </td>
                                 <td>@item.Title</td>
-                                <td>@item.Description</td>
-                                <td>@item.HighlightText</td>
+                                @* <td> *@
+                                @*     @(item.Description.Length > 50 *@
+                                @*         ? item.Description.Substring(0, 50) + "..." *@
+                                @*         : item.Description) *@
+                                @* </td> *@
+                                @* <td>@item.HighlightText</td> *@
                                 <td>@blogCategories.FirstOrDefault(c => c.Value == item.BlogCategoryId.ToString())?.Text</td>
                                 <td>
                                     <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-secondary">Detail</a>

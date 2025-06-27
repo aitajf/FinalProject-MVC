@@ -82,7 +82,45 @@
 <br />
 <br />
 
+<style>
+    .password {
+        position: relative;
+        margin-bottom: 20px;
+    }
 
+        .password .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+            .password .input-group .form-control {
+                padding-right: 40px;
+            }
+
+        .password .input-group-append {
+            position: absolute;
+            right: 10px;
+            top: 38%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .password .input-group-text {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+            .password .input-group-text i {
+                color: #666;
+            }
+
+            .password .input-group-text:hover i {
+                color: #333;
+            }
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {

@@ -26,16 +26,16 @@
 							<input type="text" class="form-control form-control-user" asp-for="EmailOrUserName" autocomplete="off">
 							<span class="text-danger" asp-validation-for="EmailOrUserName"></span>
 						</div>
-						<div class="password">
-							<label>Password <span class="required">*</span></label>
-							<input type="password" class="form-control input-text form-control-user" asp-for="Password">
-							<div class="input-group-append">
-								<span class="input-group-text" onclick="togglePasswordVisibility()">
-									<i class="fa fa-eye" id="togglePasswordIcon"></i>
-								</span>
+							<div class="password">
+								<label>Password <span class="required">*</span></label>
+								<input type="password" class="form-control input-text form-control-user" asp-for="Password" id="passwordField">
+								<div class="input-group-append">
+									<span class="input-group-text" onclick="togglePasswordVisibility()">
+										<i class="fa fa-eye" id="togglePasswordIcon"></i>
+									</span>
+								</div>
+								<span class="text-danger" asp-validation-for="Password"></span>
 							</div>
-							<span class="text-danger" asp-validation-for="Password"></span>
-						</div>
 
 							<div class="rememberme-lost">
 								<div class="remember-me">
@@ -66,7 +66,23 @@
 <br />
 <br />
 
-		
+
+<script>
+	function togglePasswordVisibility() {
+		var passwordInput = document.getElementById('passwordField');
+		var toggleIcon = document.getElementById('togglePasswordIcon');
+
+		if (passwordInput.type === 'password') {
+			passwordInput.type = 'text';
+			toggleIcon.classList.remove('fa-eye');
+			toggleIcon.classList.add('fa-eye-slash');
+		} else {
+			passwordInput.type = 'password';
+			toggleIcon.classList.remove('fa-eye-slash');
+			toggleIcon.classList.add('fa-eye');
+		}
+	}
+</script>
 <script>
 	$(document).ready(function () {
 		$('.login').submit(function (e) {
@@ -124,3 +140,28 @@
 		}
 	});
 	</script>
+
+<style>
+	.password {
+		position: relative;
+	}
+
+		.password .input-group-append {
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			transform: translateY(-50%);
+			margin-top: 18px;
+		}
+
+		.password .input-group-text {
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+		}
+
+		.password .form-control {
+			padding-right: 40px; 
+		}
+</style>

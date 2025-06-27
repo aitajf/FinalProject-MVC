@@ -79,20 +79,6 @@ namespace MVC_FinalProject.Controllers
             return View(model);
         }
 
-
-
-
-
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> FilterByPricePartial(decimal? minPrice, decimal? maxPrice)
-        //{
-        //    var products = await _productService.FilterByPriceAsync(minPrice, maxPrice);
-        //    return PartialView("_ProductPartial", products);
-        //}
-
-
         [HttpGet]
         public async Task<IActionResult> ShowMore(int skip)
         {

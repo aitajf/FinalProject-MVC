@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using MVC_FinalProject.Helpers;
 using MVC_FinalProject.Helpers.Constants;
@@ -53,9 +54,15 @@ namespace MVC_FinalProject.Services
 
         public async Task<BlogPost> GetByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<BlogPost>($"{Urls.BlogPostUrl}GetById/{id}");
-        }
+            var response = await _httpClient.GetAsync($"{Urls.BlogPostUrl}GetById/{id}");
 
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return null;
+
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<BlogPost>();
+        }
         public async Task<HttpResponseMessage> DeleteAsync(int id)
         {
             return await _httpClient.DeleteAsync($"{Urls.BlogPostUrl}Delete?id={id}");

@@ -33,17 +33,11 @@ namespace MVC_FinalProject.Controllers
         public async Task<IActionResult> Detail(int id, int? editingReviewId = null)
         {
             if (id == 0)
-            {
-                ModelState.AddModelError(string.Empty, "Invalid product ID.");
-                return View("Index");
-            }
+                return RedirectToAction("Index", "NotFound"); 
 
             var product = await _productService.GetByIdAsync(id);
             if (product == null)
-            {
-                ModelState.AddModelError(string.Empty, "Product not found.");
-                return View("Index");
-            }
+                return RedirectToAction("Index", "NotFound");
 
 
             var reviews = await _reviewService.GetAllByProductIdAsync(id);
@@ -54,17 +48,6 @@ namespace MVC_FinalProject.Controllers
             {
                 ProductId = product.Id,
                 ProductName = product.Name,
-
-
-    //            Images = product.Images
-    //.Select((img, index) => new ProductImage
-    //{
-    //    Id = index, // fake Id
-    //    Img = img,
-    //    IsMain = img == product.MainImage
-    //}).ToList(),
-
-
                 Images = product.Images
                                 .Select(name => new ProductImage
                                 {

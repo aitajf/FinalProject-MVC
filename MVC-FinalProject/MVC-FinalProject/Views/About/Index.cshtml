@@ -67,7 +67,6 @@
 							</div>
 						</section>
 					}
-
 					@if (Model.AboutPromos != null && Model.AboutPromos.Any())
 					{
 						<section class="section section-padding m-b-70">
@@ -247,66 +246,33 @@
 								<div class="block-widget-wrap">
 									<div class="testimonial-wrap slick-wrap">
 										<div class="slick-sliders" data-slidestoscroll="true" data-nav="1" data-dots="0" data-columns4="1" data-columns3="1" data-columns2="1" data-columns1="1" data-columns="1">
-											<div class="testimonial-content">
-												<div class="item">
-													<div class="testimonial-item">
-														<div class="rating">
-															<div class="star star-5"></div>
+										
+											@foreach (var item in Model.Reviews.OrderByDescending(x=>x.CreatedAt).Take(4))
+											{
+												<div class="testimonial-content">
+													<div class="item">
+														<div class="testimonial-item">
+															<div>
+																<div>
+																	<a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.ProductId">
+																		<h2 class="testimonial-customer-name">@item.ProductName</h2>
+																	</a>
+																</div>
+															</div>
+															<div class="testimonial-excerpt">
+																”@item.Comment“
+															</div>
 														</div>
-														<div class="testimonial-excerpt">
-															” Wonderful communication and your company even sent a generous amount of samples to me, making my decision to spend money on an internet item easy. Thank you. Product quality is perfect. “
-														</div>
-													</div>
-													<div class="testimonial-image image-position-top">
-														<div class="thumbnail">
-															<img width="62" height="62" src="media/testimonial/1.jpg" alt="">
-														</div>
-														<div class="testimonial-info">
-															<h2 class="testimonial-customer-name">Robet Smith</h2>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="testimonial-content">
-												<div class="item">
-													<div class="testimonial-item">
-														<div class="rating">
-															<div class="star star-4"></div>
-														</div>
-														<div class="testimonial-excerpt">
-															” Wonderful communication and your company even sent a generous amount of samples to me, making my decision to spend money on an internet item easy. Thank you. Product quality is perfect. “
-														</div>
-													</div>
-													<div class="testimonial-image image-position-top">
-														<div class="thumbnail">
-															<img width="62" height="62" src="media/testimonial/2.jpg" alt="">
-														</div>
-														<div class="testimonial-info">
-															<h2 class="testimonial-customer-name">Saitama One</h2>
+														<div class="testimonial-image image-position-top">
+															<div class="testimonial-info">
+																<h2 class="testimonial-customer-name">@item.UserName</h2>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div class="testimonial-content">
-												<div class="item">
-													<div class="testimonial-item">
-														<div class="rating">
-															<div class="star star-5"></div>
-														</div>
-														<div class="testimonial-excerpt">
-															” Wonderful communication and your company even sent a generous amount of samples to me, making my decision to spend money on an internet item easy. Thank you. Product quality is perfect. “
-														</div>
-													</div>
-													<div class="testimonial-image image-position-top">
-														<div class="thumbnail">
-															<img width="62" height="62" src="media/testimonial/3.jpg" alt="">
-														</div>
-														<div class="testimonial-info">
-															<h2 class="testimonial-customer-name">Sara Colinton</h2>
-														</div>
-													</div>
-												</div>
-											</div>
+
+											}
+											
 										</div>
 									</div>
 								</div>
@@ -326,8 +292,8 @@
 												{
 													<div class="item slick-slide">
 														<div class="item-image">
-															<a href="#">
-																<img width="450" height="450" src="@item.Image" alt="Brand 1">
+															<a href="/Shop/Index?brandName=@Uri.EscapeDataString(item.Name)">
+																<img width="450" height="450" src="@item.Image">
 															</a>
 														</div>
 													</div>

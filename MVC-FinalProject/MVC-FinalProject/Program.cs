@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Session;
 using Service;
@@ -25,6 +26,8 @@ builder.Services.AddAuthentication("MyCookieAuth")
 builder.Services.AddAuthorization();
 
 builder.Services.AddDistributedMemoryCache();
+
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromDays(1);
@@ -87,6 +90,8 @@ app.Use(async (context, next) =>
         var identity = new ClaimsIdentity(claims, "jwt");
         var principal = new ClaimsPrincipal(identity);
         context.User = principal;
+
+        Thread.CurrentPrincipal = principal;
     }
 
     await next();
@@ -94,6 +99,49 @@ app.Use(async (context, next) =>
 
 
 app.UseAuthentication();
+
+//app.Use(async (context, next) =>
+//{
+//    var token = context.Session.GetString("AuthToken");
+
+//    if (!string.IsNullOrEmpty(token))
+//    {
+//        var handler = new JwtSecurityTokenHandler();
+//        var jwtToken = handler.ReadJwtToken(token);
+
+//        var claims = jwtToken.Claims.Select(c =>
+//        {
+//            if (c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+//                return new Claim(ClaimTypes.NameIdentifier, c.Value);
+
+//            if (c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+//                return new Claim(ClaimTypes.Role, c.Value);
+
+//            return new Claim(c.Type, c.Value);
+//        });
+
+//        var identity = new ClaimsIdentity(claims, "jwt");
+//        var principal = new ClaimsPrincipal(identity);
+//        context.User = principal;
+//        Thread.CurrentPrincipal = principal;
+//    }
+//    else
+//    {
+//        // SESSION YOXDURSA, COOKIE VARSA — İSTİFADƏÇİYƏ İCAZƏ VERİLMƏMƏLİDİR
+//        if (context.User.Identity != null && context.User.Identity.IsAuthenticated)
+//        {
+//            await context.SignOutAsync("MyCookieAuth");
+//            context.Response.Cookies.Delete(".AspNetCore.MyCookieAuth");
+
+//            // UI-də problem olmasın deyə redirect et
+//            context.Response.Redirect("/Home/Index");
+//            return;
+//        }
+//    }
+
+//    await next();
+//});
+
 
 app.UseStatusCodePages(async context =>
 {
@@ -111,17 +159,17 @@ app.UseStatusCodePages(async context =>
 app.UseAuthorization();
 
 
-//app.UseStatusCodePages(async context =>
-//{
-//    var response = context.HttpContext.Response;
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
 
-//    if (response.StatusCode == 404)
-//    {
-//        response.Redirect("/NotFound/Index");
-//    }
+    if (response.StatusCode == 404)
+    {
+        response.Redirect("/NotFound/Index");
+    }
 
-//    await Task.CompletedTask; // await use
-//});
+    await Task.CompletedTask; // await use
+});
 
 app.MapControllerRoute(
     name: "areas",
@@ -130,6 +178,5 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-//app.MapControllers(); 
 
 app.Run();

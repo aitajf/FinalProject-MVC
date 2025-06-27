@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using System.Text;
+using System.Net;
 
 namespace MVC_FinalProject.Services
 {
@@ -146,11 +147,23 @@ namespace MVC_FinalProject.Services
             return await _httpClient.DeleteAsync($"{Urls.ProductUrl}Delete/{id}");
         }
 
+        //public async Task<Product> GetByIdAsync(int id)
+        //{
+        //    return await _httpClient.GetFromJsonAsync<Product>($"{Urls.ProductUrl}GetById/{id}");
+        //}
+
         public async Task<Product> GetByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<Product>($"{Urls.ProductUrl}GetById/{id}");
-        } 
-        
+            var response = await _httpClient.GetAsync($"{Urls.ProductUrl}GetById/{id}");
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return null;
+
+            response.EnsureSuccessStatusCode(); 
+
+            return await response.Content.ReadFromJsonAsync<Product>();
+        }
+
         public async Task<Product> GetByIdWithIncludesAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<Product>($"{Urls.ProductUrl}GetByIdWithIncludesAsync/{id}");
