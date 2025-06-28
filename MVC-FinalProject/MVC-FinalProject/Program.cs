@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Session;
 using MVC_FinalProject;
 using Service;
+using Stripe;
 using SessionMiddleware = MVC_FinalProject.SessionMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,13 +70,14 @@ else
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<GlobalExceptionHandler>();
+//app.UseMiddleware<GlobalExceptionHandler>();
 
 app.UseStaticFiles();
 
 app.UseSession();
 app.UseMiddleware<SessionMiddleware>();
 app.UseRouting();
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 app.Use(async (context, next) =>
 {
@@ -106,51 +108,7 @@ app.Use(async (context, next) =>
     await next();
 });
 
-
 app.UseAuthentication();
-
-//app.Use(async (context, next) =>
-//{
-//    var token = context.Session.GetString("AuthToken");
-
-//    if (!string.IsNullOrEmpty(token))
-//    {
-//        var handler = new JwtSecurityTokenHandler();
-//        var jwtToken = handler.ReadJwtToken(token);
-
-//        var claims = jwtToken.Claims.Select(c =>
-//        {
-//            if (c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-//                return new Claim(ClaimTypes.NameIdentifier, c.Value);
-
-//            if (c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
-//                return new Claim(ClaimTypes.Role, c.Value);
-
-//            return new Claim(c.Type, c.Value);
-//        });
-
-//        var identity = new ClaimsIdentity(claims, "jwt");
-//        var principal = new ClaimsPrincipal(identity);
-//        context.User = principal;
-//        Thread.CurrentPrincipal = principal;
-//    }
-//    else
-//    {
-//        // SESSION YOXDURSA, COOKIE VARSA — İSTİFADƏÇİYƏ İCAZƏ VERİLMƏMƏLİDİR
-//        if (context.User.Identity != null && context.User.Identity.IsAuthenticated)
-//        {
-//            await context.SignOutAsync("MyCookieAuth");
-//            context.Response.Cookies.Delete(".AspNetCore.MyCookieAuth");
-
-//            // UI-də problem olmasın deyə redirect et
-//            context.Response.Redirect("/Home/Index");
-//            return;
-//        }
-//    }
-
-//    await next();
-//});
-
 
 app.UseStatusCodePages(async context =>
 {
@@ -168,17 +126,17 @@ app.UseStatusCodePages(async context =>
 app.UseAuthorization();
 
 
-app.UseStatusCodePages(async context =>
-{
-    var response = context.HttpContext.Response;
+//app.UseStatusCodePages(async context =>
+//{
+//    var response = context.HttpContext.Response;
 
-    if (response.StatusCode == 404)
-    {
-        response.Redirect("/NotFound/Index");
-    }
+//    if (response.StatusCode == 404)
+//    {
+//        response.Redirect("/NotFound/Index");
+//    }
 
-    await Task.CompletedTask; // await use
-});
+//    await Task.CompletedTask; // await use
+//});
 
 app.UseStatusCodePages(async context =>
 {

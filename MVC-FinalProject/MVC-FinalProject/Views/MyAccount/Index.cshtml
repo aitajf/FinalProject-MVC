@@ -31,18 +31,21 @@
 										</li>
 										
 										<li class="nav-item">
-											<a class="nav-link" data-toggle="tab" href="#account-details" role="tab">Account details</a>
+											<a class="nav-link" data-toggle="tab" href="#account-details" role="tab">Edit Account</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="page-login.html">Logout</a>
-										</li>
+											<form asp-controller="Account" asp-action="LogOut" method="post" style="display:inline;">
+													<button type="submit" title="Log Out" style="font-weight: 500;">
+                                                      Logout  </button>
+											</form>
+										</li>		
 									</ul>
 								</nav>
 								<div class="my-account-content tab-content">
 									<div class="tab-pane fade show active" id="dashboard" role="tabpanel">
 										<div class="my-account-dashboard">
 											<p>
-												Hello <strong>Rosie</strong> (not <strong>Rosie</strong>? <a href="page-login.html">Log out</a>)
+												Hello <strong>Rosie</strong> (not <strong>Rosie</strong>? <a asp-controller="Account" asp-action="Register">Register</a>)
 											</p>
 											<p>
 												From your account dashboard you can view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a>, and <a href="#">edit your password and account details</a>.
@@ -90,65 +93,36 @@
 										</div>
 									</div>
 									<div class="tab-pane fade" id="account-details" role="tabpanel">
-										@* <div class="my-account-account-details"> *@
-										@* 	<form class="edit-account" action="" method="post">			 *@
-										@* 		<div class="clear"></div>												 *@
-										@* 		<fieldset> *@
-										@* 			<legend>Email change</legend>							 *@
-										@* 			<p class="form-row"> *@
-										@* 				<label>New Email (leave blank to leave unchanged)</label> *@
-										@* 				<input type="password" class="input-text" name="password_1" autocomplete="off"> *@
-										@* 			</p> *@
-										@* 		</fieldset> *@
-										@* 		<div class="clear"></div> *@
-										@* 		<p class="form-row"> *@
-										@* 			<button type="submit" class="button" name="save_account_details" value="Save changes">Save changes</button> *@
-										@* 		</p> *@
-										@* 	</form> *@
-										@* </div> *@
-
-
-										<div class="my-account-account-details">
-
-											<!-- Email Change Form -->
-											<form asp-action="ChangeEmail" method="post" class="edit-account">
+										<div class="my-account-account-details">	
+											<form id="emailForm" asp-action="ChangeEmail" asp-controller="MyAccount" method="post">
 												@Html.AntiForgeryToken()
 												<fieldset>
 													<legend>Change Email</legend>
+													<input name="NewEmail" class="form-control" autocomplete="off" />
 													<p class="form-row">
-														<label>New Email</label>
-														<input name="NewEmail" class="input-text form-control" autocomplete="off" />
-													</p>
-													<p class="form-row">
-														<button type="submit" class="button btn btn-primary">Save Email</button>
+													<button type="submit" class="button btn btn-primary">Save</button>
 													</p>
 												</fieldset>
-												@if (TempData["EmailMessage"] != null)
-												{
-													<div class="alert alert-info">@TempData["EmailMessage"]</div>
-												}
 											</form>
+
+											<div id="emailResult"></div>
 
 											<hr />
 
-											<!-- Username Change Form -->
-											<form asp-action="ChangeUsername" method="post" class="edit-account mt-4">
+											
+											<form id="usernameForm" asp-action="ChangeUsername" asp-controller="MyAccount" method="post">
 												@Html.AntiForgeryToken()
 												<fieldset>
 													<legend>Change Username</legend>
+													<input name="NewUsername" class="form-control" autocomplete="off" />
 													<p class="form-row">
-														<label>New Username</label>
-														<input name="NewUsername" class="input-text form-control" autocomplete="off" />
-													</p>
-													<p class="form-row">
-														<button type="submit" class="button btn btn-primary">Save Username</button>
+													<button type="submit" class="button btn btn-primary">Save</button>
 													</p>
 												</fieldset>
-												@if (TempData["UsernameMessage"] != null)
-												{
-													<div class="alert alert-info">@TempData["UsernameMessage"]</div>
-												}
 											</form>
+
+											<div id="usernameResult"></div>
+
 										</div>
 									</div>
 								</div>
@@ -160,3 +134,67 @@
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
 </div>
+
+@section Scripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function () {
+			$("#usernameForm").submit(function (e) {
+				e.preventDefault();
+
+				let form = $(this);
+				let data = form.serialize();
+
+				$.ajax({
+					type: "POST",
+					url: form.attr("action"),
+					data: data,
+					success: function (res) {
+						$("#usernameResult").html(`<div class="alert alert-success">${res.message}</div>`);
+
+						if (res.redirectToLogin) {
+							setTimeout(() => {
+								window.location.href = "/Account/Login";
+							}, 2000);
+						}
+					},
+					error: function (xhr) {
+						const msg = xhr.responseJSON?.message ?? "An error occurred.";
+						$("#usernameResult").html(`<div class="alert alert-danger">${msg}</div>`);
+					}
+				});
+			});
+		});
+	</script>
+
+	<script>
+		$(function () {
+			$("#emailForm").submit(function (e) {
+				e.preventDefault();
+
+				let form = $(this);
+				let data = form.serialize();
+
+				$.ajax({
+					type: "POST",
+					url: form.attr("action"),
+					data: data,
+					success: function (res) {
+						$("#emailResult").html(`<div class="alert alert-success">${res.message}</div>`);
+
+						if (res.redirectToLogin) {
+							setTimeout(() => {
+								window.location.href = "/Account/Login";
+							}, 2000);
+						}
+					},
+					error: function (xhr) {
+						const msg = xhr.responseJSON?.message ?? "An error occurred.";
+						$("#emailResult").html(`<div class="alert alert-danger">${msg}</div>`);
+					}
+				});
+			});
+		});
+	</script>
+
+}

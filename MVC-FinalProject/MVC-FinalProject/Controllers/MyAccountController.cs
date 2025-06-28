@@ -31,42 +31,80 @@ namespace MVC_FinalProject.Controllers
 
             return View(model);
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> ChangeEmail(UpdateEmail model)
+        //{
+        //    var token = HttpContext.Session.GetString("AuthToken");
+        //    if (string.IsNullOrEmpty(token)) return RedirectToAction("Login", "Account");
+
+        //    if (string.IsNullOrWhiteSpace(model.NewEmail))
+        //    {
+        //        TempData["EmailMessage"] = "Email is required.";
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    var result = await _accountService.UpdateEmailAsync(model, token);
+        //    TempData["EmailMessage"] = result;
+
+        //    if (result.Contains("success", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeEmail(UpdateEmail model)
         {
             var token = HttpContext.Session.GetString("AuthToken");
-            if (string.IsNullOrEmpty(token)) return RedirectToAction("Login", "Account");
+            if (string.IsNullOrEmpty(token))
+                return Unauthorized(new { message = "Please login again." });
 
             if (string.IsNullOrWhiteSpace(model.NewEmail))
             {
-                TempData["EmailMessage"] = "Email is required.";
-                return RedirectToAction(nameof(Index));
+                return BadRequest(new { message = "Email is required." });
             }
 
             var result = await _accountService.UpdateEmailAsync(model, token);
-            TempData["EmailMessage"] = result;
 
-            return RedirectToAction("Login", "Account");
+            if (result.Contains("success", StringComparison.OrdinalIgnoreCase))
+            {
+                return Ok(new { message = result, redirectToLogin = true });
+            }
+
+            return BadRequest(new { message = result });
         }
+
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeUsername(UpdateUsername model)
         {
             var token = HttpContext.Session.GetString("AuthToken");
-            if (string.IsNullOrEmpty(token)) return RedirectToAction("Login", "Account");
+            if (string.IsNullOrEmpty(token))
+                return Unauthorized(new { message = "Please login again." });
 
             if (string.IsNullOrWhiteSpace(model.NewUsername))
             {
-                TempData["UsernameMessage"] = "Username is required.";
-                return RedirectToAction(nameof(Index));
+                return BadRequest(new { message = "Username is required." });
             }
 
             var result = await _accountService.UpdateUsernameAsync(model, token);
-            TempData["UsernameMessage"] = result;
 
-            return RedirectToAction("Login", "Account");
+            if (result.Contains("success", StringComparison.OrdinalIgnoreCase))
+            {
+                return Ok(new { message = result, redirectToLogin = true });
+            }
+
+            return BadRequest(new { message = result });
         }
+
     }
 }

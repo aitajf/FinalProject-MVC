@@ -145,7 +145,9 @@
                                             <div>
                                                 <div class="order-total">
                                                     <div class="title">Total</div>
-                                                    <div><span id="cart-total">@Model.Basket.TotalPrice</span></div>
+                                                    <div class="size-209">
+                                                        <span id="cart-total" class="mtext-110 cl2">@Model.Basket.TotalPrice</span>
+                                                   </div>
                                                 </div>
 
                                                 <div class="order-total">
@@ -162,8 +164,12 @@
 
                                             </div>
                                             <div class="proceed-to-checkout">
-                                                <a asp-controller="Checkout" asp-action="Index" class="checkout-button button">
-                                                    Proceed to checkout
+                                                @* <a asp-controller="Checkout" asp-action="Index" class="checkout-button button"> *@
+                                                @*     Proceed to checkout *@
+                                                @* </a> *@
+
+                                                <a id="proceedToCheckout" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
+                                                    Proceed to Checkout
                                                 </a>
                                             </div>
                                         </div>
@@ -177,6 +183,46 @@
         </div><!-- #primary -->
     </div><!-- #main-content -->
 </div>
+
+
+
+<script>
+    document.getElementById('proceedToCheckout').addEventListener('click', function () {
+        var totalPrice = document.querySelector('div.size-209 > span.mtext-110').textContent.replace('$', '').trim();
+
+        fetch('/Checkout/Checkout', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ totalPrice: parseFloat(totalPrice) })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Əgər uğurludursa, JSON formatında cavabı oxuyuruq
+                } else {
+                    throw new Error('Something wrong');
+                }
+            })
+            .then(data => {
+                console.error('Xəta baş verdi:', totalPrice);
+                alert('Xəta baş verdi: ' + totalPrice);
+            })
+            .catch(error => {
+
+
+                // Serverin cavabını işləyir
+             //   console.log('Server cavabı:', data);
+                // Burada checkout səhifəsinə yönləndirə bilərsiniz
+                window.location.href = `/Checkout/Checkout?data=${totalPrice}`;
+            });
+    });    
+</script>
+
+
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -286,7 +332,6 @@
       });
     });
 </script>
-
 @section Scripts {
     <script>
                document.getElementById("apply-coupon").addEventListener("click", async function () {
