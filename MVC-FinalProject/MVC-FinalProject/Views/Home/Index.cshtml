@@ -99,7 +99,7 @@
 																				<img width="600" height="600" src="@item.Images.Where(img => img != item.MainImage).FirstOrDefault()" class="hover-image back" alt="">																		
 																			</a>
 																		</div>
-																		<div class="product-button">
+																		<div class="product-button" data-title="Wishlist">
 																			<form asp-controller="Wishlist" asp-action="AddToWishlist" method="post">
 																				<input type="hidden" name="productId" value="@item.Id" />
 																				<button type="submit" class="product-btn">Add to wishlist</button>
@@ -248,7 +248,7 @@
 															</div>
 															<div class="content-lookbook-bottom">
 																<div class="item-title">
-																	<a href="shop-details.html">@latestProducts[i].Name</a>
+																	<span>@latestProducts[i].Name</span>
 																</div>
 																<span class="price">
 																	<ins><span>$@latestProducts[i].Price</span></ins>

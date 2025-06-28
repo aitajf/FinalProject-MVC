@@ -1,15 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using MVC_FinalProject.Models.Basket;
-using Newtonsoft.Json;
 using Stripe.Checkout;
 
 namespace MVC_FinalProject.Controllers
 {
     public class CheckoutController : Controller
     {
-
         private readonly HttpClient _httpClient;
         public CheckoutController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
@@ -67,16 +64,16 @@ namespace MVC_FinalProject.Controllers
         [HttpGet]
         public async Task<IActionResult> CheckOut([FromQuery] decimal data)
         {
-            var domain = "http://localhost:7169/";
+            
+            var domain = "https://localhost:7169/";
 
             var options = new SessionCreateOptions
             {
-                SuccessUrl = domain + $"Home/Index",
+                SuccessUrl = domain + $"home/index",
                 CancelUrl = domain + "home/index",
                 LineItems = new List<SessionLineItemOptions>(),
                 Mode = "payment",
             };
-
 
             var sessionListItem = new SessionLineItemOptions
             {
@@ -93,7 +90,6 @@ namespace MVC_FinalProject.Controllers
             };
             options.LineItems.Add(sessionListItem);
 
-
             var service = new SessionService();
             Session session = service.Create(options);
 
@@ -108,10 +104,10 @@ namespace MVC_FinalProject.Controllers
             await DeleteBasket(userid);
 
             // 3. Sonra cavab header-larını yaz və yönləndir
+           
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
-
 
         //public async Task<IActionResult> DeleteProductsByUserId(string userId)
         //{
@@ -147,9 +143,9 @@ namespace MVC_FinalProject.Controllers
 
         private async Task DeleteBasket(string userId)
         {
-            var response = await _httpClient.DeleteAsync($"api/Basket/DeleteBasketProduct/{userId}");
-            if (!response.IsSuccessStatusCode) { }
+            var response = await _httpClient.DeleteAsync($"https://localhost:7004/api/Basket/DeleteBasketProduct/{userId}");
 
+            if (!response.IsSuccessStatusCode) { }
         }
     }
 }

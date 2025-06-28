@@ -57,7 +57,9 @@
                                                     </div>
                                                     <div class="wishlist-item-add">
                                                         <div class="btn-add-to-cart" data-title="Add to cart">
-                                                            <a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
+                                                            <a asp-controller="ProductDetail" asp-action="Detail" asp-route-id="@item.ProductId">
+                                                                Add to cart
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </td>

@@ -124,25 +124,40 @@
 					<div class="section-container p-l-r">
 						<div class="post-details no-sidebar">
 							<div class="post-image">
-								<img src="@Model.BlogPostImgs.FirstOrDefault(x=>x.IsMain)?.Image" alt="">
+								<img src="@Model.BlogPostImgs.FirstOrDefault(x=>x.IsMain)?.Image" alt="" style="max-width: 60%; height: 25rem; margin-left: 19rem;">
 							</div>
 							<h2 class="post-title text-center">
 								@Model.PostName
 							</h2>
 							<div class="post-meta">
-								<span class="post-categories"><i class="icon_folder-alt"></i> <a href="blog-grid-right.html">@Model.BlogCategory</a></span>
+								<span class="post-categories"><i class="icon_folder-alt"></i> <span>@Model.BlogCategory</span></span>
 								<span class="post-time"><i class="icon_clock_alt"></i> @Model.CreatedDate</span>
 							</div>
 							<div class="post-content clearfix">
 								<p>@Model.Description</p>
 								<blockquote><p><i class="icon-quote"></i>"@Model.HighlightText”</p></blockquote>
 								<div class="content-img">
-	                           	<img width="1410" height="460"
-	                             src="@(
-                                   Model.BlogPostImgs.FirstOrDefault(x => !x.IsMain)?.Image
-                                   ?? Model.BlogPostImgs.FirstOrDefault(x => x.IsMain)?.Image
-                                    )"									 alt="">
+									@{
+										var otherImgs = Model.BlogPostImgs.Where(x => !x.IsMain).ToList();
+									}
+
+									@if (otherImgs.Any())
+									{
+										foreach (var img in otherImgs)
+										{
+											<img src="@img.Image" alt="" style="max-width: 60%; height: 25rem; margin-left: 19rem;">
+										}
+									}
+									else
+									{
+										var mainImg = Model.BlogPostImgs.FirstOrDefault(x => x.IsMain);
+										if (mainImg != null)
+										{
+											<img src="@mainImg.Image" alt="" style="max-width: 60%; height: 25rem; margin-left: 19rem;">
+										}
+									}
 								</div>
+
 							</div>
 							<div class="post-content-entry">			
 								<div class="entry-social-share">
