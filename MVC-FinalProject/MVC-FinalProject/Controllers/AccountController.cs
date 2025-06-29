@@ -131,19 +131,15 @@ namespace MVC_FinalProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgetPassword(string email)
+        public async Task<IActionResult> ForgetPassword([FromBody] string email)
         {
-            var responseMessage = await _accountService.ForgetPasswordAsync(email);
+            var response = await _accountService.ForgetPasswordAsync(email);
 
-            if (responseMessage == "Email cannot be empty.")
-            {
-                ModelState.AddModelError("", responseMessage);
-                return View();
-            }
-
-            TempData["Message"] = responseMessage;
-            return RedirectToAction("ForgetPasswordConfirmation");
+            if (response.StatusCode == 400 || response.StatusCode == 404)
+                return BadRequest(new { error = response.ResponseMessage });
+            return Ok(new { redirectUrl = Url.Action("ForgetPasswordConfirmation", "Account") });
         }
+
 
         public IActionResult ForgetPasswordConfirmation()
         {
@@ -161,10 +157,6 @@ namespace MVC_FinalProject.Controllers
 
             return View(model);
         }
-
-     
-
-
 
         [HttpPost]
         public async Task<IActionResult> ResetPassword(UserPassword userPasswordVM)
@@ -196,8 +188,6 @@ namespace MVC_FinalProject.Controllers
             return View();
         }
 
-       
-
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
@@ -214,6 +204,5 @@ namespace MVC_FinalProject.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

@@ -168,7 +168,7 @@
                                                 @*     Proceed to checkout *@
                                                 @* </a> *@
 
-                                                <a id="proceedToCheckout" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
+                                                <a id="proceedToCheckout" class="checkout-button button flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
                                                     Proceed to Checkout
                                                 </a>
                                             </div>
@@ -199,7 +199,7 @@
         })
             .then(response => {
                 if (response.ok) {
-                    return response.json(); // Əgər uğurludursa, JSON formatında cavabı oxuyuruq
+                    return response.json();
                 } else {
                     throw new Error('Something wrong');
                 }
@@ -209,11 +209,6 @@
                 alert('Xəta baş verdi: ' + totalPrice);
             })
             .catch(error => {
-
-
-                // Serverin cavabını işləyir
-             //   console.log('Server cavabı:', data);
-                // Burada checkout səhifəsinə yönləndirə bilərsiniz
                 window.location.href = `/Checkout/Checkout?data=${totalPrice}`;
             });
     });    

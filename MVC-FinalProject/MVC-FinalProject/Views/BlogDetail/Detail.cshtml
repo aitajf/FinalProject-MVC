@@ -1,107 +1,163 @@
-﻿
-@model PostReviewPage
-
-<style>
-	.review-form {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 20px;
-		font-family: Arial, sans-serif;
-	}
-
-	.form-group {
-		margin-bottom: 20px;
-	}
-
-	.form-row {
-		display: flex;
-		gap: 15px;
-		flex-wrap: wrap;
-	}
-
-	.form-group.half-width {
-		flex: 1;
-		min-width: 250px;
-	}
-
-	.form-group.full-width {
-		width: 100%;
-	}
-
-	label {
-		display: block;
-		margin-bottom: 5px;
-		font-weight: bold;
-		color: #333;
-	}
-
-	.form-control {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #ddd;
-		border-radius: 4px;
-		font-size: 14px;
-		box-sizing: border-box;
-	}
-
-		.form-control:focus {
-			outline: none;
-			border-color: #333;
-			box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+﻿@section Css{
+	<style>
+		.review-form {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			font-family: Arial, sans-serif;
 		}
 
-	textarea.form-control {
-		resize: vertical;
-		min-height: 120px;
-	}
-
-	.comment-notes {
-		color: #666;
-		font-size: 14px;
-		margin-bottom: 20px;
-		font-style: italic;
-	}
-
-	.btn-post {
-		background-color: #000;
-		color: white;
-		padding: 12px 24px;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		font-size: 16px;
-		transition: background-color 0.3s;
-	}
-
-		.btn-post:hover {
-			background-color: #333;
+		.form-group {
+			margin-bottom: 20px;
 		}
 
-	.button-outline {
-		background-color: transparent;
-		color: #000;
-		border: 2px solid #000;
-	}
+		.form-row {
+			display: flex;
+			gap: 15px;
+			flex-wrap: wrap;
+		}
 
-		.button-outline:hover {
+		.form-group.half-width {
+			flex: 1;
+			min-width: 250px;
+		}
+
+		.form-group.full-width {
+			width: 100%;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.form-control {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			font-size: 14px;
+			box-sizing: border-box;
+		}
+
+			.form-control:focus {
+				outline: none;
+				border-color: #333;
+				box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+			}
+
+		textarea.form-control {
+			resize: vertical;
+			min-height: 120px;
+		}
+
+		.comment-notes {
+			color: #666;
+			font-size: 14px;
+			margin-bottom: 20px;
+			font-style: italic;
+		}
+
+		.btn-post {
 			background-color: #000;
 			color: white;
+			padding: 12px 24px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 16px;
+			transition: background-color 0.3s;
 		}
 
-	/* Responsive design */
-	media (max-width: 768px) {
-		.form-row
+			.btn-post:hover {
+				background-color: #333;
+			}
 
-	{
-		flex-direction: column;
-	}
+		.button-outline {
+			background-color: transparent;
+			color: #000;
+			border: 2px solid #000;
+		}
 
-	.form-group.half-width {
-		min-width: 100%;
-	}
+			.button-outline:hover {
+				background-color: #000;
+				color: white;
+			}
 
-	}
-</style>
+		/* Responsive design */
+		media (max-width: 768px) {
+			.form-row
+
+		{
+			flex-direction: column;
+		}
+
+		.form-group.half-width {
+			min-width: 100%;
+		}
+
+		}
+	</style>
+
+	<style>
+		.review {
+			margin-bottom: 20px;
+		}
+
+		.content-comment-container {
+			background-color: #f8f9fa;
+			padding: 15px;
+			border-radius: 10px;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+			position: relative;
+		}
+
+		.review-author {
+			font-weight: bold;
+		}
+
+		.review-time {
+			font-size: 0.9rem;
+			color: #6c757d;
+		}
+
+		.edit-review-btn {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			color: #007bff;
+			font-size: 0.9rem;
+		}
+
+			.edit-review-btn:hover {
+				text-decoration: underline;
+			}
+
+		.review-comment-text {
+			margin-top: 10px;
+			font-size: 1rem;
+		}
+
+		form[id^="edit-form-"] {
+			margin-top: 15px;
+		}
+
+		.edit-form-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 10px;
+			margin-top: 10px;
+		}
+
+		textarea.form-control {
+			resize: vertical;
+		}
+	</style>
+}
+@model PostReviewPage
+
 
 <div id="site-main" class="site-main">
 	<div id="main-content" class="main-content">
@@ -255,29 +311,7 @@
 									</div>
 								</div>
 								<div class="comment-form">
-									<span id="reply-title" class="comment-reply-title">Add a review</span>
-									@* <form asp-controller="BlogDetail" asp-action="AddReview" method="post"> *@
-									@* 	<input type="hidden" name="PostId" value="@Model.PostId" /> *@
-
-									@* 	<div class="comment-notes col-md-12 col-sm-12">Your email address will not be published.</div> *@
-									@* 	<div class="form-group col-md-6 col-sm-6"> *@
-         @*                                        <label>Name *</label>  *@
-									@* 			<input name="UserName" type="text" class="form-control" value="@User.Identity.Name" required /> </div> *@
-									@* 	<div class="form-group col-md-6 col-sm-6"> *@
-         @*                                        <label>Email *</label>  *@
-									@* 			<input name="UserEmail" type="email" class="form-control" required /> 				 *@
-									@* 	</div> *@
-
-									@* 	<div class="form-group col-md-12 col-sm-12"> *@
-         @*                                          <label>Your Review *</label>  *@
-								 @* 					<textarea name="Comment" class="form-control" rows="5" required minlength="3" maxlength="2000"></textarea> 										</div> *@
-									
-									@* 	<div class="form-group col-md-12"> *@
-									@* 		<input name="submit" type="submit" id="submit" class="btn button-outline" value="Post Comment"> *@
-									@* 	</div> *@
-									@* </form> *@
-
-
+									<span id="reply-title" class="comment-reply-title">Add a review</span>								
 									<div class="review-form">
 										<form asp-controller="BlogDetail" asp-action="AddReview" method="post">
 											<input type="hidden" name="PostId" value="@Model.PostId" />
@@ -319,125 +353,5 @@
 
 @section Scripts {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-	<script>
-		// ------------------- TOKEN -------------------
-		function getToken() {
-			return 'HttpContextAccessor.HttpContext.Session.GetString("AuthToken")';
-		}
-
-		// ------------------- EDIT -------------------
-		function toggleEditForm(id) {
-			$("#edit-form-" + id).toggle();
-		}
-
-		$(document).on("submit", "form[id^='edit-form-']", function (e) {
-			e.preventDefault();
-			const form = $(this);
-			const data = form.serialize();
-			const reviewId = form.find("input[name='Id']").val();
-
-			$.ajax({
-				url: `/BlogDetail/EditReview/${reviewId}`,
-				type: "POST",
-				data: data,
-				headers: {
-					"Authorization": "Bearer " + getToken()
-				},
-					   success: function (res) {
-			$(`li[data-review-id='${reviewId}'] .review-comment-text`).text(res.comment);
-			toggleEditForm(reviewId);
-		},
-
-				error: function (xhr) {
-				 alert("Redaktə zamanı xəta baş verdi: " + xhr.responseText);
-				}
-			});
-		});
-
-		// ------------------- DELETE -------------------
-				$(document).on("submit", ".delete-review-form", function (e) {
-			e.preventDefault();
-
-			const form = $(this);
-			const data = form.serialize();
-			const reviewId = form.find("input[name='id']").val();
-
-			$.ajax({
-				url: `/BlogDetail/DeleteReview`,
-				type: "POST",
-				data: data,
-				success: function () {
-					$(`li[data-review-id='${reviewId}']`).remove();
-				},
-				error: function (xhr) {
-					 alert("Silinmə zamanı xəta: " + xhr.responseText);
-				}
-			});
-		});
-	</script>
+	<script src="~/assets/js/blog-detail.js"></script>
 }
-
-<script>
-	function toggleEditForm(id) {
-		const form = document.getElementById(`edit-form-${id}`);
-		if (form) {
-			form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
-		}
-	}
-</script>
-
-<style>
-	.review {
-		margin-bottom: 20px;
-	}
-
-	.content-comment-container {
-		background-color: #f8f9fa;
-		padding: 15px;
-		border-radius: 10px;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-		position: relative;
-	}
-
-	.review-author {
-		font-weight: bold;
-	}
-
-	.review-time {
-		font-size: 0.9rem;
-		color: #6c757d;
-	}
-
-	.edit-review-btn {
-		position: absolute;
-		top: 15px;
-		right: 15px;
-		color: #007bff;
-		font-size: 0.9rem;
-	}
-
-		.edit-review-btn:hover {
-			text-decoration: underline;
-		}
-
-	.review-comment-text {
-		margin-top: 10px;
-		font-size: 1rem;
-	}
-
-	form[id^="edit-form-"] {
-		margin-top: 15px;
-	}
-
-	.edit-form-buttons {
-		display: flex;
-		justify-content: center;
-		gap: 10px;
-		margin-top: 10px;
-	}
-
-	textarea.form-control {
-		resize: vertical;
-	}
-</style>

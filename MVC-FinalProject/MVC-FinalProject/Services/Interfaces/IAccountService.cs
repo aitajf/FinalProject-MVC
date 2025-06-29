@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MVC_FinalProject.Helpers;
 using MVC_FinalProject.Helpers.Constants;
 using MVC_FinalProject.Models.Account;
 
@@ -11,7 +12,7 @@ namespace MVC_FinalProject.Services.Interfaces
         Task<HttpResponseMessage> Register(Register model);
         Task<HttpResponseMessage> Login(Login model);
         Task<string> ResetPasswordAsync(UserPassword model);
-        Task<string> ForgetPasswordAsync(string email);
+        Task<ResponseObject> ForgetPasswordAsync(string email);
         Task<List<UserRole>> GetAllUsersAsync();
         Task<string> AddRoleAsync(string username, string roleName);
         Task<string> RemoveRoleAsync(string username, string roleName);

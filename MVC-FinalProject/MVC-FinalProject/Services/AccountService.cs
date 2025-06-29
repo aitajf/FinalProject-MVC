@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Net.Http.Headers;
+using MVC_FinalProject.Helpers;
 
 namespace MVC_FinalProject.Services
 {
@@ -30,15 +31,41 @@ namespace MVC_FinalProject.Services
         {
             return await _httpClient.PostAsJsonAsync($"{Urls.AccountClientUrl}Login", model);
         }
-        public async Task<string> ForgetPasswordAsync(string email)
+
+
+        //public async Task<string> ForgetPasswordAsync(string email)
+        //{
+        //    if (string.IsNullOrEmpty(email)) return "Email cannot be empty.";
+
+        //    var content = new StringContent($"\"{email}\"", Encoding.UTF8, "application/json");
+        //    var response = await _httpClient.PostAsync($"{Urls.AccountClientUrl}ForgetPassword", content);
+
+        //    return await response.Content.ReadAsStringAsync();
+        //}
+
+        public async Task<ResponseObject> ForgetPasswordAsync(string email)
         {
-            if (string.IsNullOrEmpty(email)) return "Email cannot be empty.";
+            if (string.IsNullOrEmpty(email))
+                return new ResponseObject { ResponseMessage = "Email cannot be empty.", StatusCode = 400 };
 
             var content = new StringContent($"\"{email}\"", Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"{Urls.AccountClientUrl}ForgetPassword", content);
 
-            return await response.Content.ReadAsStringAsync();
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<ResponseObject>(responseString);
+                return result;
+            }
+            return new ResponseObject
+            {
+                ResponseMessage = responseString,
+                StatusCode = (int)response.StatusCode
+            };
         }
+
+
         public async Task<string> ResetPasswordAsync(UserPassword model)
         {
             if (model == null) return "Invalid request.";
